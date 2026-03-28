@@ -620,7 +620,7 @@
 
       <!-- Band score -->
       <div class="band-display">
-        <div class="band-label">IELTS Band Score</div>
+        <div class="band-label">Overall Score</div>
         <div class="band-score" id="modal-band">—</div>
         <div class="band-desc" id="modal-band-desc"></div>
       </div>
@@ -1522,14 +1522,15 @@
 
       // === FILL MODAL ===
       const band = rawToBand(totalCorrect);
-      document.getElementById('modal-band').textContent = band.toFixed(1);
-      document.getElementById('modal-band-desc').textContent = bandDesc(band);
+      const percentage = Math.round((totalCorrect / 40) * 100);
+      document.getElementById('modal-band').textContent = totalCorrect + '/40';
+      document.getElementById('modal-band-desc').textContent = 'IELTS Band: ' + band.toFixed(1) + ' | ' + percentage + '% correct | ' + bandDesc(band);
 
       const totalAnswered = 40 - wrongList.filter(w => w.your === '').length;
       const skipped = wrongList.filter(w => w.your === '').length;
       const wrong = wrongList.filter(w => w.your !== '').length;
 
-      document.getElementById('modal-correct').textContent = totalCorrect;
+      document.getElementById('modal-correct').textContent = totalCorrect + '/40';
       document.getElementById('modal-wrong').textContent = wrong;
       document.getElementById('modal-skipped').textContent = skipped;
 
