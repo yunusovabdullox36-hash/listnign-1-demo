@@ -5,45 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IELTS Listening Test</title>
   <style>
-    :root {
-      color-scheme: dark;
-      --bg-deep: #0f172a;
-      --bg-soft: #1e293b;
-      --line-soft: rgba(148, 163, 184, 0.18);
-      --line-strong: rgba(56, 189, 248, 0.28);
-      --sky: #38bdf8;
-      --violet: #818cf8;
-      --amber: #fbbf24;
-      --text-main: #e2e8f0;
-      --text-muted: #94a3b8;
-      --success: #34d399;
-      --danger: #f87171;
-      --panel-shadow: 0 24px 70px rgba(15, 23, 42, 0.34);
-    }
-
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
-      background:
-        radial-gradient(circle at top, rgba(56, 189, 248, 0.16), transparent 28%),
-        linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
       min-height: 100vh;
       margin: 0;
-      color: var(--text-main);
     }
 
     button, input, select { font: inherit; }
-
-    button:focus-visible,
-    input:focus-visible,
-    select:focus-visible {
-      outline: 2px solid rgba(56, 189, 248, 0.9);
-      outline-offset: 2px;
-    }
 
     .hidden { display: none !important; }
     .flex { display: flex; }
@@ -136,61 +106,6 @@
     .to-violet-400 { --tw-gradient-to: #818cf8; }
     .accent-sky-400 { accent-color: #38bdf8; }
 
-    /* ======= KEYWORD HIGHLIGHT ======= */
-    .kw {
-      background: linear-gradient(135deg, rgba(251,191,36,0.22), rgba(251,191,36,0.10));
-      color: var(--amber);
-      font-weight: 700;
-      border-radius: 4px;
-      padding: 1px 5px;
-      border-bottom: 2px solid var(--amber);
-      letter-spacing: 0.01em;
-      transition: background 0.2s, color 0.2s;
-    }
-    .kw:hover {
-      background: rgba(251,191,36,0.35);
-    }
-
-    /* Keyword toggle button */
-    #kw-toggle-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      background: rgba(251,191,36,0.13);
-      border: 1.5px solid rgba(251,191,36,0.5);
-      color: var(--amber);
-      font-weight: 700;
-      font-size: 0.82rem;
-      border-radius: 9999px;
-      padding: 6px 18px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      letter-spacing: 0.03em;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.2);
-    }
-    #kw-toggle-btn:hover {
-      background: rgba(251,191,36,0.28);
-      border-color: var(--amber);
-      transform: translateY(-1px);
-    }
-    body.kw-off #kw-toggle-btn {
-      background: rgba(30, 41, 59, 0.82);
-      border-color: rgba(148, 163, 184, 0.28);
-      color: var(--text-muted);
-    }
-    #kw-toggle-btn svg {
-      width: 14px; height: 14px;
-    }
-    /* when keywords hidden */
-    body.kw-off .kw {
-      background: none;
-      color: inherit;
-      font-weight: inherit;
-      border-bottom: none;
-      padding: 0;
-    }
-    /* ================================= */
-
     /* ---- STICKY AUDIO PLAYER ---- */
     #player-bar {
       position: fixed;
@@ -198,11 +113,10 @@
       z-index: 100;
       background: rgba(15,23,42,0.97);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line-strong);
+      border-bottom: 2px solid #38bdf8;
       box-shadow: 0 4px 32px rgba(56,189,248,0.15);
     }
 
-    /* ---- Progress bar ---- */
     #progress-track {
       background: #1e293b;
       border-radius: 99px;
@@ -219,7 +133,6 @@
       pointer-events: none;
     }
 
-    /* ---- Buttons ---- */
     .ctrl-btn {
       display: flex; align-items: center; justify-content: center;
       border-radius: 50%;
@@ -227,9 +140,8 @@
       transition: all 0.2s;
       border: none;
       outline: none;
-      background: rgba(30, 41, 59, 0.96);
-      color: var(--text-muted);
-      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.08);
+      background: #1e293b;
+      color: #94a3b8;
     }
     .ctrl-btn:hover { background: #38bdf8; color: #0f172a; transform: scale(1.1); }
     .ctrl-btn:active { transform: scale(0.95); }
@@ -243,7 +155,6 @@
 
     .skip-btn { width: 40px; height: 40px; }
 
-    /* ---- Tabs ---- */
     .tab-btn {
       padding: 8px 22px;
       border-radius: 9999px;
@@ -262,14 +173,12 @@
     }
     .tab-btn:not(.active):hover { border-color: #38bdf8; color: #38bdf8; }
 
-    /* ---- Cards ---- */
     .part-card {
       background: rgba(30,41,59,0.7);
       border: 1.5px solid rgba(56,189,248,0.15);
       border-radius: 18px;
       padding: 28px;
       backdrop-filter: blur(8px);
-      box-shadow: var(--panel-shadow);
     }
     .part-title {
       font-size: 1.15rem;
@@ -286,10 +195,27 @@
       padding: 2px 10px;
       font-size: 0.78rem;
     }
+    /* Per-question score badge */
+    .q-score-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 1px 8px;
+      margin-left: 6px;
+      vertical-align: middle;
+      background: rgba(56,189,248,0.12);
+      color: #38bdf8;
+      border: 1px solid rgba(56,189,248,0.25);
+      white-space: nowrap;
+    }
+    .q-score-badge.correct { background: rgba(52,211,153,0.15); color: #34d399; border-color: rgba(52,211,153,0.3); }
+    .q-score-badge.wrong { background: rgba(248,113,113,0.15); color: #f87171; border-color: rgba(248,113,113,0.3); }
 
-    /* ---- Answer inputs ---- */
     .answer-input {
-      background: rgba(15, 23, 42, 0.96);
+      background: #0f172a;
       border: 1.5px solid #334155;
       border-radius: 8px;
       color: #e2e8f0;
@@ -301,28 +227,23 @@
     }
     .answer-input:focus { border-color: #38bdf8; box-shadow: 0 0 0 2px rgba(56,189,248,0.15); }
 
-    .q-label {
-      color: #818cf8;
-      font-weight: 800;
-      font-size: 0.82rem;
-      min-width: 28px;
-    }
-    .q-text { color: #cbd5e1; font-size: 0.93rem; line-height: 1.6; }
     .q-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
 
-    /* Radio/Checkbox style */
     .opt-label {
       display: flex; align-items: center; gap: 8px;
       cursor: pointer; color: #94a3b8; font-size: 0.9rem;
       padding: 5px 10px; border-radius: 8px;
       transition: all 0.2s;
+      user-select: text; -webkit-user-select: text;
     }
     .opt-label:hover { background: rgba(56,189,248,0.08); color: #e2e8f0; }
-    .opt-label input { accent-color: #38bdf8; }
+    .opt-label input { accent-color: #38bdf8; cursor: pointer; user-select: none; -webkit-user-select: none; }
+    .q-text { color: #cbd5e1; font-size: 0.93rem; line-height: 1.6; user-select: text; -webkit-user-select: text; }
+    .q-label { color: #818cf8; font-weight: 800; font-size: 0.82rem; min-width: 28px; user-select: text; -webkit-user-select: text; }
+    .part-card { user-select: text; -webkit-user-select: text; }
 
-    /* Match select */
     .match-select {
-      background: rgba(15, 23, 42, 0.96);
+      background: #0f172a;
       border: 1.5px solid #334155;
       border-radius: 8px;
       color: #e2e8f0;
@@ -334,7 +255,6 @@
     }
     .match-select:focus { border-color: #38bdf8; }
 
-    /* ---- Check answers btn ---- */
     #check-btn {
       background: linear-gradient(135deg, #38bdf8, #818cf8);
       color: #0f172a;
@@ -353,17 +273,6 @@
     .wrong-ans { border-color: #f87171 !important; }
     .right-ans { border-color: #34d399 !important; }
 
-    /* ---- Score panel ---- */
-    #score-panel {
-      background: linear-gradient(135deg, rgba(56,189,248,0.1), rgba(129,140,248,0.1));
-      border: 1.5px solid rgba(56,189,248,0.3);
-      border-radius: 16px;
-      padding: 20px 28px;
-      display: none;
-      box-shadow: var(--panel-shadow);
-    }
-
-    /* scrollbar */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #0f172a; }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
@@ -375,22 +284,219 @@
       opacity: 0.3;
     }
 
-    .main-content {
-      padding-top: 140px;
+    /* ===== HIGHLIGHT TOOLBAR ===== */
+    #hl-toolbar {
+      position: fixed;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1.5px solid rgba(56,189,248,0.4);
+      border-radius: 999px;
+      padding: 5px 8px 5px 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      pointer-events: auto;
+      user-select: none;
+    }
+    #hl-toolbar span { color: #94a3b8; font-size: 0.78rem; font-weight: 600; white-space: nowrap; }
+    #hl-btn {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: #111;
+      border: none;
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    #hl-btn:hover { transform: scale(1.06); }
+    #remove-hl-btn {
+      background: rgba(248,113,113,0.15);
+      color: #f87171;
+      border: 1px solid rgba(248,113,113,0.3);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    #remove-hl-btn:hover { background: rgba(248,113,113,0.3); }
+
+    mark.kh {
+      background: linear-gradient(135deg, rgba(251,191,36,0.9), rgba(253,224,71,0.85));
+      color: #111827;
+      padding: 0px 3px;
+      border-radius: 3px;
+      border-bottom: 2px solid rgba(161,98,7,0.5);
+      cursor: pointer;
+    }
+    mark.kh:hover { background: rgba(251,191,36,1); }
+
+    .main-content { padding-top: 140px; }
+
+    /* ===== RESULT MODAL ===== */
+    #result-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      overflow-y: auto;
+      padding: 24px 12px;
+    }
+    #result-modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+
+    #result-modal {
+      background: linear-gradient(145deg, #0f172a, #1a2540);
+      border: 1.5px solid rgba(56,189,248,0.3);
+      border-radius: 24px;
+      padding: 36px 32px 32px;
+      max-width: 680px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 60px rgba(56,189,248,0.08);
+      animation: modalIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.88) translateY(30px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    .player-top-row,
-    .player-controls {
-      flex-wrap: wrap;
+    #modal-close-btn {
+      position: absolute;
+      top: 16px; right: 18px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: #94a3b8;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+    }
+    #modal-close-btn:hover { background: rgba(248,113,113,0.2); color: #f87171; }
+
+    .modal-header { text-align: center; margin-bottom: 28px; }
+    .modal-title { font-size: 1.4rem; font-weight: 900; color: #fff; margin-bottom: 4px; }
+
+    .band-display {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 18px 0 28px;
+      gap: 6px;
+    }
+    .band-label { font-size: 0.8rem; font-weight: 700; color: #64748b; letter-spacing: 0.12em; text-transform: uppercase; }
+    .band-score {
+      font-size: 5rem;
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .band-desc { font-size: 0.92rem; color: #94a3b8; font-weight: 600; }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .stat-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+    .stat-val { font-size: 1.6rem; font-weight: 900; color: #fff; line-height: 1.1; }
+    .stat-lbl { font-size: 0.72rem; color: #64748b; font-weight: 600; margin-top: 3px; letter-spacing: 0.05em; }
+
+    /* Part breakdown */
+    .parts-breakdown { margin-bottom: 24px; }
+    .parts-breakdown-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #64748b;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .part-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .part-row-label { font-size: 0.82rem; font-weight: 700; color: #94a3b8; min-width: 56px; }
+    .part-row-bar-wrap {
+      flex: 1;
+      height: 10px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .part-row-bar { height: 100%; border-radius: 99px; transition: width 0.6s ease; }
+    .part-row-score { font-size: 0.82rem; font-weight: 800; color: #e2e8f0; min-width: 48px; text-align: right; }
+
+    /* Wrong answers table */
+    .wrong-section { margin-top: 20px; }
+    .wrong-section-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #64748b;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .wrong-table { width: 100%; border-collapse: collapse; }
+    .wrong-table th {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #475569;
+      text-align: left;
+      padding: 6px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .wrong-table td {
+      font-size: 0.82rem;
+      padding: 7px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: middle;
+    }
+    .wrong-table tr:last-child td { border-bottom: none; }
+    .wrong-table .td-qno { color: #818cf8; font-weight: 800; }
+    .wrong-table .td-your { color: #f87171; }
+    .wrong-table .td-correct { color: #34d399; font-weight: 700; }
+    .wrong-table .td-empty { color: #475569; font-style: italic; }
+
+    .all-correct-msg {
+      text-align: center;
+      padding: 16px;
+      color: #34d399;
+      font-weight: 700;
+      font-size: 0.95rem;
+      background: rgba(52,211,153,0.07);
+      border-radius: 12px;
+      border: 1px solid rgba(52,211,153,0.2);
     }
 
-    .player-volume {
-      min-width: 0;
-    }
-
-    .player-volume input[type="range"] {
-      width: 5rem;
-    }
+    /* Score bar colors by performance */
+    .bar-great { background: linear-gradient(90deg, #34d399, #10b981); }
+    .bar-good  { background: linear-gradient(90deg, #38bdf8, #818cf8); }
+    .bar-ok    { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+    .bar-low   { background: linear-gradient(90deg, #f87171, #ef4444); }
 
     @media (max-width: 900px) {
       .main-content { padding-top: 160px; }
@@ -398,7 +504,6 @@
       .answer-input { width: min(100%, 180px); }
       .q-row { gap: 8px; }
     }
-
     @media (max-width: 640px) {
       body { overflow-x: hidden; }
       .max-w-4xl { width: 100%; }
@@ -406,11 +511,6 @@
       .text-4xl { font-size: 1.8rem; }
       .text-5xl { font-size: 2.4rem; }
       #player-bar { padding-top: 12px; padding-bottom: 12px; }
-      .player-top-row { align-items: flex-start; gap: 0.5rem; }
-      .player-controls { justify-content: center; gap: 0.75rem; }
-      .player-volume { width: 100%; margin-left: 0; justify-content: center; }
-      .player-volume input[type="range"] { width: min(10rem, 42vw); }
-      #speed-select { margin-left: 0; }
       .main-content { padding-top: 220px; padding-left: 14px; padding-right: 14px; }
       .part-card { padding: 18px 14px; border-radius: 16px; }
       .part-title { flex-direction: column; align-items: flex-start; }
@@ -419,9 +519,11 @@
       .answer-input, .match-select { width: 100% !important; max-width: 100%; margin-left: 0; margin-right: 0; }
       .opt-label { align-items: flex-start; line-height: 1.5; }
       #check-btn { width: 100%; padding: 14px 18px; }
-      #score-panel { padding: 18px 16px; }
+      #result-modal { padding: 28px 18px 24px; }
+      .stats-row { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .stat-val { font-size: 1.3rem; }
+      .band-score { font-size: 4rem; }
     }
-
     @media (max-width: 420px) {
       .main-content { padding-top: 235px; }
       .text-4xl { font-size: 1.55rem; }
@@ -429,17 +531,22 @@
       #play-btn { width: 48px; height: 48px; }
       .skip-btn { width: 38px; height: 38px; }
       .tab-btn { flex-basis: 100%; }
-      #kw-toggle-btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ===== HIGHLIGHT TOOLBAR ===== -->
+  <div id="hl-toolbar">
+    <span>✏️ Highlight</span>
+    <button id="hl-btn" type="button">⭐ Highlight</button>
+    <button id="remove-hl-btn" type="button" style="display:none;">✕ Remove</button>
+  </div>
+
   <!-- ===== FIXED AUDIO PLAYER ===== -->
   <div id="player-bar" class="px-4 py-3">
     <div class="max-w-4xl mx-auto">
-      <!-- Top row: title + time -->
-      <div class="flex items-center justify-between mb-2 player-top-row">
+      <div class="flex items-center justify-between mb-2">
         <div class="flex items-center gap-2">
           <svg class="w-4 h-4 text-sky-400" fill="currentColor" viewBox="0 0 20 20">
             <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"/>
@@ -453,21 +560,18 @@
         </div>
       </div>
 
-      <!-- Progress bar -->
       <div id="progress-track" class="mb-3" onclick="seekAudio(event)">
         <div id="progress-fill" style="width:0%"></div>
       </div>
 
-      <!-- Controls row -->
-      <div class="flex items-center justify-center gap-4 player-controls">
-        <button class="ctrl-btn skip-btn" onclick="skipTime(-5)" title="5 soniya orqaga">
+      <div class="flex items-center justify-center gap-4" style="flex-wrap:wrap;">
+        <button class="ctrl-btn skip-btn" onclick="skipTime(-5)" title="Back 5 seconds">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="w-5 h-5">
             <polyline points="1 4 1 10 7 10"></polyline>
             <path d="M3.51 15a9 9 0 1 0 .49-3.5"></path>
             <text x="8" y="15" font-size="6" fill="currentColor" stroke="none" font-weight="bold">5</text>
           </svg>
         </button>
-
         <button id="play-btn" class="ctrl-btn" onclick="togglePlay()">
           <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
             <path d="M8 5v14l11-7z"/>
@@ -477,26 +581,23 @@
             <rect x="14" y="4" width="4" height="16"/>
           </svg>
         </button>
-
-        <button class="ctrl-btn skip-btn" onclick="skipTime(5)" title="5 soniya oldinga">
+        <button class="ctrl-btn skip-btn" onclick="skipTime(5)" title="Forward 5 seconds">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="w-5 h-5">
             <polyline points="23 4 23 10 17 10"></polyline>
             <path d="M20.49 15a9 9 0 1 1-.49-3.5"></path>
             <text x="8" y="15" font-size="6" fill="currentColor" stroke="none" font-weight="bold">5</text>
           </svg>
         </button>
-
-        <div class="flex items-center gap-2 ml-4 player-volume">
+        <div class="flex items-center gap-2 ml-4" style="min-width:0;">
           <svg class="w-4 h-4 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd"/>
           </svg>
           <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="1"
-            class="w-20 h-1 rounded-full cursor-pointer accent-sky-400"
+            style="width:5rem;height:0.25rem;border-radius:999px;cursor:pointer;accent-color:#38bdf8;"
             oninput="setVolume(this.value)" />
         </div>
-
         <select id="speed-select" onchange="setSpeed(this.value)"
-          class="ml-2 bg-slate-800 text-slate-300 text-xs font-bold border border-slate-600 rounded-lg px-2 py-1 cursor-pointer outline-none">
+          style="margin-left:0.5rem;background:#1e293b;color:#cbd5e1;font-size:0.75rem;font-weight:700;border:1px solid #475569;border-radius:8px;padding:4px 8px;cursor:pointer;outline:none;">
           <option value="0.75">0.75x</option>
           <option value="1" selected>1x</option>
           <option value="1.25">1.25x</option>
@@ -504,46 +605,97 @@
         </select>
       </div>
     </div>
-
     <audio id="audio" preload="metadata">
       <source src="./56658.mp3" type="audio/mpeg" />
     </audio>
   </div>
 
-  <!-- ===== MAIN CONTENT ===== -->
-  <div class="max-w-4xl mx-auto px-4 pb-16 main-content">
+  <!-- ===== RESULT MODAL ===== -->
+  <div id="result-modal-overlay" onclick="handleOverlayClick(event)">
+    <div id="result-modal">
+      <button id="modal-close-btn" onclick="closeModal()">✕</button>
+      <div class="modal-header">
+        <div class="modal-title">📊 Your Results</div>
+      </div>
 
-    <!-- Header -->
+      <!-- Band score -->
+      <div class="band-display">
+        <div class="band-label">IELTS Band Score</div>
+        <div class="band-score" id="modal-band">—</div>
+        <div class="band-desc" id="modal-band-desc"></div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-val" id="modal-correct" style="color:#34d399;">—</div>
+          <div class="stat-lbl">Correct Answers</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="modal-wrong" style="color:#f87171;">—</div>
+          <div class="stat-lbl">Incorrect Answers</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="modal-skipped" style="color:#fbbf24;">—</div>
+          <div class="stat-lbl">Unanswered</div>
+        </div>
+      </div>
+
+      <!-- Per-part breakdown -->
+      <div class="parts-breakdown">
+        <div class="parts-breakdown-title">Results by Part</div>
+        <div class="part-row">
+          <div class="part-row-label">Part 1</div>
+          <div class="part-row-bar-wrap"><div class="part-row-bar" id="bar-p1" style="width:0%"></div></div>
+          <div class="part-row-score" id="score-p1">—</div>
+        </div>
+        <div class="part-row">
+          <div class="part-row-label">Part 2</div>
+          <div class="part-row-bar-wrap"><div class="part-row-bar" id="bar-p2" style="width:0%"></div></div>
+          <div class="part-row-score" id="score-p2">—</div>
+        </div>
+        <div class="part-row">
+          <div class="part-row-label">Part 3</div>
+          <div class="part-row-bar-wrap"><div class="part-row-bar" id="bar-p3" style="width:0%"></div></div>
+          <div class="part-row-score" id="score-p3">—</div>
+        </div>
+        <div class="part-row">
+          <div class="part-row-label">Part 4</div>
+          <div class="part-row-bar-wrap"><div class="part-row-bar" id="bar-p4" style="width:0%"></div></div>
+          <div class="part-row-score" id="score-p4">—</div>
+        </div>
+      </div>
+
+      <!-- Wrong answers table -->
+      <div class="wrong-section" id="wrong-section">
+        <div class="wrong-section-title">Incorrect or Empty Answers</div>
+        <div id="wrong-table-wrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="max-w-4xl mx-auto px-4 pb-16 main-content" id="main-content">
+
     <div class="text-center mb-10">
       <h1 class="text-4xl font-black text-white mb-2 tracking-tight">
         IELTS <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-violet-400">Listening</span> Test
       </h1>
       <p class="text-slate-400 font-semibold">4 Parts - 40 Questions</p>
-    </div>
-
-    <!-- Keyword Toggle + Tabs -->
-    <div class="flex gap-2 justify-center mb-4 flex-wrap">
-      <button id="kw-toggle-btn" type="button" aria-pressed="true" onclick="toggleKeywords()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-        <span id="kw-btn-label">Keywords: ON</span>
-      </button>
+      <p class="text-slate-600 text-xs mt-2">💡 Select any word <strong class="text-amber-400">with your mouse</strong> to show the highlight button</p>
     </div>
 
     <div class="flex gap-2 justify-center mb-8 flex-wrap">
-      <button class="tab-btn active" type="button" onclick="showPart(1, this)">Part 1</button>
-      <button class="tab-btn" type="button" onclick="showPart(2, this)">Part 2</button>
-      <button class="tab-btn" type="button" onclick="showPart(3, this)">Part 3</button>
-      <button class="tab-btn" type="button" onclick="showPart(4, this)">Part 4</button>
+      <button class="tab-btn active" onclick="showPart(1, this)">Part 1</button>
+      <button class="tab-btn" onclick="showPart(2, this)">Part 2</button>
+      <button class="tab-btn" onclick="showPart(3, this)">Part 3</button>
+      <button class="tab-btn" onclick="showPart(4, this)">Part 4</button>
     </div>
 
     <!-- ===== PART 1 ===== -->
     <div id="part-1" class="part-section">
       <div class="part-card">
-        <div class="part-title">
-          PART 1 <span>Questions 1-10</span>
-        </div>
+        <div class="part-title">PART 1 <span>Questions 1-10</span></div>
         <p class="text-slate-400 text-sm mb-6 leading-relaxed">
           Write <strong class="text-sky-300">ONE WORD AND/OR A NUMBER</strong> for each answer.
         </p>
@@ -552,75 +704,85 @@
 
         <div class="bg-slate-800 bg-opacity-60 rounded-xl p-5 space-y-3">
           <div class="q-row">
-            <span class="q-text text-slate-300 font-semibold">Club meets every <span class="kw">2 weeks</span></span>
+            <span class="q-text text-slate-300 font-semibold">Club meets every 2 weeks</span>
           </div>
           <div class="q-row items-center">
             <span class="q-label">Q1</span>
             <span class="q-text">No</span>
-            <input class="answer-input mx-2" data-answer="age" placeholder="..." id="q1" />
-            <span class="q-text"><span class="kw">limit</span></span>
+            <input class="answer-input mx-2" data-answer="age" data-part="1" placeholder="..." id="q1" />
+            <span class="q-text">limit</span>
+            <span class="q-score-badge" id="badge-q1">1.5 pts</span>
           </div>
           <div class="q-row items-center">
             <span class="q-label">Q2</span>
-            <span class="q-text"><span class="kw">Student membership</span> costs £</span>
-            <input class="answer-input mx-2" data-answer="12" placeholder="..." id="q2" style="width:80px;" />
-            <span class="q-text">per <span class="kw">season</span></span>
+            <span class="q-text">Student membership costs £</span>
+            <input class="answer-input mx-2" data-answer="21.50" data-part="1" placeholder="..." id="q2" style="width:80px;" />
+            <span class="q-text">per season</span>
+            <span class="q-score-badge" id="badge-q2">1.5 pts</span>
           </div>
 
           <div class="mt-4 mb-2 text-slate-300 font-semibold text-sm">Members get:</div>
           <div class="pl-4 space-y-2">
-            <p class="q-text text-slate-400">- <span class="kw">free entry</span> to club films</p>
+            <p class="q-text text-slate-400">- free entry to club films</p>
             <div class="q-row items-center">
               <span class="q-label">Q3</span>
               <span class="q-text">£</span>
-              <input class="answer-input mx-2" data-answer="2" placeholder="..." id="q3" style="width:70px;" />
-              <span class="q-text"><span class="kw">reduction</span> on other films at <span class="kw">cinema</span></span>
+              <input class="answer-input mx-2" data-answer="2" data-part="1" placeholder="..." id="q3" style="width:70px;" />
+              <span class="q-text">reduction on other films at cinema</span>
+              <span class="q-score-badge" id="badge-q3">1.5 pts</span>
             </div>
             <div class="q-row items-center">
               <span class="q-label">Q4</span>
-              <span class="q-text">Members are entitled to <span class="kw">3 hours' free</span></span>
-              <input class="answer-input mx-2" data-answer="parking" placeholder="..." id="q4" />
+              <span class="q-text">Members are entitled to 3 hours' free</span>
+              <input class="answer-input mx-2" data-answer="parking" data-part="1" placeholder="..." id="q4" />
+              <span class="q-score-badge" id="badge-q4">1.5 pts</span>
             </div>
           </div>
 
           <div class="mt-4 mb-2 text-slate-300 font-semibold text-sm">Films to be shown:</div>
           <div class="pl-4 space-y-3">
-            <p class="text-sky-400 font-bold text-sm">Oct 14: <span class="kw">Pablo</span></p>
+            <p class="text-sky-400 font-bold text-sm">Oct 14: Pablo</p>
             <div class="q-row items-center flex-wrap gap-y-2">
               <span class="q-label">Q5</span>
-              <span class="q-text">- about a <span class="kw">child</span> in</span>
-              <input class="answer-input mx-2" data-answer="Spain" placeholder="..." id="q5" />
-              <span class="q-text">who <span class="kw">runs away from home</span> and wins a</span>
+              <span class="q-text">- about a child in</span>
+              <input class="answer-input mx-2" data-answer="Argentina" data-part="1" placeholder="..." id="q5" />
+              <span class="q-text">who runs away from home and wins a</span>
+              <span class="q-score-badge" id="badge-q5">1.5 pts</span>
             </div>
             <div class="q-row items-center">
               <span class="q-label">Q6</span>
-              <input class="answer-input mr-2" data-answer="cooking" placeholder="..." id="q6" />
-              <span class="q-text"><span class="kw">competition on TV</span></span>
+              <input class="answer-input mr-2" data-answer="singing" data-part="1" placeholder="..." id="q6" />
+              <span class="q-text">competition on TV</span>
+              <span class="q-score-badge" id="badge-q6">1.5 pts</span>
             </div>
-            <p class="text-sky-400 font-bold text-sm mt-3">Oct 28: <span class="kw">The Soldier</span></p>
+            <p class="text-sky-400 font-bold text-sm mt-3">Oct 28: The Soldier</p>
             <div class="q-row items-center">
               <span class="q-label">Q7</span>
-              <span class="q-text">- with <span class="kw">live</span></span>
-              <input class="answer-input mx-2" data-answer="piano" placeholder="..." id="q7" />
-              <span class="q-text"><span class="kw">accompaniment</span></span>
+              <span class="q-text">- with live</span>
+              <input class="answer-input mx-2" data-answer="piano" data-part="1" placeholder="..." id="q7" />
+              <span class="q-text">accompaniment</span>
+              <span class="q-score-badge" id="badge-q7">1.5 pts</span>
             </div>
             <div class="q-row items-center">
               <span class="q-label">Q8</span>
-              <span class="q-text">- <span class="kw">made</span> in the year</span>
-              <input class="answer-input mx-2" data-answer="1998" placeholder="..." id="q8" style="width:90px;" />
+              <span class="q-text">- made in the year</span>
+              <input class="answer-input mx-2" data-answer="1922" data-part="1" placeholder="..." id="q8" style="width:90px;" />
+              <span class="q-score-badge" id="badge-q8">1.5 pts</span>
             </div>
             <div class="q-row items-center">
               <span class="q-label">Q9</span>
-              <span class="q-text">- <span class="kw">type of film</span>: a</span>
-              <input class="answer-input mx-2" data-answer="western" placeholder="..." id="q9" />
+              <span class="q-text">- type of film: a</span>
+              <input class="answer-input mx-2" data-answer="comedy" data-part="1" placeholder="..." id="q9" />
+              <span class="q-score-badge" id="badge-q9">1.5 pts</span>
             </div>
-            <p class="text-sky-400 font-bold text-sm mt-3">Nov 11: <span class="kw">Tiger</span></p>
-            <p class="q-text text-slate-400">- <span class="kw">cartoon</span> aimed at <span class="kw">adults</span></p>
+            <p class="text-sky-400 font-bold text-sm mt-3">Nov 11: Tiger</p>
+            <p class="q-text text-slate-400">- cartoon aimed at adults</p>
             <div class="q-row items-center">
               <span class="q-label">Q10</span>
               <span class="q-text">- followed by a</span>
-              <input class="answer-input mx-2" data-answer="talk" placeholder="..." id="q10" />
-              <span class="q-text">by the <span class="kw">director</span></span>
+              <input class="answer-input mx-2" data-answer="talk" data-part="1" placeholder="..." id="q10" />
+              <span class="q-text">by the director</span>
+              <span class="q-score-badge" id="badge-q10">1.5 pts</span>
             </div>
           </div>
         </div>
@@ -631,79 +793,82 @@
     <div id="part-2" class="part-section hidden">
       <div class="part-card">
         <div class="part-title">PART 2 <span>Questions 11-20</span></div>
-
         <h3 class="text-white font-bold text-base mb-5">Questions 11-15 - Choose the correct letter, A, B or C</h3>
         <p class="text-sky-400 font-bold mb-5">extrahands.com</p>
 
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q11</span><span class="q-text">Stephen says the <span class="kw">founders</span> of extrahands.com originally needed help in</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q11</span><span class="q-text">Stephen says the founders of extrahands.com originally needed help in</span><span class="q-score-badge" id="badge-q11">1.5 pts</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q11" value="A" data-answer="B" /> A - <span class="kw">preparing</span> their fields for <span class="kw">planting</span></label>
-            <label class="opt-label"><input type="radio" name="q11" value="B" data-answer="B" /> B - <span class="kw">harvesting</span> their <span class="kw">organic crops</span></label>
-            <label class="opt-label"><input type="radio" name="q11" value="C" data-answer="B" /> C - <span class="kw">constructing</span> their <span class="kw">farm buildings</span></label>
+            <label class="opt-label"><input type="radio" name="q11" value="A" data-answer="A" data-part="2" /> A - preparing their fields for planting</label>
+            <label class="opt-label"><input type="radio" name="q11" value="B" data-answer="A" data-part="2" /> B - harvesting their organic crops</label>
+            <label class="opt-label"><input type="radio" name="q11" value="C" data-answer="A" data-part="2" /> C - constructing their farm buildings</label>
           </div>
         </div>
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q12</span><span class="q-text">To <span class="kw">remain an active member</span>, you must</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q12</span><span class="q-text">To remain an active member, you must</span><span class="q-score-badge" id="badge-q12">1.5 pts</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q12" value="A" data-answer="C" /> A - <span class="kw">update</span> your form on the website every year</label>
-            <label class="opt-label"><input type="radio" name="q12" value="B" data-answer="C" /> B - pay a <span class="kw">subscription</span> of $25 every year</label>
-            <label class="opt-label"><input type="radio" name="q12" value="C" data-answer="C" /> C - <span class="kw">use the scheme</span> as a host or volunteer every year</label>
+            <label class="opt-label"><input type="radio" name="q12" value="A" data-answer="A" data-part="2" /> A - update your form on the website every year</label>
+            <label class="opt-label"><input type="radio" name="q12" value="B" data-answer="A" data-part="2" /> B - pay a subscription of $25 every year</label>
+            <label class="opt-label"><input type="radio" name="q12" value="C" data-answer="A" data-part="2" /> C - use the scheme as a host or volunteer every year</label>
           </div>
         </div>
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q13</span><span class="q-text"><span class="kw">Most volunteers</span> search for jobs according to</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q13</span><span class="q-text">Most volunteers search for jobs according to</span><span class="q-score-badge" id="badge-q13">1.5 pts</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q13" value="A" data-answer="B" /> A - the <span class="kw">type of work</span> available</label>
-            <label class="opt-label"><input type="radio" name="q13" value="B" data-answer="B" /> B - the <span class="kw">geographical location</span></label>
-            <label class="opt-label"><input type="radio" name="q13" value="C" data-answer="B" /> C - the <span class="kw">length of time</span> required</label>
+            <label class="opt-label"><input type="radio" name="q13" value="A" data-answer="B" data-part="2" /> A - the type of work available</label>
+            <label class="opt-label"><input type="radio" name="q13" value="B" data-answer="B" data-part="2" /> B - the geographical location</label>
+            <label class="opt-label"><input type="radio" name="q13" value="C" data-answer="B" data-part="2" /> C - the length of time required</label>
           </div>
         </div>
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q14</span><span class="q-text">Stephen <span class="kw">recommends</span> that the host and volunteer should</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q14</span><span class="q-text">Stephen recommends that the host and volunteer should</span><span class="q-score-badge" id="badge-q14">1.5 pts</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q14" value="A" data-answer="A" /> A - <span class="kw">confirm details</span> of the arrangement <span class="kw">in writing</span></label>
-            <label class="opt-label"><input type="radio" name="q14" value="B" data-answer="A" /> B - draw up a <span class="kw">formal written contract</span></label>
-            <label class="opt-label"><input type="radio" name="q14" value="C" data-answer="A" /> C - <span class="kw">meet each other</span> before settling on terms</label>
+            <label class="opt-label"><input type="radio" name="q14" value="A" data-answer="A" data-part="2" /> A - confirm details of the arrangement in writing</label>
+            <label class="opt-label"><input type="radio" name="q14" value="B" data-answer="A" data-part="2" /> B - draw up a formal written contract</label>
+            <label class="opt-label"><input type="radio" name="q14" value="C" data-answer="A" data-part="2" /> C - meet each other before setting on terms</label>
           </div>
         </div>
         <div class="mb-8">
-          <div class="q-row mb-2"><span class="q-label">Q15</span><span class="q-text">To deal with members' <span class="kw">problems</span>, extrahands.com have a <span class="kw">system</span></span></div>
+          <div class="q-row mb-2"><span class="q-label">Q15</span><span class="q-text">To deal with members' problems, extrahands.com have a system</span><span class="q-score-badge" id="badge-q15">1.5 pts</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q15" value="A" data-answer="B" /> A - for <span class="kw">checking</span> each new member online</label>
-            <label class="opt-label"><input type="radio" name="q15" value="B" data-answer="B" /> B - for allowing <span class="kw">online feedback</span></label>
-            <label class="opt-label"><input type="radio" name="q15" value="C" data-answer="B" /> C - for <span class="kw">inspecting</span> work and accommodation</label>
+            <label class="opt-label"><input type="radio" name="q15" value="A" data-answer="B" data-part="2" /> A - for checking each new member online</label>
+            <label class="opt-label"><input type="radio" name="q15" value="B" data-answer="B" data-part="2" /> B - for allowing online feedback</label>
+            <label class="opt-label"><input type="radio" name="q15" value="C" data-answer="B" data-part="2" /> C - for inspecting work and accommodation</label>
           </div>
         </div>
 
         <div class="section-divider"></div>
 
-        <h3 class="text-white font-bold text-base mb-3">Questions 16-20 - Match <span class="kw">country</span> to <span class="kw">job</span></h3>
+        <h3 class="text-white font-bold text-base mb-3">Questions 16-20 - Match country to job</h3>
         <div class="bg-slate-800 bg-opacity-50 rounded-xl p-4 mb-5">
           <p class="text-slate-400 text-sm font-semibold mb-2">Jobs:</p>
           <div class="grid grid-cols-2 gap-1 text-sm text-slate-300">
-            <span>A - <span class="kw">cook</span></span><span>B - <span class="kw">gardener</span></span>
-            <span>C - <span class="kw">construction worker</span></span><span>D - <span class="kw">tour guide</span></span>
-            <span>E - <span class="kw">farm labourer</span></span><span>F - <span class="kw">editor</span></span>
-            <span>G - <span class="kw">swimming pool cleaner</span></span>
+            <span>A - cook</span><span>B - gardener</span>
+            <span>C - construction worker</span><span>D - tour guide</span>
+            <span>E - farm labourer</span><span>F - editor</span>
+            <span>G - swimming pool cleaner</span>
           </div>
         </div>
-
         <div class="space-y-3">
-          <div class="q-row items-center"><span class="q-label">Q16</span><span class="q-text w-36"><span class="kw">Portugal</span></span>
-            <select class="match-select" id="q16" data-answer="G"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <div class="q-row items-center"><span class="q-label">Q16</span><span class="q-text w-36">Portugal</span>
+            <select class="match-select" id="q16" data-answer="F" data-part="2"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select>
+            <span class="q-score-badge" id="badge-q16">1.5 pts</span>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q17</span><span class="q-text w-36"><span class="kw">Australia</span></span>
-            <select class="match-select" id="q17" data-answer="E"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <div class="q-row items-center"><span class="q-label">Q17</span><span class="q-text w-36">Australia</span>
+            <select class="match-select" id="q17" data-answer="A" data-part="2"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select>
+            <span class="q-score-badge" id="badge-q17">1.5 pts</span>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q18</span><span class="q-text w-36"><span class="kw">South Korea</span></span>
-            <select class="match-select" id="q18" data-answer="D"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <div class="q-row items-center"><span class="q-label">Q18</span><span class="q-text w-36">South Korea</span>
+            <select class="match-select" id="q18" data-answer="D" data-part="2"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select>
+            <span class="q-score-badge" id="badge-q18">1.5 pts</span>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q19</span><span class="q-text w-36"><span class="kw">USA</span></span>
-            <select class="match-select" id="q19" data-answer="F"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <div class="q-row items-center"><span class="q-label">Q19</span><span class="q-text w-36">USA</span>
+            <select class="match-select" id="q19" data-answer="B" data-part="2"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select>
+            <span class="q-score-badge" id="badge-q19">1.5 pts</span>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q20</span><span class="q-text w-36"><span class="kw">Italy</span></span>
-            <select class="match-select" id="q20" data-answer="B"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <div class="q-row items-center"><span class="q-label">Q20</span><span class="q-text w-36">Italy</span>
+            <select class="match-select" id="q20" data-answer="C" data-part="2"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select>
+            <span class="q-score-badge" id="badge-q20">1.5 pts</span>
           </div>
         </div>
       </div>
@@ -714,76 +879,81 @@
       <div class="part-card">
         <div class="part-title">PART 3 <span>Questions 21-30</span></div>
         <h3 class="text-white font-bold text-base mb-5">Questions 21-25 - Choose the correct letter, A, B or C</h3>
-        <p class="text-sky-400 font-bold mb-5"><span class="kw">Song-writing course</span> for <span class="kw">drama students</span></p>
+        <p class="text-sky-400 font-bold mb-5">Song-writing course for drama students</p>
 
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q21</span><span class="q-text">What <span class="kw">problem</span> is Lorna having with her <span class="kw">report</span>?</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q21</span><span class="q-text">What problem is Lorna having with her report?</span><span class="q-score-badge" id="badge-q21">1.5 pts</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q21" value="A" data-answer="B" /> A - listing the <span class="kw">references</span></label>
-            <label class="opt-label"><input type="radio" name="q21" value="B" data-answer="B" /> B - keeping to the <span class="kw">word limit</span></label>
-            <label class="opt-label"><input type="radio" name="q21" value="C" data-answer="B" /> C - writing the <span class="kw">evaluation</span></label>
+            <label class="opt-label"><input type="radio" name="q21" value="A" data-answer="B" data-part="3" /> A - listing the references</label>
+            <label class="opt-label"><input type="radio" name="q21" value="B" data-answer="B" data-part="3" /> B - keeping to the word limit</label>
+            <label class="opt-label"><input type="radio" name="q21" value="C" data-answer="B" data-part="3" /> C - writing the evaluation</label>
           </div>
         </div>
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q22</span><span class="q-text">Why did Charles <span class="kw">take</span> the song-writing course?</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q22</span><span class="q-text">Why did Charles take the song-writing course?</span><span class="q-score-badge" id="badge-q22">1.5 pts</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q22" value="A" data-answer="C" /> A - to improve his <span class="kw">job prospects</span></label>
-            <label class="opt-label"><input type="radio" name="q22" value="B" data-answer="C" /> B - to increase his <span class="kw">self-confidence</span></label>
-            <label class="opt-label"><input type="radio" name="q22" value="C" data-answer="C" /> C - to develop his <span class="kw">self-expression</span></label>
+            <label class="opt-label"><input type="radio" name="q22" value="A" data-answer="C" data-part="3" /> A - to improve his job prospects</label>
+            <label class="opt-label"><input type="radio" name="q22" value="B" data-answer="C" data-part="3" /> B - to increase his self-confidence</label>
+            <label class="opt-label"><input type="radio" name="q22" value="C" data-answer="C" data-part="3" /> C - to develop his self-expression</label>
           </div>
         </div>
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q23</span><span class="q-text">Which type of work did Lorna <span class="kw">most enjoy</span>?</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q23</span><span class="q-text">Which type of work did Lorna most enjoy?</span><span class="q-score-badge" id="badge-q23">1.5 pts</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q23" value="A" data-answer="A" /> A - <span class="kw">individual</span> work</label>
-            <label class="opt-label"><input type="radio" name="q23" value="B" data-answer="A" /> B - <span class="kw">pair</span> work</label>
-            <label class="opt-label"><input type="radio" name="q23" value="C" data-answer="A" /> C - <span class="kw">group</span> work</label>
+            <label class="opt-label"><input type="radio" name="q23" value="A" data-answer="A" data-part="3" /> A - individual work</label>
+            <label class="opt-label"><input type="radio" name="q23" value="B" data-answer="A" data-part="3" /> B - pair work</label>
+            <label class="opt-label"><input type="radio" name="q23" value="C" data-answer="A" data-part="3" /> C - group work</label>
           </div>
         </div>
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q24</span><span class="q-text">Which aspect did <span class="kw">both students</span> find <span class="kw">interesting</span>?</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q24</span><span class="q-text">Which aspect did both students find interesting?</span><span class="q-score-badge" id="badge-q24">1.5 pts</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q24" value="A" data-answer="C" /> A - <span class="kw">song structure</span></label>
-            <label class="opt-label"><input type="radio" name="q24" value="B" data-answer="C" /> B - writing a <span class="kw">chorus</span></label>
-            <label class="opt-label"><input type="radio" name="q24" value="C" data-answer="C" /> C - <span class="kw">lyrical styles and forms</span></label>
+            <label class="opt-label"><input type="radio" name="q24" value="A" data-answer="A" data-part="3" /> A - song structure</label>
+            <label class="opt-label"><input type="radio" name="q24" value="B" data-answer="A" data-part="3" /> B - writing a chorus</label>
+            <label class="opt-label"><input type="radio" name="q24" value="C" data-answer="A" data-part="3" /> C - lyrical styles and forms</label>
           </div>
         </div>
         <div class="mb-8">
-          <div class="q-row mb-2"><span class="q-label">Q25</span><span class="q-text">Lorna found <span class="kw">writing a song</span></span></div>
+          <div class="q-row mb-2"><span class="q-label">Q25</span><span class="q-text">Lorna found writing a song</span><span class="q-score-badge" id="badge-q25">1.5 pts</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q25" value="A" data-answer="C" /> A - <span class="kw">impossible</span></label>
-            <label class="opt-label"><input type="radio" name="q25" value="B" data-answer="C" /> B - <span class="kw">tiring</span></label>
-            <label class="opt-label"><input type="radio" name="q25" value="C" data-answer="C" /> C - <span class="kw">amusing</span></label>
+            <label class="opt-label"><input type="radio" name="q25" value="A" data-answer="B" data-part="3" /> A - impossible</label>
+            <label class="opt-label"><input type="radio" name="q25" value="B" data-answer="B" data-part="3" /> B - tiring</label>
+            <label class="opt-label"><input type="radio" name="q25" value="C" data-answer="B" data-part="3" /> C - amusing</label>
           </div>
         </div>
 
         <div class="section-divider"></div>
 
-        <h3 class="text-white font-bold text-base mb-3">Questions 26-30 - Match <span class="kw">teacher</span> to <span class="kw">focus</span></h3>
+        <h3 class="text-white font-bold text-base mb-3">Questions 26-30 - Match teacher to focus</h3>
         <div class="bg-slate-800 bg-opacity-50 rounded-xl p-4 mb-5">
           <p class="text-slate-400 text-sm font-semibold mb-2">Focus:</p>
           <div class="grid grid-cols-2 gap-1 text-sm text-slate-300">
-            <span>A - <span class="kw">use of own memories</span></span><span>B - <span class="kw">full use of the stage</span></span>
-            <span>C - <span class="kw">relaxation techniques</span></span><span>D - <span class="kw">physical expression</span></span>
-            <span>E - <span class="kw">play readings</span></span><span>F - <span class="kw">acting without preparation</span></span>
-            <span>G - <span class="kw">using a range of accents</span></span><span>H - <span class="kw">following instructions</span></span>
+            <span>A - use of own memories</span><span>B - full use of the stage</span>
+            <span>C - relaxation techniques</span><span>D - physical expression</span>
+            <span>E - play readings</span><span>F - acting without preparation</span>
+            <span>G - using a range of accents</span><span>H - following instructions</span>
           </div>
         </div>
         <div class="space-y-3">
-          <div class="q-row items-center"><span class="q-label">Q26</span><span class="q-text w-40"><span class="kw">Bob Lacey</span></span>
-            <select class="match-select" id="q26" data-answer="D"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <div class="q-row items-center"><span class="q-label">Q26</span><span class="q-text w-40">Bob Lacey</span>
+            <select class="match-select" id="q26" data-answer="B" data-part="3"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select>
+            <span class="q-score-badge" id="badge-q26">1.5 pts</span>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q27</span><span class="q-text w-40"><span class="kw">Evelyn Chance</span></span>
-            <select class="match-select" id="q27" data-answer="H"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <div class="q-row items-center"><span class="q-label">Q27</span><span class="q-text w-40">Evelyn Chance</span>
+            <select class="match-select" id="q27" data-answer="H" data-part="3"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select>
+            <span class="q-score-badge" id="badge-q27">1.5 pts</span>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q28</span><span class="q-text w-40"><span class="kw">Ted Winter</span></span>
-            <select class="match-select" id="q28" data-answer="F"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <div class="q-row items-center"><span class="q-label">Q28</span><span class="q-text w-40">Ted Winter</span>
+            <select class="match-select" id="q28" data-answer="D" data-part="3"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select>
+            <span class="q-score-badge" id="badge-q28">1.5 pts</span>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q29</span><span class="q-text w-40"><span class="kw">Kevin Gray</span></span>
-            <select class="match-select" id="q29" data-answer="B"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <div class="q-row items-center"><span class="q-label">Q29</span><span class="q-text w-40">Kevin Gray</span>
+            <select class="match-select" id="q29" data-answer="H" data-part="3"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select>
+            <span class="q-score-badge" id="badge-q29">1.5 pts</span>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q30</span><span class="q-text w-40"><span class="kw">Dorothy Thomas</span></span>
-            <select class="match-select" id="q30" data-answer="A"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <div class="q-row items-center"><span class="q-label">Q30</span><span class="q-text w-40">Dorothy Thomas</span>
+            <select class="match-select" id="q30" data-answer="C" data-part="3"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select>
+            <span class="q-score-badge" id="badge-q30">1.5 pts</span>
           </div>
         </div>
       </div>
@@ -797,119 +967,139 @@
         <h3 class="text-white font-bold text-lg mb-5">Office Design</h3>
 
         <div class="space-y-4">
-          <p class="text-sky-400 font-bold text-sm"><span class="kw">Early 20th Century</span></p>
+          <p class="text-sky-400 font-bold text-sm">Early 20th Century</p>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q31</span>
             <span class="q-text">- workers employed to do</span>
-            <input class="answer-input mx-2" data-answer="routine" placeholder="..." id="q31" />
-            <span class="q-text">were <span class="kw">arranged in rows</span></span>
+            <input class="answer-input mx-2" data-answer="typing" data-part="4" placeholder="..." id="q31" />
+            <span class="q-text">were arranged in rows</span>
+            <span class="q-score-badge" id="badge-q31">1.5 pts</span>
           </div>
 
           <div class="section-divider"></div>
-          <p class="text-sky-400 font-bold text-sm"><span class="kw">1960s to present</span> - Variations in design:</p>
+          <p class="text-sky-400 font-bold text-sm">1960s to present - Variations in design:</p>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q32</span>
-            <span class="q-text">- first, workers had <span class="kw">individual</span></span>
-            <input class="answer-input mx-2" data-answer="desks" placeholder="..." id="q32" />
+            <span class="q-text">- first, workers had individual</span>
+            <input class="answer-input mx-2" data-answer="desks" data-part="4" placeholder="..." id="q32" />
+            <span class="q-score-badge" id="badge-q32">1.5 pts</span>
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q33</span>
-            <span class="q-text">- later, <span class="kw">cubicles</span> with high or low</span>
-            <input class="answer-input mx-2" data-answer="partitions" placeholder="..." id="q33" />
+            <span class="q-text">- later, cubicles with high or low</span>
+            <input class="answer-input mx-2" data-answer="screen" data-part="4" placeholder="..." id="q33" />
+            <span class="q-score-badge" id="badge-q33">1.5 pts</span>
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q34</span>
             <span class="q-text">- nowadays, workers may have to</span>
-            <input class="answer-input mx-2" data-answer="share" placeholder="..." id="q34" />
-            <span class="q-text">a <span class="kw">work area</span></span>
+            <input class="answer-input mx-2" data-answer="share" data-part="4" placeholder="..." id="q34" />
+            <span class="q-text">a work area</span>
+            <span class="q-score-badge" id="badge-q34">1.5 pts</span>
           </div>
 
           <div class="section-divider"></div>
-          <p class="text-sky-400 font-bold text-sm"><span class="kw">Survey results</span> - Employees' <span class="kw">attitudes</span>:</p>
+          <p class="text-sky-400 font-bold text-sm">Survey results - Employees' attitudes:</p>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q35</span>
-            <span class="q-text">- there is a <span class="kw">lack</span> of</span>
-            <input class="answer-input mx-2" data-answer="privacy" placeholder="..." id="q35" />
+            <span class="q-text">- there is a lack of</span>
+            <input class="answer-input mx-2" data-answer="privacy" data-part="4" placeholder="..." id="q35" />
+            <span class="q-score-badge" id="badge-q35">1.5 pts</span>
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q36</span>
             <span class="q-text">  and</span>
-            <input class="answer-input mx-2" data-answer="quiet" placeholder="..." id="q36" />
+            <input class="answer-input mx-2" data-answer="security" data-part="4" placeholder="..." id="q36" />
+            <span class="q-score-badge" id="badge-q36">1.5 pts</span>
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q37</span>
-            <span class="q-text">- they pose a <span class="kw">risk</span> to our</span>
-            <input class="answer-input mx-2" data-answer="health" placeholder="..." id="q37" />
-            <span class="q-text">(<span class="kw">staff records</span> support this)</span>
+            <span class="q-text">- they pose a risk to our</span>
+            <input class="answer-input mx-2" data-answer="health" data-part="4" placeholder="..." id="q37" />
+            <span class="q-text">(staff records support this)</span>
+            <span class="q-score-badge" id="badge-q37">1.5 pts</span>
           </div>
 
           <div class="section-divider"></div>
-          <p class="text-sky-400 font-bold text-sm"><span class="kw">Employers'</span> attitudes:</p>
+          <p class="text-sky-400 font-bold text-sm">Employers' attitudes:</p>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q38</span>
-            <span class="q-text">- significantly <span class="kw">reduce</span> rent and</span>
-            <input class="answer-input mx-2" data-answer="maintenance" placeholder="..." id="q38" />
+            <span class="q-text">- significantly reduce rent and</span>
+            <input class="answer-input mx-2" data-answer="energy" data-part="4" placeholder="..." id="q38" />
             <span class="q-text">costs</span>
+            <span class="q-score-badge" id="badge-q38">1.5 pts</span>
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q39</span>
             <span class="q-text">- can make</span>
-            <input class="answer-input mx-2" data-answer="supervising" placeholder="..." id="q39" />
-            <span class="q-text"><span class="kw">staff</span> easier</span>
+            <input class="answer-input mx-2" data-answer="training" data-part="4" placeholder="..." id="q39" />
+            <span class="q-text">staff easier</span>
+            <span class="q-score-badge" id="badge-q39">1.5 pts</span>
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q40</span>
-            <span class="q-text">- employees are often <span class="kw">distracted</span> by the</span>
-            <input class="answer-input mx-2" data-answer="noise" placeholder="..." id="q40" />
-            <span class="q-text">in the <span class="kw">office</span></span>
+            <span class="q-text">- employees are often distracted by the</span>
+            <input class="answer-input mx-2" data-answer="noise" data-part="4" placeholder="..." id="q40" />
+            <span class="q-text">in the office</span>
+            <span class="q-score-badge" id="badge-q40">1.5 pts</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Check Answers -->
     <div class="mt-10 text-center">
-      <button id="check-btn" type="button" onclick="checkAnswers()">✓ Javoblarni tekshirish</button>
+      <button id="check-btn" onclick="checkAnswers()">✓ Check Answers</button>
     </div>
 
-    <!-- Score Panel -->
-    <div id="score-panel" class="mt-8">
-      <div class="text-center">
-        <p class="text-slate-400 font-semibold mb-1">Natijangiz</p>
-        <p id="score-text" class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-violet-400 mb-2"></p>
-        <p id="score-msg" class="text-slate-300 font-semibold"></p>
-      </div>
-    </div>
-
-  </div><!-- /main content -->
+  </div>
 
   <script>
-    // ===== AUDIO PLAYER =====
-    const audio = document.getElementById('audio');
+    // ===== IELTS BAND CONVERSION (raw/40 → band) =====
+    const BAND_TABLE = [
+      [40, 9.0], [39, 9.0], [38, 8.5], [37, 8.5],
+      [36, 8.0], [35, 8.0], [34, 7.5], [33, 7.5],
+      [32, 7.0], [31, 7.0], [30, 6.5], [29, 6.5],
+      [28, 6.0], [27, 6.0], [26, 5.5], [25, 5.5],
+      [24, 5.0], [23, 5.0], [22, 5.0], [21, 4.5],
+      [20, 4.5], [19, 4.0], [18, 4.0], [17, 4.0],
+      [16, 3.5], [15, 3.5], [14, 3.0], [0, 2.5]
+    ];
+    function rawToBand(raw) {
+      for (const [min, band] of BAND_TABLE) {
+        if (raw >= min) return band;
+      }
+      return 2.5;
+    }
+    function bandDesc(b) {
+      if (b >= 9) return "Expert — Excellent result! 🏆";
+      if (b >= 8) return "Very Good — Great job! 🌟";
+      if (b >= 7) return "Good — Well done! 👍";
+      if (b >= 6) return "Competent — Fairly good";
+      if (b >= 5) return "Modest — Keep going 💪";
+      if (b >= 4) return "Limited — More practice needed";
+      return "Extremely Limited — Strengthen the basics";
+    }
+    function barClass(pct) {
+      if (pct >= 80) return 'bar-great';
+      if (pct >= 60) return 'bar-good';
+      if (pct >= 40) return 'bar-ok';
+      return 'bar-low';
+    }
 
+    // ===== AUDIO =====
+    const audio = document.getElementById('audio');
     audio.addEventListener('loadedmetadata', () => {
       document.getElementById('total-time').textContent = formatTime(audio.duration);
     });
-
     audio.addEventListener('timeupdate', () => {
       const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
       document.getElementById('progress-fill').style.width = pct + '%';
       document.getElementById('current-time').textContent = formatTime(audio.currentTime);
     });
-
     audio.addEventListener('ended', () => {
       document.getElementById('play-icon').classList.remove('hidden');
       document.getElementById('pause-icon').classList.add('hidden');
     });
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden && !audio.paused) {
-        audio.pause();
-        document.getElementById('play-icon').classList.remove('hidden');
-        document.getElementById('pause-icon').classList.add('hidden');
-      }
-    });
-
     function togglePlay() {
       if (audio.paused) {
         audio.play();
@@ -921,24 +1111,16 @@
         document.getElementById('pause-icon').classList.add('hidden');
       }
     }
-
-    function skipTime(sec) {
-      audio.currentTime = Math.max(0, Math.min(audio.duration || 0, audio.currentTime + sec));
-    }
-
+    function skipTime(sec) { audio.currentTime = Math.max(0, Math.min(audio.duration || 0, audio.currentTime + sec)); }
     function seekAudio(e) {
       const rect = e.currentTarget.getBoundingClientRect();
-      const ratio = (e.clientX - rect.left) / rect.width;
-      audio.currentTime = ratio * (audio.duration || 0);
+      audio.currentTime = ((e.clientX - rect.left) / rect.width) * (audio.duration || 0);
     }
-
     function setVolume(val) { audio.volume = val; }
     function setSpeed(val) { audio.playbackRate = parseFloat(val); }
-
     function formatTime(s) {
       if (isNaN(s)) return '0:00';
-      const m = Math.floor(s / 60);
-      const sec = Math.floor(s % 60);
+      const m = Math.floor(s / 60), sec = Math.floor(s % 60);
       return m + ':' + (sec < 10 ? '0' : '') + sec;
     }
 
@@ -948,93 +1130,403 @@
       document.getElementById('part-' + n).classList.remove('hidden');
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      hideToolbar();
     }
 
-    // ===== KEYWORD TOGGLE =====
-    let kwOn = true;
-    function toggleKeywords() {
-      kwOn = !kwOn;
-      document.body.classList.toggle('kw-off', !kwOn);
-      document.getElementById('kw-btn-label').textContent = kwOn ? 'Keywords: ON' : 'Keywords: OFF';
-      document.getElementById('kw-toggle-btn').setAttribute('aria-pressed', kwOn ? 'true' : 'false');
+    // ===== MODAL =====
+    function openModal() { document.getElementById('result-modal-overlay').classList.add('open'); }
+    function closeModal() { document.getElementById('result-modal-overlay').classList.remove('open'); }
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('result-modal-overlay')) closeModal();
     }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // ===== HIGHLIGHT =====
+    const toolbar = document.getElementById('hl-toolbar');
+    const hlBtn = document.getElementById('hl-btn');
+    const removeBtn = document.getElementById('remove-hl-btn');
+    const mainContent = document.getElementById('main-content');
+    let pendingHighlight = null;
+    let clickedMark = null;
+    let lastMouseX = 0, lastMouseY = 0;
+
+    // Make ALL text inside part-card selectable (including inside labels)
+    document.querySelectorAll('.part-card, .opt-label, .q-text, .q-label, .part-title').forEach(el => {
+      el.style.userSelect = 'text';
+      el.style.webkitUserSelect = 'text';
+    });
+
+    function hideToolbar() {
+      toolbar.style.display = 'none';
+      pendingHighlight = null;
+      clickedMark = null;
+      removeBtn.style.display = 'none';
+      hlBtn.style.display = 'inline-block';
+    }
+
+    function positionToolbar(x, y) {
+      toolbar.style.left = '-9999px';
+      toolbar.style.top = '-9999px';
+      toolbar.style.display = 'flex';
+      requestAnimationFrame(() => {
+        const tw = toolbar.offsetWidth, th = toolbar.offsetHeight;
+        const viewportLeft = 8;
+        const viewportRight = window.innerWidth - tw - 8;
+        const minTop = 8;
+        let left = Math.max(viewportLeft, Math.min(viewportRight, x - tw / 2));
+        let top = y - th - 14;
+
+        if (top < minTop) {
+          top = minTop;
+        }
+
+        toolbar.style.left = left + 'px';
+        toolbar.style.top = top + 'px';
+      });
+    }
+
+    function positionToolbarForRange(range) {
+      if (!range) {
+        hideToolbar();
+        return;
+      }
+
+      try {
+        const rect = range.getBoundingClientRect();
+        if (!rect || (!rect.width && !rect.height)) {
+          hideToolbar();
+          return;
+        }
+
+        const x = rect.left + (rect.width / 2);
+        const y = rect.top;
+        positionToolbar(x, y);
+      } catch (e) {
+        hideToolbar();
+      }
+    }
+
+    function positionToolbarForMark(mark) {
+      if (!mark || !document.body.contains(mark)) {
+        hideToolbar();
+        return;
+      }
+
+      const rect = mark.getBoundingClientRect();
+      if (!rect || (!rect.width && !rect.height)) {
+        hideToolbar();
+        return;
+      }
+
+      const x = rect.left + (rect.width / 2);
+      const y = rect.top;
+      positionToolbar(x, y);
+    }
+
+    // Track mouse position for fallback toolbar placement
+    document.addEventListener('mousemove', e => { lastMouseX = e.clientX; lastMouseY = e.clientY + window.scrollY; });
+
+    // ---- Core: detect selection after mouseup ----
+    function handleSelectionCheck(mouseX, mouseY) {
+      const sel = window.getSelection();
+      if (!sel || sel.isCollapsed || !sel.rangeCount) {
+        hideToolbar();
+        return;
+      }
+
+      const range = sel.getRangeAt(0);
+      const selectedText = sel.toString().trim();
+      if (!selectedText) { hideToolbar(); return; }
+
+      // Check that selection is within main-content
+      const ancestor = range.commonAncestorContainer;
+      const ancestorEl = ancestor.nodeType === Node.TEXT_NODE ? ancestor.parentElement : ancestor;
+      if (!mainContent.contains(ancestorEl)) { hideToolbar(); return; }
+
+      // Don't allow selecting inside input/select/textarea
+      if (ancestorEl.closest('input, select, textarea')) { hideToolbar(); return; }
+
+      // Save the range for later use
+      pendingHighlight = { range: range.cloneRange() };
+      clickedMark = null;
+      removeBtn.style.display = 'none';
+      hlBtn.style.display = 'inline-block';
+
+      positionToolbarForRange(pendingHighlight.range);
+    }
+
+    document.addEventListener('mouseup', function(e) {
+      // Ignore clicks inside toolbar
+      if (toolbar.contains(e.target)) return;
+
+      // Click on existing mark → show remove toolbar
+      const mark = e.target.closest('mark.kh');
+      if (mark) {
+        clickedMark = mark;
+        pendingHighlight = null;
+        window.getSelection().removeAllRanges();
+        removeBtn.style.display = 'inline-block';
+        hlBtn.style.display = 'none';
+        positionToolbarForMark(mark);
+        return;
+      }
+
+      // If outside main content completely, hide
+      if (!mainContent.contains(e.target) && !e.target.closest('.opt-label, .q-text, .part-card')) {
+        // Give a tiny delay then check if there's still a selection
+        setTimeout(() => {
+          const sel = window.getSelection();
+          if (!sel || sel.isCollapsed) hideToolbar();
+        }, 50);
+        return;
+      }
+
+      // Delay slightly so browser finishes updating selection
+      setTimeout(() => handleSelectionCheck(e.clientX + window.scrollX, e.clientY + window.scrollY), 15);
+    });
+
+    // Also handle selectionchange for cases where selection changes without mouseup
+    document.addEventListener('selectionchange', function() {
+      const sel = window.getSelection();
+      if (sel && sel.isCollapsed && toolbar.style.display !== 'none' && !clickedMark) {
+        // Selection collapsed — hide toolbar (but only if not on a mark)
+        setTimeout(() => {
+          const sel2 = window.getSelection();
+          if (sel2 && sel2.isCollapsed && !clickedMark) hideToolbar();
+        }, 80);
+      }
+    });
+
+    // ---- Highlight button ----
+    hlBtn.addEventListener('mousedown', e => e.preventDefault()); // prevent selection loss
+    hlBtn.addEventListener('click', () => {
+      if (!pendingHighlight || !pendingHighlight.range) { hideToolbar(); return; }
+
+      const savedRange = pendingHighlight.range;
+
+      // Restore selection
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(savedRange);
+
+      // Try surroundContents first (works for single-element selections)
+      const mark = document.createElement('mark');
+      mark.className = 'kh';
+
+      try {
+        // Check if range spans multiple block elements (surroundContents would fail)
+        if (savedRange.startContainer === savedRange.endContainer) {
+          // Same text node — cleanest case
+          const node = savedRange.startContainer;
+          if (node.nodeType === Node.TEXT_NODE) {
+            const start = savedRange.startOffset;
+            const end = savedRange.endOffset;
+            const textContent = node.textContent.slice(start, end);
+            if (textContent.trim()) {
+              node.splitText(end);
+              const mid = node.splitText(start);
+              mark.textContent = mid.textContent;
+              mid.parentNode.replaceChild(mark, mid);
+            }
+          } else {
+            savedRange.surroundContents(mark);
+          }
+        } else {
+          // Multi-node: use surroundContents, fall back to extractContents
+          try {
+            savedRange.surroundContents(mark);
+          } catch(err) {
+            // Extract and wrap
+            const frag = savedRange.extractContents();
+            mark.appendChild(frag);
+            savedRange.insertNode(mark);
+          }
+        }
+      } catch(err) {
+        // Last resort: just insert a mark with the text
+        mark.textContent = savedRange.toString().trim();
+        try { savedRange.deleteContents(); savedRange.insertNode(mark); } catch(e2) {}
+      }
+
+      sel.removeAllRanges();
+      hideToolbar();
+    });
+
+    // ---- Remove highlight button ----
+    removeBtn.addEventListener('mousedown', e => e.preventDefault());
+    removeBtn.addEventListener('click', () => {
+      if (!clickedMark) { hideToolbar(); return; }
+      const parent = clickedMark.parentNode;
+      if (parent) {
+        while (clickedMark.firstChild) parent.insertBefore(clickedMark.firstChild, clickedMark);
+        parent.removeChild(clickedMark);
+        parent.normalize();
+      }
+      hideToolbar();
+    });
+
+    // Keep toolbar attached to the selected text / highlight while scrolling
+    window.addEventListener('scroll', () => {
+      if (toolbar.style.display === 'none') return;
+
+      if (clickedMark) {
+        positionToolbarForMark(clickedMark);
+        return;
+      }
+
+      if (pendingHighlight && pendingHighlight.range) {
+        positionToolbarForRange(pendingHighlight.range);
+      }
+    }, { passive: true });
+
+    // Hide on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') hideToolbar();
+    });
 
     // ===== CHECK ANSWERS =====
     function checkAnswers() {
-      let correct = 0;
-      const total =
-        document.querySelectorAll('.answer-input').length +
-        [...new Set([...document.querySelectorAll('input[type="radio"]')].map(r => r.name))].length +
-        document.querySelectorAll('.match-select').length;
+      let totalCorrect = 0;
+      const partCorrect = { 1: 0, 2: 0, 3: 0, 4: 0 };
+      const partTotal   = { 1: 10, 2: 10, 3: 10, 4: 10 };
+      const wrongList = []; // { qno, yourAns, correctAns }
 
-      document.querySelectorAll('.opt-label').forEach(label => {
-        label.style.color = '';
-      });
+      // Reset styles
+      document.querySelectorAll('.opt-label').forEach(l => l.style.color = '');
+      document.querySelectorAll('.answer-input').forEach(inp => inp.classList.remove('wrong-ans','right-ans'));
+      document.querySelectorAll('.match-select').forEach(s => s.style.borderColor = '');
+      document.querySelectorAll('.correct-ans').forEach(el => el.remove());
+      // Reset badges
+      for (let i = 1; i <= 40; i++) {
+        const b = document.getElementById('badge-q' + i);
+        if (b) { b.textContent = '1.5 pts'; b.className = 'q-score-badge'; }
+      }
 
       // Text inputs
       document.querySelectorAll('.answer-input').forEach(inp => {
+        const qid = inp.id; // e.g. "q5"
+        const qno = parseInt(qid.replace('q',''));
+        const part = parseInt(inp.dataset.part);
         const ans = (inp.dataset.answer || '').toLowerCase().trim();
         const val = inp.value.toLowerCase().trim();
-        inp.classList.remove('wrong-ans', 'right-ans');
-        let hint = inp.nextElementSibling;
-        if (hint && hint.classList.contains('correct-ans')) hint.remove();
+        const badge = document.getElementById('badge-' + qid);
 
-        if (val === '') return;
+        if (val === '') {
+          if (badge) { badge.textContent = '0 pts'; badge.className = 'q-score-badge wrong'; }
+          wrongList.push({ qno, your: '', correct: inp.dataset.answer });
+          return;
+        }
         if (val === ans) {
           inp.classList.add('right-ans');
-          correct++;
+          totalCorrect++; partCorrect[part]++;
+          if (badge) { badge.textContent = '✓ 1.5 pts'; badge.className = 'q-score-badge correct'; }
         } else {
           inp.classList.add('wrong-ans');
+          if (badge) { badge.textContent = '✗ 0 pts'; badge.className = 'q-score-badge wrong'; }
           const span = document.createElement('span');
-          span.className = 'correct-ans';
-          span.textContent = '✓ ' + inp.dataset.answer;
+          span.className = 'correct-ans'; span.textContent = '✓ ' + inp.dataset.answer;
           inp.insertAdjacentElement('afterend', span);
+          wrongList.push({ qno, your: inp.value, correct: inp.dataset.answer });
         }
       });
 
-      // Radio buttons
-      const names = [...new Set([...document.querySelectorAll('input[type="radio"]')].map(r => r.name))];
-      names.forEach(name => {
+      // Radio buttons — group by name (q11–q25)
+      const radioNames = [...new Set([...document.querySelectorAll('input[type="radio"]')].map(r => r.name))];
+      radioNames.forEach(name => {
+        const qno = parseInt(name.replace('q',''));
         const radios = document.querySelectorAll(`input[name="${name}"]`);
-        const correct_ans = radios[0].dataset.answer;
+        const correctAns = radios[0].dataset.answer;
+        const part = parseInt(radios[0].dataset.part);
         const checked = document.querySelector(`input[name="${name}"]:checked`);
-        if (!checked) return;
-        if (checked.value === correct_ans) {
-          correct++;
+        const badge = document.getElementById('badge-' + name);
+
+        if (!checked) {
+          if (badge) { badge.textContent = '0 pts'; badge.className = 'q-score-badge wrong'; }
+          wrongList.push({ qno, your: '', correct: correctAns });
+          return;
+        }
+        if (checked.value === correctAns) {
+          totalCorrect++; partCorrect[part]++;
           checked.parentElement.style.color = '#34d399';
+          if (badge) { badge.textContent = '✓ 1.5 pts'; badge.className = 'q-score-badge correct'; }
         } else {
           checked.parentElement.style.color = '#f87171';
-          radios.forEach(r => {
-            if (r.value === correct_ans) r.parentElement.style.color = '#34d399';
-          });
+          radios.forEach(r => { if (r.value === correctAns) r.parentElement.style.color = '#34d399'; });
+          if (badge) { badge.textContent = '✗ 0 pts'; badge.className = 'q-score-badge wrong'; }
+          wrongList.push({ qno, your: checked.value, correct: correctAns });
         }
       });
 
-      // Selects
+      // Select dropdowns (q16-q20, q26-q30)
       document.querySelectorAll('.match-select').forEach(sel => {
-        let hint = sel.nextElementSibling;
-        if (hint && hint.classList.contains('correct-ans')) hint.remove();
-        sel.style.borderColor = '';
-
-        if (!sel.value) return;
+        const qid = sel.id;
+        const qno = parseInt(qid.replace('q',''));
+        const part = parseInt(sel.dataset.part);
         const ans = sel.dataset.answer;
-        sel.style.borderColor = sel.value === ans ? '#34d399' : '#f87171';
-        if (sel.value !== ans) {
+        const badge = document.getElementById('badge-' + qid);
+
+        if (!sel.value) {
+          if (badge) { badge.textContent = '0 pts'; badge.className = 'q-score-badge wrong'; }
+          wrongList.push({ qno, your: '', correct: ans });
+          return;
+        }
+        if (sel.value === ans) {
+          sel.style.borderColor = '#34d399';
+          totalCorrect++; partCorrect[part]++;
+          if (badge) { badge.textContent = '✓ 1.5 pts'; badge.className = 'q-score-badge correct'; }
+        } else {
+          sel.style.borderColor = '#f87171';
+          if (badge) { badge.textContent = '✗ 0 pts'; badge.className = 'q-score-badge wrong'; }
           const sp = document.createElement('span');
-          sp.className = 'correct-ans';
-          sp.textContent = '✓ ' + ans;
+          sp.className = 'correct-ans'; sp.textContent = '✓ ' + ans;
           sel.insertAdjacentElement('afterend', sp);
+          wrongList.push({ qno, your: sel.value, correct: ans });
         }
       });
 
-      // Show score
-      const panel = document.getElementById('score-panel');
-      panel.style.display = 'block';
-      document.getElementById('score-text').textContent = correct + ' / ' + total;
-      const pct = total ? Math.round(correct / total * 100) : 0;
-      let msg = pct >= 80 ? 'Ajoyib! Zo\'r natija!' : pct >= 60 ? 'Yaxshi! Davom eting!' : 'Ko\'proq mashq qiling!';
-      document.getElementById('score-msg').textContent = msg;
-      panel.scrollIntoView({ behavior: 'smooth' });
+      // Sort wrong list
+      wrongList.sort((a, b) => a.qno - b.qno);
+
+      // === FILL MODAL ===
+      const band = rawToBand(totalCorrect);
+      document.getElementById('modal-band').textContent = band.toFixed(1);
+      document.getElementById('modal-band-desc').textContent = bandDesc(band);
+
+      const totalAnswered = 40 - wrongList.filter(w => w.your === '').length;
+      const skipped = wrongList.filter(w => w.your === '').length;
+      const wrong = wrongList.filter(w => w.your !== '').length;
+
+      document.getElementById('modal-correct').textContent = totalCorrect;
+      document.getElementById('modal-wrong').textContent = wrong;
+      document.getElementById('modal-skipped').textContent = skipped;
+
+      // Part bars
+      [1, 2, 3, 4].forEach(p => {
+        const c = partCorrect[p], t = partTotal[p];
+        const pct = Math.round(c / t * 100);
+        const bar = document.getElementById('bar-p' + p);
+        bar.style.width = pct + '%';
+        bar.className = 'part-row-bar ' + barClass(pct);
+        document.getElementById('score-p' + p).textContent = c + ' / ' + t + ' (' + pct + '%)';
+      });
+
+      // Wrong table
+      const wrap = document.getElementById('wrong-table-wrap');
+      if (wrongList.length === 0) {
+        wrap.innerHTML = '<div class="all-correct-msg">🎉 All questions were answered correctly!</div>';
+      } else {
+        let html = '<table class="wrong-table"><thead><tr><th>Question</th><th>Your Answer</th><th>Correct Answer</th></tr></thead><tbody>';
+        wrongList.forEach(w => {
+          const yourCell = w.your
+            ? `<span class="td-your">${w.your}</span>`
+            : `<span class="td-empty">empty</span>`;
+          html += `<tr><td class="td-qno">Q${w.qno}</td><td>${yourCell}</td><td class="td-correct">${w.correct}</td></tr>`;
+        });
+        html += '</tbody></table>';
+        wrap.innerHTML = html;
+      }
+
+      openModal();
     }
   </script>
 
