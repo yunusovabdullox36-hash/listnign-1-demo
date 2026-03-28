@@ -538,9 +538,9 @@
 
   <!-- ===== HIGHLIGHT TOOLBAR ===== -->
   <div id="hl-toolbar">
-    <span>✏️ Highlight</span>
-    <button id="hl-btn" type="button">⭐ Highlight</button>
-    <button id="remove-hl-btn" type="button" style="display:none;">✕ Remove</button>
+    <span>Text Highlight</span>
+    <button id="hl-btn" type="button">Add Highlight</button>
+    <button id="remove-hl-btn" type="button" style="display:none;">Remove</button>
   </div>
 
   <!-- ===== FIXED AUDIO PLAYER ===== -->
@@ -613,9 +613,9 @@
   <!-- ===== RESULT MODAL ===== -->
   <div id="result-modal-overlay" onclick="handleOverlayClick(event)">
     <div id="result-modal">
-      <button id="modal-close-btn" onclick="closeModal()">✕</button>
+      <button id="modal-close-btn" onclick="closeModal()">X</button>
       <div class="modal-header">
-        <div class="modal-title">📊 Your Results</div>
+        <div class="modal-title">Your Results</div>
       </div>
 
       <!-- Band score -->
@@ -629,7 +629,7 @@
       <div class="stats-row">
         <div class="stat-box">
           <div class="stat-val" id="modal-correct" style="color:#34d399;">—</div>
-          <div class="stat-lbl">Correct Answers</div>
+          <div class="stat-lbl">Correct Answers / Raw Score</div>
         </div>
         <div class="stat-box">
           <div class="stat-val" id="modal-wrong" style="color:#f87171;">—</div>
@@ -682,7 +682,8 @@
         IELTS <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-violet-400">Listening</span> Test
       </h1>
       <p class="text-slate-400 font-semibold">4 Parts - 40 Questions</p>
-      <p class="text-slate-600 text-xs mt-2">💡 Select any word <strong class="text-amber-400">with your mouse</strong> to show the highlight button</p>
+      <p class="text-slate-400 text-sm mt-3">Scoring: each question = 1 point, total = 40 points, IELTS band is calculated from the raw score.</p>
+      <p class="text-slate-600 text-xs mt-2">Tip: Select any word <strong class="text-amber-400">with your mouse</strong> to show the highlight button</p>
     </div>
 
     <div class="flex gap-2 justify-center mb-8 flex-wrap">
@@ -711,14 +712,14 @@
             <span class="q-text">No</span>
             <input class="answer-input mx-2" data-answer="age" data-part="1" placeholder="..." id="q1" />
             <span class="q-text">limit</span>
-            <span class="q-score-badge" id="badge-q1">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q1">1 pt</span>
           </div>
           <div class="q-row items-center">
             <span class="q-label">Q2</span>
-            <span class="q-text">Student membership costs £</span>
-            <input class="answer-input mx-2" data-answer="21.50" data-part="1" placeholder="..." id="q2" style="width:80px;" />
+            <span class="q-text">Student membership costs GBP</span>
+            <input class="answer-input mx-2" data-answer="21.50|21.5" data-part="1" placeholder="..." id="q2" style="width:80px;" />
             <span class="q-text">per season</span>
-            <span class="q-score-badge" id="badge-q2">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q2">1 pt</span>
           </div>
 
           <div class="mt-4 mb-2 text-slate-300 font-semibold text-sm">Members get:</div>
@@ -726,16 +727,16 @@
             <p class="q-text text-slate-400">- free entry to club films</p>
             <div class="q-row items-center">
               <span class="q-label">Q3</span>
-              <span class="q-text">£</span>
+              <span class="q-text">GBP</span>
               <input class="answer-input mx-2" data-answer="2" data-part="1" placeholder="..." id="q3" style="width:70px;" />
               <span class="q-text">reduction on other films at cinema</span>
-              <span class="q-score-badge" id="badge-q3">1.5 pts</span>
+              <span class="q-score-badge" id="badge-q3">1 pt</span>
             </div>
             <div class="q-row items-center">
               <span class="q-label">Q4</span>
               <span class="q-text">Members are entitled to 3 hours' free</span>
               <input class="answer-input mx-2" data-answer="parking" data-part="1" placeholder="..." id="q4" />
-              <span class="q-score-badge" id="badge-q4">1.5 pts</span>
+              <span class="q-score-badge" id="badge-q4">1 pt</span>
             </div>
           </div>
 
@@ -745,15 +746,15 @@
             <div class="q-row items-center flex-wrap gap-y-2">
               <span class="q-label">Q5</span>
               <span class="q-text">- about a child in</span>
-              <input class="answer-input mx-2" data-answer="Argentina" data-part="1" placeholder="..." id="q5" />
+              <input class="answer-input mx-2" data-answer="Argentina|argentinia" data-part="1" placeholder="..." id="q5" />
               <span class="q-text">who runs away from home and wins a</span>
-              <span class="q-score-badge" id="badge-q5">1.5 pts</span>
+              <span class="q-score-badge" id="badge-q5">1 pt</span>
             </div>
             <div class="q-row items-center">
               <span class="q-label">Q6</span>
               <input class="answer-input mr-2" data-answer="singing" data-part="1" placeholder="..." id="q6" />
               <span class="q-text">competition on TV</span>
-              <span class="q-score-badge" id="badge-q6">1.5 pts</span>
+              <span class="q-score-badge" id="badge-q6">1 pt</span>
             </div>
             <p class="text-sky-400 font-bold text-sm mt-3">Oct 28: The Soldier</p>
             <div class="q-row items-center">
@@ -761,19 +762,19 @@
               <span class="q-text">- with live</span>
               <input class="answer-input mx-2" data-answer="piano" data-part="1" placeholder="..." id="q7" />
               <span class="q-text">accompaniment</span>
-              <span class="q-score-badge" id="badge-q7">1.5 pts</span>
+              <span class="q-score-badge" id="badge-q7">1 pt</span>
             </div>
             <div class="q-row items-center">
               <span class="q-label">Q8</span>
               <span class="q-text">- made in the year</span>
               <input class="answer-input mx-2" data-answer="1922" data-part="1" placeholder="..." id="q8" style="width:90px;" />
-              <span class="q-score-badge" id="badge-q8">1.5 pts</span>
+              <span class="q-score-badge" id="badge-q8">1 pt</span>
             </div>
             <div class="q-row items-center">
               <span class="q-label">Q9</span>
               <span class="q-text">- type of film: a</span>
               <input class="answer-input mx-2" data-answer="comedy" data-part="1" placeholder="..." id="q9" />
-              <span class="q-score-badge" id="badge-q9">1.5 pts</span>
+              <span class="q-score-badge" id="badge-q9">1 pt</span>
             </div>
             <p class="text-sky-400 font-bold text-sm mt-3">Nov 11: Tiger</p>
             <p class="q-text text-slate-400">- cartoon aimed at adults</p>
@@ -782,7 +783,7 @@
               <span class="q-text">- followed by a</span>
               <input class="answer-input mx-2" data-answer="talk" data-part="1" placeholder="..." id="q10" />
               <span class="q-text">by the director</span>
-              <span class="q-score-badge" id="badge-q10">1.5 pts</span>
+              <span class="q-score-badge" id="badge-q10">1 pt</span>
             </div>
           </div>
         </div>
@@ -797,7 +798,7 @@
         <p class="text-sky-400 font-bold mb-5">extrahands.com</p>
 
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q11</span><span class="q-text">Stephen says the founders of extrahands.com originally needed help in</span><span class="q-score-badge" id="badge-q11">1.5 pts</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q11</span><span class="q-text">Stephen says the founders of extrahands.com originally needed help in</span><span class="q-score-badge" id="badge-q11">1 pt</span></div>
           <div class="pl-6 space-y-1">
             <label class="opt-label"><input type="radio" name="q11" value="A" data-answer="A" data-part="2" /> A - preparing their fields for planting</label>
             <label class="opt-label"><input type="radio" name="q11" value="B" data-answer="A" data-part="2" /> B - harvesting their organic crops</label>
@@ -805,7 +806,7 @@
           </div>
         </div>
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q12</span><span class="q-text">To remain an active member, you must</span><span class="q-score-badge" id="badge-q12">1.5 pts</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q12</span><span class="q-text">To remain an active member, you must</span><span class="q-score-badge" id="badge-q12">1 pt</span></div>
           <div class="pl-6 space-y-1">
             <label class="opt-label"><input type="radio" name="q12" value="A" data-answer="A" data-part="2" /> A - update your form on the website every year</label>
             <label class="opt-label"><input type="radio" name="q12" value="B" data-answer="A" data-part="2" /> B - pay a subscription of $25 every year</label>
@@ -813,7 +814,7 @@
           </div>
         </div>
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q13</span><span class="q-text">Most volunteers search for jobs according to</span><span class="q-score-badge" id="badge-q13">1.5 pts</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q13</span><span class="q-text">Most volunteers search for jobs according to</span><span class="q-score-badge" id="badge-q13">1 pt</span></div>
           <div class="pl-6 space-y-1">
             <label class="opt-label"><input type="radio" name="q13" value="A" data-answer="B" data-part="2" /> A - the type of work available</label>
             <label class="opt-label"><input type="radio" name="q13" value="B" data-answer="B" data-part="2" /> B - the geographical location</label>
@@ -821,7 +822,7 @@
           </div>
         </div>
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q14</span><span class="q-text">Stephen recommends that the host and volunteer should</span><span class="q-score-badge" id="badge-q14">1.5 pts</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q14</span><span class="q-text">Stephen recommends that the host and volunteer should</span><span class="q-score-badge" id="badge-q14">1 pt</span></div>
           <div class="pl-6 space-y-1">
             <label class="opt-label"><input type="radio" name="q14" value="A" data-answer="A" data-part="2" /> A - confirm details of the arrangement in writing</label>
             <label class="opt-label"><input type="radio" name="q14" value="B" data-answer="A" data-part="2" /> B - draw up a formal written contract</label>
@@ -829,7 +830,7 @@
           </div>
         </div>
         <div class="mb-8">
-          <div class="q-row mb-2"><span class="q-label">Q15</span><span class="q-text">To deal with members' problems, extrahands.com have a system</span><span class="q-score-badge" id="badge-q15">1.5 pts</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q15</span><span class="q-text">To deal with members' problems, extrahands.com have a system</span><span class="q-score-badge" id="badge-q15">1 pt</span></div>
           <div class="pl-6 space-y-1">
             <label class="opt-label"><input type="radio" name="q15" value="A" data-answer="B" data-part="2" /> A - for checking each new member online</label>
             <label class="opt-label"><input type="radio" name="q15" value="B" data-answer="B" data-part="2" /> B - for allowing online feedback</label>
@@ -852,23 +853,23 @@
         <div class="space-y-3">
           <div class="q-row items-center"><span class="q-label">Q16</span><span class="q-text w-36">Portugal</span>
             <select class="match-select" id="q16" data-answer="F" data-part="2"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select>
-            <span class="q-score-badge" id="badge-q16">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q16">1 pt</span>
           </div>
           <div class="q-row items-center"><span class="q-label">Q17</span><span class="q-text w-36">Australia</span>
             <select class="match-select" id="q17" data-answer="A" data-part="2"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select>
-            <span class="q-score-badge" id="badge-q17">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q17">1 pt</span>
           </div>
           <div class="q-row items-center"><span class="q-label">Q18</span><span class="q-text w-36">South Korea</span>
             <select class="match-select" id="q18" data-answer="D" data-part="2"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select>
-            <span class="q-score-badge" id="badge-q18">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q18">1 pt</span>
           </div>
           <div class="q-row items-center"><span class="q-label">Q19</span><span class="q-text w-36">USA</span>
             <select class="match-select" id="q19" data-answer="B" data-part="2"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select>
-            <span class="q-score-badge" id="badge-q19">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q19">1 pt</span>
           </div>
           <div class="q-row items-center"><span class="q-label">Q20</span><span class="q-text w-36">Italy</span>
             <select class="match-select" id="q20" data-answer="C" data-part="2"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select>
-            <span class="q-score-badge" id="badge-q20">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q20">1 pt</span>
           </div>
         </div>
       </div>
@@ -882,7 +883,7 @@
         <p class="text-sky-400 font-bold mb-5">Song-writing course for drama students</p>
 
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q21</span><span class="q-text">What problem is Lorna having with her report?</span><span class="q-score-badge" id="badge-q21">1.5 pts</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q21</span><span class="q-text">What problem is Lorna having with her report?</span><span class="q-score-badge" id="badge-q21">1 pt</span></div>
           <div class="pl-6 space-y-1">
             <label class="opt-label"><input type="radio" name="q21" value="A" data-answer="B" data-part="3" /> A - listing the references</label>
             <label class="opt-label"><input type="radio" name="q21" value="B" data-answer="B" data-part="3" /> B - keeping to the word limit</label>
@@ -890,7 +891,7 @@
           </div>
         </div>
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q22</span><span class="q-text">Why did Charles take the song-writing course?</span><span class="q-score-badge" id="badge-q22">1.5 pts</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q22</span><span class="q-text">Why did Charles take the song-writing course?</span><span class="q-score-badge" id="badge-q22">1 pt</span></div>
           <div class="pl-6 space-y-1">
             <label class="opt-label"><input type="radio" name="q22" value="A" data-answer="C" data-part="3" /> A - to improve his job prospects</label>
             <label class="opt-label"><input type="radio" name="q22" value="B" data-answer="C" data-part="3" /> B - to increase his self-confidence</label>
@@ -898,7 +899,7 @@
           </div>
         </div>
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q23</span><span class="q-text">Which type of work did Lorna most enjoy?</span><span class="q-score-badge" id="badge-q23">1.5 pts</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q23</span><span class="q-text">Which type of work did Lorna most enjoy?</span><span class="q-score-badge" id="badge-q23">1 pt</span></div>
           <div class="pl-6 space-y-1">
             <label class="opt-label"><input type="radio" name="q23" value="A" data-answer="A" data-part="3" /> A - individual work</label>
             <label class="opt-label"><input type="radio" name="q23" value="B" data-answer="A" data-part="3" /> B - pair work</label>
@@ -906,7 +907,7 @@
           </div>
         </div>
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q24</span><span class="q-text">Which aspect did both students find interesting?</span><span class="q-score-badge" id="badge-q24">1.5 pts</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q24</span><span class="q-text">Which aspect did both students find interesting?</span><span class="q-score-badge" id="badge-q24">1 pt</span></div>
           <div class="pl-6 space-y-1">
             <label class="opt-label"><input type="radio" name="q24" value="A" data-answer="A" data-part="3" /> A - song structure</label>
             <label class="opt-label"><input type="radio" name="q24" value="B" data-answer="A" data-part="3" /> B - writing a chorus</label>
@@ -914,7 +915,7 @@
           </div>
         </div>
         <div class="mb-8">
-          <div class="q-row mb-2"><span class="q-label">Q25</span><span class="q-text">Lorna found writing a song</span><span class="q-score-badge" id="badge-q25">1.5 pts</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q25</span><span class="q-text">Lorna found writing a song</span><span class="q-score-badge" id="badge-q25">1 pt</span></div>
           <div class="pl-6 space-y-1">
             <label class="opt-label"><input type="radio" name="q25" value="A" data-answer="B" data-part="3" /> A - impossible</label>
             <label class="opt-label"><input type="radio" name="q25" value="B" data-answer="B" data-part="3" /> B - tiring</label>
@@ -937,23 +938,23 @@
         <div class="space-y-3">
           <div class="q-row items-center"><span class="q-label">Q26</span><span class="q-text w-40">Bob Lacey</span>
             <select class="match-select" id="q26" data-answer="B" data-part="3"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select>
-            <span class="q-score-badge" id="badge-q26">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q26">1 pt</span>
           </div>
           <div class="q-row items-center"><span class="q-label">Q27</span><span class="q-text w-40">Evelyn Chance</span>
             <select class="match-select" id="q27" data-answer="H" data-part="3"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select>
-            <span class="q-score-badge" id="badge-q27">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q27">1 pt</span>
           </div>
           <div class="q-row items-center"><span class="q-label">Q28</span><span class="q-text w-40">Ted Winter</span>
             <select class="match-select" id="q28" data-answer="D" data-part="3"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select>
-            <span class="q-score-badge" id="badge-q28">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q28">1 pt</span>
           </div>
           <div class="q-row items-center"><span class="q-label">Q29</span><span class="q-text w-40">Kevin Gray</span>
             <select class="match-select" id="q29" data-answer="H" data-part="3"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select>
-            <span class="q-score-badge" id="badge-q29">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q29">1 pt</span>
           </div>
           <div class="q-row items-center"><span class="q-label">Q30</span><span class="q-text w-40">Dorothy Thomas</span>
             <select class="match-select" id="q30" data-answer="C" data-part="3"><option value="">-</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select>
-            <span class="q-score-badge" id="badge-q30">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q30">1 pt</span>
           </div>
         </div>
       </div>
@@ -973,7 +974,7 @@
             <span class="q-text">- workers employed to do</span>
             <input class="answer-input mx-2" data-answer="typing" data-part="4" placeholder="..." id="q31" />
             <span class="q-text">were arranged in rows</span>
-            <span class="q-score-badge" id="badge-q31">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q31">1 pt</span>
           </div>
 
           <div class="section-divider"></div>
@@ -982,20 +983,20 @@
             <span class="q-label">Q32</span>
             <span class="q-text">- first, workers had individual</span>
             <input class="answer-input mx-2" data-answer="desks" data-part="4" placeholder="..." id="q32" />
-            <span class="q-score-badge" id="badge-q32">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q32">1 pt</span>
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q33</span>
             <span class="q-text">- later, cubicles with high or low</span>
-            <input class="answer-input mx-2" data-answer="screen" data-part="4" placeholder="..." id="q33" />
-            <span class="q-score-badge" id="badge-q33">1.5 pts</span>
+            <input class="answer-input mx-2" data-answer="screen|screens" data-part="4" placeholder="..." id="q33" />
+            <span class="q-score-badge" id="badge-q33">1 pt</span>
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q34</span>
             <span class="q-text">- nowadays, workers may have to</span>
             <input class="answer-input mx-2" data-answer="share" data-part="4" placeholder="..." id="q34" />
             <span class="q-text">a work area</span>
-            <span class="q-score-badge" id="badge-q34">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q34">1 pt</span>
           </div>
 
           <div class="section-divider"></div>
@@ -1004,20 +1005,20 @@
             <span class="q-label">Q35</span>
             <span class="q-text">- there is a lack of</span>
             <input class="answer-input mx-2" data-answer="privacy" data-part="4" placeholder="..." id="q35" />
-            <span class="q-score-badge" id="badge-q35">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q35">1 pt</span>
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q36</span>
             <span class="q-text">  and</span>
             <input class="answer-input mx-2" data-answer="security" data-part="4" placeholder="..." id="q36" />
-            <span class="q-score-badge" id="badge-q36">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q36">1 pt</span>
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q37</span>
             <span class="q-text">- they pose a risk to our</span>
             <input class="answer-input mx-2" data-answer="health" data-part="4" placeholder="..." id="q37" />
             <span class="q-text">(staff records support this)</span>
-            <span class="q-score-badge" id="badge-q37">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q37">1 pt</span>
           </div>
 
           <div class="section-divider"></div>
@@ -1027,34 +1028,34 @@
             <span class="q-text">- significantly reduce rent and</span>
             <input class="answer-input mx-2" data-answer="energy" data-part="4" placeholder="..." id="q38" />
             <span class="q-text">costs</span>
-            <span class="q-score-badge" id="badge-q38">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q38">1 pt</span>
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q39</span>
             <span class="q-text">- can make</span>
             <input class="answer-input mx-2" data-answer="training" data-part="4" placeholder="..." id="q39" />
             <span class="q-text">staff easier</span>
-            <span class="q-score-badge" id="badge-q39">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q39">1 pt</span>
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q40</span>
             <span class="q-text">- employees are often distracted by the</span>
             <input class="answer-input mx-2" data-answer="noise" data-part="4" placeholder="..." id="q40" />
             <span class="q-text">in the office</span>
-            <span class="q-score-badge" id="badge-q40">1.5 pts</span>
+            <span class="q-score-badge" id="badge-q40">1 pt</span>
           </div>
         </div>
       </div>
     </div>
 
     <div class="mt-10 text-center">
-      <button id="check-btn" onclick="checkAnswers()">✓ Check Answers</button>
+      <button id="check-btn" onclick="checkAnswers()">Check Answers</button>
     </div>
 
   </div>
 
   <script>
-    // ===== IELTS BAND CONVERSION (raw/40 → band) =====
+    // ===== IELTS BAND CONVERSION (raw/40 -> band) =====
     const BAND_TABLE = [
       [40, 9.0], [39, 9.0], [38, 8.5], [37, 8.5],
       [36, 8.0], [35, 8.0], [34, 7.5], [33, 7.5],
@@ -1071,19 +1072,51 @@
       return 2.5;
     }
     function bandDesc(b) {
-      if (b >= 9) return "Expert — Excellent result! 🏆";
-      if (b >= 8) return "Very Good — Great job! 🌟";
-      if (b >= 7) return "Good — Well done! 👍";
-      if (b >= 6) return "Competent — Fairly good";
-      if (b >= 5) return "Modest — Keep going 💪";
-      if (b >= 4) return "Limited — More practice needed";
-      return "Extremely Limited — Strengthen the basics";
+      if (b >= 9) return "Expert - Excellent result!";
+      if (b >= 8) return "Very Good - Great job!";
+      if (b >= 7) return "Good - Well done!";
+      if (b >= 6) return "Competent - Fairly good";
+      if (b >= 5) return "Modest - Keep going";
+      if (b >= 4) return "Limited - More practice needed";
+      return "Extremely Limited - Strengthen the basics";
     }
+    const QUESTION_POINTS = 1;
+
     function barClass(pct) {
       if (pct >= 80) return 'bar-great';
       if (pct >= 60) return 'bar-good';
       if (pct >= 40) return 'bar-ok';
       return 'bar-low';
+    }
+
+    function normalizeAnswer(value) {
+      return (value || '')
+        .toString()
+        .trim()
+        .toLowerCase()
+        .replace(/,/g, '.')
+        .replace(/\s+/g, ' ')
+        .replace(/[.]+$/g, '');
+    }
+
+    function getAnswerOptions(rawAnswer) {
+      return (rawAnswer || '')
+        .split('|')
+        .map(option => normalizeAnswer(option))
+        .filter(Boolean);
+    }
+
+    function isAnswerCorrect(value, rawAnswer) {
+      const normalizedValue = normalizeAnswer(value);
+      return getAnswerOptions(rawAnswer).includes(normalizedValue);
+    }
+
+    function formatAnswerForDisplay(rawAnswer) {
+      const options = (rawAnswer || '')
+        .split('|')
+        .map(option => option.trim())
+        .filter(Boolean);
+      return options[0] || '';
     }
 
     // ===== AUDIO =====
@@ -1259,7 +1292,7 @@
       // Ignore clicks inside toolbar
       if (toolbar.contains(e.target)) return;
 
-      // Click on existing mark → show remove toolbar
+      // Click on existing mark -> show remove toolbar
       const mark = e.target.closest('mark.kh');
       if (mark) {
         clickedMark = mark;
@@ -1399,7 +1432,7 @@
       // Reset badges
       for (let i = 1; i <= 40; i++) {
         const b = document.getElementById('badge-q' + i);
-        if (b) { b.textContent = '1.5 pts'; b.className = 'q-score-badge'; }
+        if (b) { b.textContent = QUESTION_POINTS + ' pt'; b.className = 'q-score-badge'; }
       }
 
       // Text inputs
@@ -1407,26 +1440,26 @@
         const qid = inp.id; // e.g. "q5"
         const qno = parseInt(qid.replace('q',''));
         const part = parseInt(inp.dataset.part);
-        const ans = (inp.dataset.answer || '').toLowerCase().trim();
-        const val = inp.value.toLowerCase().trim();
+        const val = inp.value;
         const badge = document.getElementById('badge-' + qid);
+        const correctDisplay = formatAnswerForDisplay(inp.dataset.answer);
 
-        if (val === '') {
-          if (badge) { badge.textContent = '0 pts'; badge.className = 'q-score-badge wrong'; }
-          wrongList.push({ qno, your: '', correct: inp.dataset.answer });
+        if (normalizeAnswer(val) === '') {
+          if (badge) { badge.textContent = '0 pt'; badge.className = 'q-score-badge wrong'; }
+          wrongList.push({ qno, your: '', correct: correctDisplay });
           return;
         }
-        if (val === ans) {
+        if (isAnswerCorrect(val, inp.dataset.answer)) {
           inp.classList.add('right-ans');
           totalCorrect++; partCorrect[part]++;
-          if (badge) { badge.textContent = '✓ 1.5 pts'; badge.className = 'q-score-badge correct'; }
+          if (badge) { badge.textContent = 'Correct ' + QUESTION_POINTS + ' pt'; badge.className = 'q-score-badge correct'; }
         } else {
           inp.classList.add('wrong-ans');
-          if (badge) { badge.textContent = '✗ 0 pts'; badge.className = 'q-score-badge wrong'; }
+          if (badge) { badge.textContent = 'Wrong 0 pt'; badge.className = 'q-score-badge wrong'; }
           const span = document.createElement('span');
-          span.className = 'correct-ans'; span.textContent = '✓ ' + inp.dataset.answer;
+          span.className = 'correct-ans'; span.textContent = 'Correct: ' + correctDisplay;
           inp.insertAdjacentElement('afterend', span);
-          wrongList.push({ qno, your: inp.value, correct: inp.dataset.answer });
+          wrongList.push({ qno, your: inp.value.trim(), correct: correctDisplay });
         }
       });
 
@@ -1441,18 +1474,18 @@
         const badge = document.getElementById('badge-' + name);
 
         if (!checked) {
-          if (badge) { badge.textContent = '0 pts'; badge.className = 'q-score-badge wrong'; }
+          if (badge) { badge.textContent = '0 pt'; badge.className = 'q-score-badge wrong'; }
           wrongList.push({ qno, your: '', correct: correctAns });
           return;
         }
         if (checked.value === correctAns) {
           totalCorrect++; partCorrect[part]++;
           checked.parentElement.style.color = '#34d399';
-          if (badge) { badge.textContent = '✓ 1.5 pts'; badge.className = 'q-score-badge correct'; }
+          if (badge) { badge.textContent = 'Correct ' + QUESTION_POINTS + ' pt'; badge.className = 'q-score-badge correct'; }
         } else {
           checked.parentElement.style.color = '#f87171';
           radios.forEach(r => { if (r.value === correctAns) r.parentElement.style.color = '#34d399'; });
-          if (badge) { badge.textContent = '✗ 0 pts'; badge.className = 'q-score-badge wrong'; }
+          if (badge) { badge.textContent = 'Wrong 0 pt'; badge.className = 'q-score-badge wrong'; }
           wrongList.push({ qno, your: checked.value, correct: correctAns });
         }
       });
@@ -1466,19 +1499,19 @@
         const badge = document.getElementById('badge-' + qid);
 
         if (!sel.value) {
-          if (badge) { badge.textContent = '0 pts'; badge.className = 'q-score-badge wrong'; }
+          if (badge) { badge.textContent = '0 pt'; badge.className = 'q-score-badge wrong'; }
           wrongList.push({ qno, your: '', correct: ans });
           return;
         }
         if (sel.value === ans) {
           sel.style.borderColor = '#34d399';
           totalCorrect++; partCorrect[part]++;
-          if (badge) { badge.textContent = '✓ 1.5 pts'; badge.className = 'q-score-badge correct'; }
+          if (badge) { badge.textContent = 'Correct ' + QUESTION_POINTS + ' pt'; badge.className = 'q-score-badge correct'; }
         } else {
           sel.style.borderColor = '#f87171';
-          if (badge) { badge.textContent = '✗ 0 pts'; badge.className = 'q-score-badge wrong'; }
+          if (badge) { badge.textContent = 'Wrong 0 pt'; badge.className = 'q-score-badge wrong'; }
           const sp = document.createElement('span');
-          sp.className = 'correct-ans'; sp.textContent = '✓ ' + ans;
+          sp.className = 'correct-ans'; sp.textContent = 'Correct: ' + ans;
           sel.insertAdjacentElement('afterend', sp);
           wrongList.push({ qno, your: sel.value, correct: ans });
         }
@@ -1513,7 +1546,7 @@
       // Wrong table
       const wrap = document.getElementById('wrong-table-wrap');
       if (wrongList.length === 0) {
-        wrap.innerHTML = '<div class="all-correct-msg">🎉 All questions were answered correctly!</div>';
+        wrap.innerHTML = '<div class="all-correct-msg">All questions were answered correctly!</div>';
       } else {
         let html = '<table class="wrong-table"><thead><tr><th>Question</th><th>Your Answer</th><th>Correct Answer</th></tr></thead><tbody>';
         wrongList.forEach(w => {
@@ -1532,3 +1565,9 @@
 
 </body>
 </html>
+
+
+
+
+
+
