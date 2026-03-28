@@ -1,0 +1,1064 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IELTS Listening Test</title>
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    button, input, select { font: inherit; }
+
+    .hidden { display: none !important; }
+    .flex { display: flex; }
+    .grid { display: grid; }
+    .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .justify-center { justify-content: center; }
+    .flex-wrap { flex-wrap: wrap; }
+    .gap-1 { gap: 0.25rem; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-4 { gap: 1rem; }
+    .gap-y-2 { row-gap: 0.5rem; }
+    .space-y-1 > * + * { margin-top: 0.25rem; }
+    .space-y-2 > * + * { margin-top: 0.5rem; }
+    .space-y-3 > * + * { margin-top: 0.75rem; }
+    .space-y-4 > * + * { margin-top: 1rem; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .mx-2 { margin-left: 0.5rem; margin-right: 0.5rem; }
+    .mr-2 { margin-right: 0.5rem; }
+    .ml-2 { margin-left: 0.5rem; }
+    .ml-4 { margin-left: 1rem; }
+    .mt-3 { margin-top: 0.75rem; }
+    .mt-4 { margin-top: 1rem; }
+    .mt-8 { margin-top: 2rem; }
+    .mt-10 { margin-top: 2.5rem; }
+    .mb-1 { margin-bottom: 0.25rem; }
+    .mb-2 { margin-bottom: 0.5rem; }
+    .mb-3 { margin-bottom: 0.75rem; }
+    .mb-5 { margin-bottom: 1.25rem; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mb-8 { margin-bottom: 2rem; }
+    .mb-10 { margin-bottom: 2.5rem; }
+    .p-4 { padding: 1rem; }
+    .p-5 { padding: 1.25rem; }
+    .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+    .px-4 { padding-left: 1rem; padding-right: 1rem; }
+    .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+    .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+    .pb-16 { padding-bottom: 4rem; }
+    .pl-4 { padding-left: 1rem; }
+    .pl-6 { padding-left: 1.5rem; }
+    .w-4 { width: 1rem; }
+    .w-5 { width: 1.25rem; }
+    .w-6 { width: 1.5rem; }
+    .w-20 { width: 5rem; }
+    .w-36 { width: 9rem; }
+    .w-40 { width: 10rem; }
+    .h-1 { height: 0.25rem; }
+    .h-4 { height: 1rem; }
+    .h-5 { height: 1.25rem; }
+    .h-6 { height: 1.5rem; }
+    .max-w-4xl { max-width: 56rem; }
+    .rounded-full { border-radius: 9999px; }
+    .rounded-lg { border-radius: 0.5rem; }
+    .rounded-xl { border-radius: 0.75rem; }
+    .border { border-width: 1px; border-style: solid; }
+    .border-slate-600 { border-color: #475569; }
+    .cursor-pointer { cursor: pointer; }
+    .outline-none { outline: none; }
+    .text-center { text-align: center; }
+    .text-xs { font-size: 0.75rem; }
+    .text-sm { font-size: 0.875rem; }
+    .text-base { font-size: 1rem; }
+    .text-lg { font-size: 1.125rem; }
+    .text-4xl { font-size: 2.25rem; line-height: 1.1; }
+    .text-5xl { font-size: 3rem; line-height: 1; }
+    .font-mono { font-family: Consolas, Monaco, monospace; }
+    .font-semibold { font-weight: 600; }
+    .font-bold { font-weight: 700; }
+    .font-black { font-weight: 900; }
+    .leading-relaxed { line-height: 1.625; }
+    .tracking-tight { letter-spacing: -0.025em; }
+    .tracking-wide { letter-spacing: 0.025em; }
+    .text-white { color: #fff; }
+    .text-transparent { color: transparent; }
+    .text-slate-300 { color: #cbd5e1; }
+    .text-slate-400 { color: #94a3b8; }
+    .text-slate-600 { color: #475569; }
+    .text-sky-300 { color: #7dd3fc; }
+    .text-sky-400 { color: #38bdf8; }
+    .bg-slate-800 { background-color: #1e293b; }
+    .bg-opacity-50 { --bg-opacity: 0.5; }
+    .bg-opacity-60 { --bg-opacity: 0.6; }
+    .bg-slate-800.bg-opacity-50 { background-color: rgba(30, 41, 59, 0.5); }
+    .bg-slate-800.bg-opacity-60 { background-color: rgba(30, 41, 59, 0.6); }
+    .bg-clip-text { -webkit-background-clip: text; background-clip: text; }
+    .bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-to)); }
+    .from-sky-400 { --tw-gradient-from: #38bdf8; }
+    .to-violet-400 { --tw-gradient-to: #818cf8; }
+    .accent-sky-400 { accent-color: #38bdf8; }
+
+    /* ---- STICKY AUDIO PLAYER ---- */
+    #player-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(15,23,42,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid #38bdf8;
+      box-shadow: 0 4px 32px rgba(56,189,248,0.15);
+    }
+
+    /* ---- Progress bar ---- */
+    #progress-track {
+      background: #1e293b;
+      border-radius: 99px;
+      height: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    #progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      border-radius: 99px;
+      transition: width 0.3s linear;
+      pointer-events: none;
+    }
+
+    /* ---- Buttons ---- */
+    .ctrl-btn {
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      outline: none;
+      background: #1e293b;
+      color: #94a3b8;
+    }
+    .ctrl-btn:hover { background: #38bdf8; color: #0f172a; transform: scale(1.1); }
+    .ctrl-btn:active { transform: scale(0.95); }
+
+    #play-btn {
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      color: #0f172a;
+      width: 52px; height: 52px;
+    }
+    #play-btn:hover { transform: scale(1.12); box-shadow: 0 0 20px rgba(56,189,248,0.5); }
+
+    .skip-btn { width: 40px; height: 40px; }
+
+    /* ---- Tabs ---- */
+    .tab-btn {
+      padding: 8px 22px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+      color: #64748b;
+      background: transparent;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      color: #0f172a;
+      border-color: transparent;
+    }
+    .tab-btn:not(.active):hover { border-color: #38bdf8; color: #38bdf8; }
+
+    /* ---- Cards ---- */
+    .part-card {
+      background: rgba(30,41,59,0.7);
+      border: 1.5px solid rgba(56,189,248,0.15);
+      border-radius: 18px;
+      padding: 28px;
+      backdrop-filter: blur(8px);
+    }
+    .part-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #38bdf8;
+      letter-spacing: 0.03em;
+      margin-bottom: 18px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .part-title span {
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      color: #0f172a;
+      border-radius: 8px;
+      padding: 2px 10px;
+      font-size: 0.78rem;
+    }
+
+    /* ---- Answer inputs ---- */
+    .answer-input {
+      background: #0f172a;
+      border: 1.5px solid #334155;
+      border-radius: 8px;
+      color: #e2e8f0;
+      padding: 4px 10px;
+      font-size: 0.9rem;
+      width: 130px;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .answer-input:focus { border-color: #38bdf8; box-shadow: 0 0 0 2px rgba(56,189,248,0.15); }
+
+    .q-label {
+      color: #818cf8;
+      font-weight: 800;
+      font-size: 0.82rem;
+      min-width: 28px;
+    }
+    .q-text { color: #cbd5e1; font-size: 0.93rem; line-height: 1.6; }
+    .q-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+
+    /* Radio/Checkbox style */
+    .opt-label {
+      display: flex; align-items: center; gap: 8px;
+      cursor: pointer; color: #94a3b8; font-size: 0.9rem;
+      padding: 5px 10px; border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .opt-label:hover { background: rgba(56,189,248,0.08); color: #e2e8f0; }
+    .opt-label input { accent-color: #38bdf8; }
+
+    /* Match select */
+    .match-select {
+      background: #0f172a;
+      border: 1.5px solid #334155;
+      border-radius: 8px;
+      color: #e2e8f0;
+      padding: 4px 8px;
+      font-size: 0.88rem;
+      outline: none;
+      cursor: pointer;
+      transition: border 0.2s;
+    }
+    .match-select:focus { border-color: #38bdf8; }
+
+    /* ---- Check answers btn ---- */
+    #check-btn {
+      background: linear-gradient(135deg, #38bdf8, #818cf8);
+      color: #0f172a;
+      font-weight: 800;
+      font-size: 1rem;
+      border-radius: 12px;
+      padding: 12px 36px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 20px rgba(56,189,248,0.3);
+    }
+    #check-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(56,189,248,0.4); }
+
+    .correct-ans { color: #34d399 !important; font-weight: 700; font-size: 0.82rem; margin-left: 4px; }
+    .wrong-ans { border-color: #f87171 !important; }
+    .right-ans { border-color: #34d399 !important; }
+
+    /* ---- Score panel ---- */
+    #score-panel {
+      background: linear-gradient(135deg, rgba(56,189,248,0.1), rgba(129,140,248,0.1));
+      border: 1.5px solid rgba(56,189,248,0.3);
+      border-radius: 16px;
+      padding: 20px 28px;
+      display: none;
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+
+    .section-divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+      margin: 30px 0;
+      opacity: 0.3;
+    }
+
+    .main-content {
+      padding-top: 140px;
+    }
+
+    .player-top-row,
+    .player-controls {
+      flex-wrap: wrap;
+    }
+
+    .player-volume {
+      min-width: 0;
+    }
+
+    .player-volume input[type="range"] {
+      width: 5rem;
+    }
+
+    @media (max-width: 900px) {
+      .main-content {
+        padding-top: 160px;
+      }
+
+      .part-card {
+        padding: 24px 20px;
+      }
+
+      .answer-input {
+        width: min(100%, 180px);
+      }
+
+      .q-row {
+        gap: 8px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        overflow-x: hidden;
+      }
+
+      .max-w-4xl {
+        width: 100%;
+      }
+
+      .w-36, .w-40 {
+        width: 100%;
+      }
+
+      .text-4xl {
+        font-size: 1.8rem;
+      }
+
+      .text-5xl {
+        font-size: 2.4rem;
+      }
+
+      #player-bar {
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+
+      .player-top-row {
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .player-controls {
+        justify-content: center;
+        gap: 0.75rem;
+      }
+
+      .player-volume {
+        width: 100%;
+        margin-left: 0;
+        justify-content: center;
+      }
+
+      .player-volume input[type="range"] {
+        width: min(10rem, 42vw);
+      }
+
+      #speed-select {
+        margin-left: 0;
+      }
+
+      .main-content {
+        padding-top: 220px;
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .part-card {
+        padding: 18px 14px;
+        border-radius: 16px;
+      }
+
+      .part-title {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .tab-btn {
+        flex: 1 1 calc(50% - 0.5rem);
+        min-width: 120px;
+        text-align: center;
+        padding: 10px 14px;
+      }
+
+      .q-row {
+        flex-direction: column;
+        align-items: stretch;
+        margin-bottom: 14px;
+      }
+
+      .answer-input,
+      .match-select {
+        width: 100% !important;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .opt-label {
+        align-items: flex-start;
+        line-height: 1.5;
+      }
+
+      #check-btn {
+        width: 100%;
+        padding: 14px 18px;
+      }
+
+      #score-panel {
+        padding: 18px 16px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .main-content {
+        padding-top: 235px;
+      }
+
+      .text-4xl {
+        font-size: 1.55rem;
+      }
+
+      .text-5xl {
+        font-size: 2rem;
+      }
+
+      #play-btn {
+        width: 48px;
+        height: 48px;
+      }
+
+      .skip-btn {
+        width: 38px;
+        height: 38px;
+      }
+
+      .tab-btn {
+        flex-basis: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== FIXED AUDIO PLAYER ===== -->
+  <div id="player-bar" class="px-4 py-3">
+    <div class="max-w-4xl mx-auto">
+      <!-- Top row: title + time -->
+      <div class="flex items-center justify-between mb-2 player-top-row">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-sky-400" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z"/>
+          </svg>
+          <span class="text-sky-300 font-bold text-sm tracking-wide">IELTS Listening Test - Audio</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="current-time" class="text-slate-400 font-mono text-sm">0:00</span>
+          <span class="text-slate-600 text-sm">/</span>
+          <span id="total-time" class="text-slate-400 font-mono text-sm">0:00</span>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div id="progress-track" class="mb-3" onclick="seekAudio(event)">
+        <div id="progress-fill" style="width:0%"></div>
+      </div>
+
+      <!-- Controls row -->
+      <div class="flex items-center justify-center gap-4 player-controls">
+        <!-- -5s -->
+        <button class="ctrl-btn skip-btn" onclick="skipTime(-5)" title="5 soniya orqaga">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="w-5 h-5">
+            <polyline points="1 4 1 10 7 10"></polyline>
+            <path d="M3.51 15a9 9 0 1 0 .49-3.5"></path>
+            <text x="8" y="15" font-size="6" fill="currentColor" stroke="none" font-weight="bold">5</text>
+          </svg>
+        </button>
+
+        <!-- Play/Pause -->
+        <button id="play-btn" class="ctrl-btn" onclick="togglePlay()">
+          <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+          <svg id="pause-icon" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 hidden">
+            <rect x="6" y="4" width="4" height="16"/>
+            <rect x="14" y="4" width="4" height="16"/>
+          </svg>
+        </button>
+
+        <!-- +5s -->
+        <button class="ctrl-btn skip-btn" onclick="skipTime(5)" title="5 soniya oldinga">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="w-5 h-5">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <path d="M20.49 15a9 9 0 1 1-.49-3.5"></path>
+            <text x="8" y="15" font-size="6" fill="currentColor" stroke="none" font-weight="bold">5</text>
+          </svg>
+        </button>
+
+        <!-- Volume -->
+        <div class="flex items-center gap-2 ml-4 player-volume">
+          <svg class="w-4 h-4 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd"/>
+          </svg>
+          <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="1"
+            class="w-20 h-1 rounded-full cursor-pointer accent-sky-400"
+            oninput="setVolume(this.value)" />
+        </div>
+
+        <!-- Speed -->
+        <select id="speed-select" onchange="setSpeed(this.value)"
+          class="ml-2 bg-slate-800 text-slate-300 text-xs font-bold border border-slate-600 rounded-lg px-2 py-1 cursor-pointer outline-none">
+          <option value="0.75">0.75x</option>
+          <option value="1" selected>1x</option>
+          <option value="1.25">1.25x</option>
+          <option value="1.5">1.5x</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Audio element - MP3 sini shu yerga qo'ying -->
+    <audio id="audio" preload="metadata">
+      <!-- O'zingizning MP3 faylingizni shu yerga qo'ying: -->
+      <source src="./56658.mp3" type="audio/mpeg" />
+      <!-- Misol: <source src="listening_test3.mp3" type="audio/mpeg" /> -->
+    </audio>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="max-w-4xl mx-auto px-4 pb-16 main-content">
+
+    <!-- Header -->
+    <div class="text-center mb-10">
+      <h1 class="text-4xl font-black text-white mb-2 tracking-tight">
+        IELTS <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-violet-400">Listening</span> Test
+      </h1>
+      <p class="text-slate-400 font-semibold">4 Parts - 40 Questions</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex gap-2 justify-center mb-8 flex-wrap">
+      <button class="tab-btn active" onclick="showPart(1, this)">Part 1</button>
+      <button class="tab-btn" onclick="showPart(2, this)">Part 2</button>
+      <button class="tab-btn" onclick="showPart(3, this)">Part 3</button>
+      <button class="tab-btn" onclick="showPart(4, this)">Part 4</button>
+    </div>
+
+    <!-- ===== PART 1 ===== -->
+    <div id="part-1" class="part-section">
+      <div class="part-card">
+        <div class="part-title">
+          PART 1 <span>Questions 1-10</span>
+        </div>
+        <p class="text-slate-400 text-sm mb-6 leading-relaxed">
+          Write <strong class="text-sky-300">ONE WORD AND/OR A NUMBER</strong> for each answer.
+        </p>
+        <h3 class="text-white font-bold text-lg mb-1">Film Club</h3>
+        <p class="text-slate-400 text-sm mb-6 font-semibold">Membership information</p>
+
+        <div class="bg-slate-800 bg-opacity-60 rounded-xl p-5 space-y-3">
+          <div class="q-row">
+            <span class="q-text text-slate-300 font-semibold">Club meets every 2 weeks</span>
+          </div>
+          <div class="q-row items-center">
+            <span class="q-label">Q1</span>
+            <span class="q-text">No</span>
+            <input class="answer-input mx-2" data-answer="age" placeholder="..." id="q1" />
+            <span class="q-text">limit</span>
+          </div>
+          <div class="q-row items-center">
+            <span class="q-label">Q2</span>
+            <span class="q-text">Student membership costs £</span>
+            <input class="answer-input mx-2" data-answer="12" placeholder="..." id="q2" style="width:80px;" />
+            <span class="q-text">per season</span>
+          </div>
+
+          <div class="mt-4 mb-2 text-slate-300 font-semibold text-sm">Members get:</div>
+          <div class="pl-4 space-y-2">
+            <p class="q-text text-slate-400">- free entry to club films</p>
+            <div class="q-row items-center">
+              <span class="q-label">Q3</span>
+              <span class="q-text">£</span>
+              <input class="answer-input mx-2" data-answer="2" placeholder="..." id="q3" style="width:70px;" />
+              <span class="q-text">reduction on other films at cinema</span>
+            </div>
+            <div class="q-row items-center">
+              <span class="q-label">Q4</span>
+              <span class="q-text">Members are entitled to 3 hours' free</span>
+              <input class="answer-input mx-2" data-answer="parking" placeholder="..." id="q4" />
+            </div>
+          </div>
+
+          <div class="mt-4 mb-2 text-slate-300 font-semibold text-sm">Films to be shown:</div>
+          <div class="pl-4 space-y-3">
+            <p class="text-sky-400 font-bold text-sm">Oct 14: Pablo</p>
+            <div class="q-row items-center flex-wrap gap-y-2">
+              <span class="q-label">Q5</span>
+              <span class="q-text">- about a child in</span>
+              <input class="answer-input mx-2" data-answer="Spain" placeholder="..." id="q5" />
+              <span class="q-text">who runs away from home and wins a</span>
+            </div>
+            <div class="q-row items-center">
+              <span class="q-label">Q6</span>
+              <input class="answer-input mr-2" data-answer="cooking" placeholder="..." id="q6" />
+              <span class="q-text">competition on TV</span>
+            </div>
+            <p class="text-sky-400 font-bold text-sm mt-3">Oct 28: The Soldier</p>
+            <div class="q-row items-center">
+              <span class="q-label">Q7</span>
+              <span class="q-text">- with live</span>
+              <input class="answer-input mx-2" data-answer="piano" placeholder="..." id="q7" />
+              <span class="q-text">accompaniment</span>
+            </div>
+            <div class="q-row items-center">
+              <span class="q-label">Q8</span>
+              <span class="q-text">- made in the year</span>
+              <input class="answer-input mx-2" data-answer="1998" placeholder="..." id="q8" style="width:90px;" />
+            </div>
+            <div class="q-row items-center">
+              <span class="q-label">Q9</span>
+              <span class="q-text">- type of film: a</span>
+              <input class="answer-input mx-2" data-answer="western" placeholder="..." id="q9" />
+            </div>
+            <p class="text-sky-400 font-bold text-sm mt-3">Nov 11: Tiger</p>
+            <p class="q-text text-slate-400">- cartoon aimed at adults</p>
+            <div class="q-row items-center">
+              <span class="q-label">Q10</span>
+              <span class="q-text">- followed by a</span>
+              <input class="answer-input mx-2" data-answer="talk" placeholder="..." id="q10" />
+              <span class="q-text">by the director</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PART 2 ===== -->
+    <div id="part-2" class="part-section hidden">
+      <div class="part-card">
+        <div class="part-title">PART 2 <span>Questions 11-20</span></div>
+
+        <h3 class="text-white font-bold text-base mb-5">Questions 11-15 - Choose the correct letter, A, B or C</h3>
+        <p class="text-sky-400 font-bold mb-5">extrahands.com</p>
+
+        <!-- Q11 -->
+        <div class="mb-6">
+          <div class="q-row mb-2"><span class="q-label">Q11</span><span class="q-text">Stephen says the founders of extrahands.com originally needed help in</span></div>
+          <div class="pl-6 space-y-1">
+            <label class="opt-label"><input type="radio" name="q11" value="A" data-answer="B" /> A - preparing their fields for planting</label>
+            <label class="opt-label"><input type="radio" name="q11" value="B" data-answer="B" /> B - harvesting their organic crops</label>
+            <label class="opt-label"><input type="radio" name="q11" value="C" data-answer="B" /> C - constructing their farm buildings</label>
+          </div>
+        </div>
+        <!-- Q12 -->
+        <div class="mb-6">
+          <div class="q-row mb-2"><span class="q-label">Q12</span><span class="q-text">To remain an active member, you must</span></div>
+          <div class="pl-6 space-y-1">
+            <label class="opt-label"><input type="radio" name="q12" value="A" data-answer="C" /> A - update your form on the website every year</label>
+            <label class="opt-label"><input type="radio" name="q12" value="B" data-answer="C" /> B - pay a subscription of $25 every year</label>
+            <label class="opt-label"><input type="radio" name="q12" value="C" data-answer="C" /> C - use the scheme as a host or volunteer every year</label>
+          </div>
+        </div>
+        <!-- Q13 -->
+        <div class="mb-6">
+          <div class="q-row mb-2"><span class="q-label">Q13</span><span class="q-text">Most volunteers search for jobs according to</span></div>
+          <div class="pl-6 space-y-1">
+            <label class="opt-label"><input type="radio" name="q13" value="A" data-answer="B" /> A - the type of work available</label>
+            <label class="opt-label"><input type="radio" name="q13" value="B" data-answer="B" /> B - the geographical location</label>
+            <label class="opt-label"><input type="radio" name="q13" value="C" data-answer="B" /> C - the length of time required</label>
+          </div>
+        </div>
+        <!-- Q14 -->
+        <div class="mb-6">
+          <div class="q-row mb-2"><span class="q-label">Q14</span><span class="q-text">Stephen recommends that the host and volunteer should</span></div>
+          <div class="pl-6 space-y-1">
+            <label class="opt-label"><input type="radio" name="q14" value="A" data-answer="A" /> A - confirm details of the arrangement in writing</label>
+            <label class="opt-label"><input type="radio" name="q14" value="B" data-answer="A" /> B - draw up a formal written contract</label>
+            <label class="opt-label"><input type="radio" name="q14" value="C" data-answer="A" /> C - meet each other before setting on terms</label>
+          </div>
+        </div>
+        <!-- Q15 -->
+        <div class="mb-8">
+          <div class="q-row mb-2"><span class="q-label">Q15</span><span class="q-text">To deal with members' problems, extrahands.com have a system</span></div>
+          <div class="pl-6 space-y-1">
+            <label class="opt-label"><input type="radio" name="q15" value="A" data-answer="B" /> A - for checking each new member online</label>
+            <label class="opt-label"><input type="radio" name="q15" value="B" data-answer="B" /> B - for allowing online feedback</label>
+            <label class="opt-label"><input type="radio" name="q15" value="C" data-answer="B" /> C - for inspecting work and accommodation</label>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <h3 class="text-white font-bold text-base mb-3">Questions 16-20 - Match country to job</h3>
+        <div class="bg-slate-800 bg-opacity-50 rounded-xl p-4 mb-5">
+          <p class="text-slate-400 text-sm font-semibold mb-2">Jobs:</p>
+          <div class="grid grid-cols-2 gap-1 text-sm text-slate-300">
+            <span>A - cook</span><span>B - gardener</span>
+            <span>C - construction worker</span><span>D - tour guide</span>
+            <span>E - farm labourer</span><span>F - editor</span>
+            <span>G - swimming pool cleaner</span>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="q-row items-center"><span class="q-label">Q16</span><span class="q-text w-36">Portugal</span>
+            <select class="match-select" id="q16" data-answer="G"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          </div>
+          <div class="q-row items-center"><span class="q-label">Q17</span><span class="q-text w-36">Australia</span>
+            <select class="match-select" id="q17" data-answer="E"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          </div>
+          <div class="q-row items-center"><span class="q-label">Q18</span><span class="q-text w-36">South Korea</span>
+            <select class="match-select" id="q18" data-answer="D"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          </div>
+          <div class="q-row items-center"><span class="q-label">Q19</span><span class="q-text w-36">USA</span>
+            <select class="match-select" id="q19" data-answer="F"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          </div>
+          <div class="q-row items-center"><span class="q-label">Q20</span><span class="q-text w-36">Italy</span>
+            <select class="match-select" id="q20" data-answer="B"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PART 3 ===== -->
+    <div id="part-3" class="part-section hidden">
+      <div class="part-card">
+        <div class="part-title">PART 3 <span>Questions 21-30</span></div>
+        <h3 class="text-white font-bold text-base mb-5">Questions 21-25 - Choose the correct letter, A, B or C</h3>
+        <p class="text-sky-400 font-bold mb-5">Song-writing course for drama students</p>
+
+        <div class="mb-6">
+          <div class="q-row mb-2"><span class="q-label">Q21</span><span class="q-text">What problem is Lorna having with her report?</span></div>
+          <div class="pl-6 space-y-1">
+            <label class="opt-label"><input type="radio" name="q21" value="A" data-answer="B" /> A - listing the references</label>
+            <label class="opt-label"><input type="radio" name="q21" value="B" data-answer="B" /> B - keeping to the word limit</label>
+            <label class="opt-label"><input type="radio" name="q21" value="C" data-answer="B" /> C - writing the evaluation</label>
+          </div>
+        </div>
+        <div class="mb-6">
+          <div class="q-row mb-2"><span class="q-label">Q22</span><span class="q-text">Why did Charles take the song-writing course?</span></div>
+          <div class="pl-6 space-y-1">
+            <label class="opt-label"><input type="radio" name="q22" value="A" data-answer="C" /> A - to improve his job prospects</label>
+            <label class="opt-label"><input type="radio" name="q22" value="B" data-answer="C" /> B - to increase his self-confidence</label>
+            <label class="opt-label"><input type="radio" name="q22" value="C" data-answer="C" /> C - to develop his self-expression</label>
+          </div>
+        </div>
+        <div class="mb-6">
+          <div class="q-row mb-2"><span class="q-label">Q23</span><span class="q-text">Which type of work did Lorna most enjoy?</span></div>
+          <div class="pl-6 space-y-1">
+            <label class="opt-label"><input type="radio" name="q23" value="A" data-answer="A" /> A - individual work</label>
+            <label class="opt-label"><input type="radio" name="q23" value="B" data-answer="A" /> B - pair work</label>
+            <label class="opt-label"><input type="radio" name="q23" value="C" data-answer="A" /> C - group work</label>
+          </div>
+        </div>
+        <div class="mb-6">
+          <div class="q-row mb-2"><span class="q-label">Q24</span><span class="q-text">Which aspect did both students find interesting?</span></div>
+          <div class="pl-6 space-y-1">
+            <label class="opt-label"><input type="radio" name="q24" value="A" data-answer="C" /> A - song structure</label>
+            <label class="opt-label"><input type="radio" name="q24" value="B" data-answer="C" /> B - writing a chorus</label>
+            <label class="opt-label"><input type="radio" name="q24" value="C" data-answer="C" /> C - lyrical styles and forms</label>
+          </div>
+        </div>
+        <div class="mb-8">
+          <div class="q-row mb-2"><span class="q-label">Q25</span><span class="q-text">Lorna found writing a song</span></div>
+          <div class="pl-6 space-y-1">
+            <label class="opt-label"><input type="radio" name="q25" value="A" data-answer="C" /> A - impossible</label>
+            <label class="opt-label"><input type="radio" name="q25" value="B" data-answer="C" /> B - tiring</label>
+            <label class="opt-label"><input type="radio" name="q25" value="C" data-answer="C" /> C - amusing</label>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <h3 class="text-white font-bold text-base mb-3">Questions 26-30 - Match teacher to focus</h3>
+        <div class="bg-slate-800 bg-opacity-50 rounded-xl p-4 mb-5">
+          <p class="text-slate-400 text-sm font-semibold mb-2">Focus:</p>
+          <div class="grid grid-cols-2 gap-1 text-sm text-slate-300">
+            <span>A - use of own memories</span><span>B - full use of the stage</span>
+            <span>C - relaxation techniques</span><span>D - physical expression</span>
+            <span>E - play readings</span><span>F - acting without preparation</span>
+            <span>G - using a range of accents</span><span>H - following instructions</span>
+          </div>
+        </div>
+        <div class="space-y-3">
+          <div class="q-row items-center"><span class="q-label">Q26</span><span class="q-text w-40">Bob Lacey</span>
+            <select class="match-select" id="q26" data-answer="D"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          </div>
+          <div class="q-row items-center"><span class="q-label">Q27</span><span class="q-text w-40">Evelyn Chance</span>
+            <select class="match-select" id="q27" data-answer="H"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          </div>
+          <div class="q-row items-center"><span class="q-label">Q28</span><span class="q-text w-40">Ted Winter</span>
+            <select class="match-select" id="q28" data-answer="F"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          </div>
+          <div class="q-row items-center"><span class="q-label">Q29</span><span class="q-text w-40">Kevin Gray</span>
+            <select class="match-select" id="q29" data-answer="B"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          </div>
+          <div class="q-row items-center"><span class="q-label">Q30</span><span class="q-text w-40">Dorothy Thomas</span>
+            <select class="match-select" id="q30" data-answer="A"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PART 4 ===== -->
+    <div id="part-4" class="part-section hidden">
+      <div class="part-card">
+        <div class="part-title">PART 4 <span>Questions 31-40</span></div>
+        <p class="text-slate-400 text-sm mb-6">Write <strong class="text-sky-300">ONE WORD ONLY</strong> for each answer.</p>
+        <h3 class="text-white font-bold text-lg mb-5">Office Design</h3>
+
+        <div class="space-y-4">
+          <p class="text-sky-400 font-bold text-sm">Early 20th Century</p>
+          <div class="q-row items-center flex-wrap gap-y-2">
+            <span class="q-label">Q31</span>
+            <span class="q-text">- workers employed to do</span>
+            <input class="answer-input mx-2" data-answer="routine" placeholder="..." id="q31" />
+            <span class="q-text">were arranged in rows</span>
+          </div>
+
+          <div class="section-divider"></div>
+          <p class="text-sky-400 font-bold text-sm">1960s to present - Variations in design:</p>
+          <div class="q-row items-center flex-wrap gap-y-2">
+            <span class="q-label">Q32</span>
+            <span class="q-text">- first, workers had individual</span>
+            <input class="answer-input mx-2" data-answer="desks" placeholder="..." id="q32" />
+          </div>
+          <div class="q-row items-center flex-wrap gap-y-2">
+            <span class="q-label">Q33</span>
+            <span class="q-text">- later, cubicles with high or low</span>
+            <input class="answer-input mx-2" data-answer="partitions" placeholder="..." id="q33" />
+          </div>
+          <div class="q-row items-center flex-wrap gap-y-2">
+            <span class="q-label">Q34</span>
+            <span class="q-text">- nowadays, workers may have to</span>
+            <input class="answer-input mx-2" data-answer="share" placeholder="..." id="q34" />
+            <span class="q-text">a work area</span>
+          </div>
+
+          <div class="section-divider"></div>
+          <p class="text-sky-400 font-bold text-sm">Survey results - Employees' attitudes:</p>
+          <div class="q-row items-center flex-wrap gap-y-2">
+            <span class="q-label">Q35</span>
+            <span class="q-text">- there is a lack of</span>
+            <input class="answer-input mx-2" data-answer="privacy" placeholder="..." id="q35" />
+          </div>
+          <div class="q-row items-center flex-wrap gap-y-2">
+            <span class="q-label">Q36</span>
+            <span class="q-text">  and</span>
+            <input class="answer-input mx-2" data-answer="quiet" placeholder="..." id="q36" />
+          </div>
+          <div class="q-row items-center flex-wrap gap-y-2">
+            <span class="q-label">Q37</span>
+            <span class="q-text">- they pose a risk to our</span>
+            <input class="answer-input mx-2" data-answer="health" placeholder="..." id="q37" />
+            <span class="q-text">(staff records support this)</span>
+          </div>
+
+          <div class="section-divider"></div>
+          <p class="text-sky-400 font-bold text-sm">Employers' attitudes:</p>
+          <div class="q-row items-center flex-wrap gap-y-2">
+            <span class="q-label">Q38</span>
+            <span class="q-text">- significantly reduce rent and</span>
+            <input class="answer-input mx-2" data-answer="maintenance" placeholder="..." id="q38" />
+            <span class="q-text">costs</span>
+          </div>
+          <div class="q-row items-center flex-wrap gap-y-2">
+            <span class="q-label">Q39</span>
+            <span class="q-text">- can make</span>
+            <input class="answer-input mx-2" data-answer="supervising" placeholder="..." id="q39" />
+            <span class="q-text">staff easier</span>
+          </div>
+          <div class="q-row items-center flex-wrap gap-y-2">
+            <span class="q-label">Q40</span>
+            <span class="q-text">- employees are often distracted by the</span>
+            <input class="answer-input mx-2" data-answer="noise" placeholder="..." id="q40" />
+            <span class="q-text">in the office</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Check Answers -->
+    <div class="mt-10 text-center">
+      <button id="check-btn" onclick="checkAnswers()">✓ Javoblarni tekshirish</button>
+    </div>
+
+    <!-- Score Panel -->
+    <div id="score-panel" class="mt-8">
+      <div class="text-center">
+        <p class="text-slate-400 font-semibold mb-1">Natijangiz</p>
+        <p id="score-text" class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-violet-400 mb-2"></p>
+        <p id="score-msg" class="text-slate-300 font-semibold"></p>
+      </div>
+    </div>
+
+  </div><!-- /main content -->
+
+  <script>
+    // ===== AUDIO PLAYER =====
+    const audio = document.getElementById('audio');
+
+    audio.addEventListener('loadedmetadata', () => {
+      document.getElementById('total-time').textContent = formatTime(audio.duration);
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+      document.getElementById('progress-fill').style.width = pct + '%';
+      document.getElementById('current-time').textContent = formatTime(audio.currentTime);
+    });
+
+    audio.addEventListener('ended', () => {
+      document.getElementById('play-icon').classList.remove('hidden');
+      document.getElementById('pause-icon').classList.add('hidden');
+    });
+
+    // Auto-pause when page loses focus (tab change, minimize)
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && !audio.paused) {
+        audio.pause();
+        document.getElementById('play-icon').classList.remove('hidden');
+        document.getElementById('pause-icon').classList.add('hidden');
+      }
+    });
+
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play();
+        document.getElementById('play-icon').classList.add('hidden');
+        document.getElementById('pause-icon').classList.remove('hidden');
+      } else {
+        audio.pause();
+        document.getElementById('play-icon').classList.remove('hidden');
+        document.getElementById('pause-icon').classList.add('hidden');
+      }
+    }
+
+    function skipTime(sec) {
+      audio.currentTime = Math.max(0, Math.min(audio.duration || 0, audio.currentTime + sec));
+    }
+
+    function seekAudio(e) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const ratio = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = ratio * (audio.duration || 0);
+    }
+
+    function setVolume(val) { audio.volume = val; }
+
+    function setSpeed(val) { audio.playbackRate = parseFloat(val); }
+
+    function formatTime(s) {
+      if (isNaN(s)) return '0:00';
+      const m = Math.floor(s / 60);
+      const sec = Math.floor(s % 60);
+      return m + ':' + (sec < 10 ? '0' : '') + sec;
+    }
+
+    // ===== TABS =====
+    function showPart(n, btn) {
+      document.querySelectorAll('.part-section').forEach(el => el.classList.add('hidden'));
+      document.getElementById('part-' + n).classList.remove('hidden');
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // ===== CHECK ANSWERS =====
+    function checkAnswers() {
+      let correct = 0, total = 0;
+
+      document.querySelectorAll('.opt-label').forEach(label => {
+        label.style.color = '';
+      });
+
+      // Text inputs
+      document.querySelectorAll('.answer-input').forEach(inp => {
+        const ans = (inp.dataset.answer || '').toLowerCase().trim();
+        const val = inp.value.toLowerCase().trim();
+        inp.classList.remove('wrong-ans', 'right-ans');
+        let hint = inp.nextElementSibling;
+        if (hint && hint.classList.contains('correct-ans')) hint.remove();
+
+        if (val === '') return;
+        total++;
+        if (val === ans) {
+          inp.classList.add('right-ans');
+          correct++;
+        } else {
+          inp.classList.add('wrong-ans');
+          const span = document.createElement('span');
+          span.className = 'correct-ans';
+          span.textContent = '✓ ' + inp.dataset.answer;
+          inp.insertAdjacentElement('afterend', span);
+        }
+      });
+
+      // Radio buttons
+      const radioGroups = {};
+      document.querySelectorAll('input[type="radio"]').forEach(r => {
+        if (!radioGroups[r.name]) radioGroups[r.name] = r.closest('.mb-6') || r.parentElement.parentElement.parentElement;
+      });
+
+      const names = [...new Set([...document.querySelectorAll('input[type="radio"]')].map(r => r.name))];
+      names.forEach(name => {
+        const radios = document.querySelectorAll(`input[name="${name}"]`);
+        const correct_ans = radios[0].dataset.answer;
+        const checked = document.querySelector(`input[name="${name}"]:checked`);
+        if (!checked) return;
+        total++;
+        if (checked.value === correct_ans) {
+          correct++;
+          checked.parentElement.style.color = '#34d399';
+        } else {
+          checked.parentElement.style.color = '#f87171';
+          radios.forEach(r => {
+            if (r.value === correct_ans) r.parentElement.style.color = '#34d399';
+          });
+        }
+      });
+
+      // Selects
+      document.querySelectorAll('.match-select').forEach(sel => {
+        let hint = sel.nextElementSibling;
+        if (hint && hint.classList.contains('correct-ans')) hint.remove();
+
+        if (!sel.value) return;
+        total++;
+        const ans = sel.dataset.answer;
+        sel.style.borderColor = sel.value === ans ? '#34d399' : '#f87171';
+        if (sel.value !== ans) {
+          const sp = document.createElement('span');
+          sp.className = 'correct-ans';
+          sp.textContent = '✓ ' + ans;
+          sel.insertAdjacentElement('afterend', sp);
+        }
+      });
+
+      // Show score
+      const panel = document.getElementById('score-panel');
+      panel.style.display = 'block';
+      document.getElementById('score-text').textContent = correct + ' / ' + total;
+      const pct = total ? Math.round(correct / total * 100) : 0;
+      let msg = pct >= 80 ? 'Ajoyib! Zo\'r natija!' : pct >= 60 ? 'Yaxshi! Davom eting!' : 'Ko\'proq mashq qiling!';
+      document.getElementById('score-msg').textContent = msg;
+      panel.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
+
+
