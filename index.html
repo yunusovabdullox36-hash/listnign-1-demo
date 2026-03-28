@@ -5,15 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>IELTS Listening Test</title>
   <style>
+    :root {
+      color-scheme: dark;
+      --bg-deep: #0f172a;
+      --bg-soft: #1e293b;
+      --line-soft: rgba(148, 163, 184, 0.18);
+      --line-strong: rgba(56, 189, 248, 0.28);
+      --sky: #38bdf8;
+      --violet: #818cf8;
+      --amber: #fbbf24;
+      --text-main: #e2e8f0;
+      --text-muted: #94a3b8;
+      --success: #34d399;
+      --danger: #f87171;
+      --panel-shadow: 0 24px 70px rgba(15, 23, 42, 0.34);
+    }
+
     * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      background:
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.16), transparent 28%),
+        linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
       min-height: 100vh;
       margin: 0;
+      color: var(--text-main);
     }
 
     button, input, select { font: inherit; }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 2px solid rgba(56, 189, 248, 0.9);
+      outline-offset: 2px;
+    }
 
     .hidden { display: none !important; }
     .flex { display: flex; }
@@ -106,6 +136,61 @@
     .to-violet-400 { --tw-gradient-to: #818cf8; }
     .accent-sky-400 { accent-color: #38bdf8; }
 
+    /* ======= KEYWORD HIGHLIGHT ======= */
+    .kw {
+      background: linear-gradient(135deg, rgba(251,191,36,0.22), rgba(251,191,36,0.10));
+      color: var(--amber);
+      font-weight: 700;
+      border-radius: 4px;
+      padding: 1px 5px;
+      border-bottom: 2px solid var(--amber);
+      letter-spacing: 0.01em;
+      transition: background 0.2s, color 0.2s;
+    }
+    .kw:hover {
+      background: rgba(251,191,36,0.35);
+    }
+
+    /* Keyword toggle button */
+    #kw-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(251,191,36,0.13);
+      border: 1.5px solid rgba(251,191,36,0.5);
+      color: var(--amber);
+      font-weight: 700;
+      font-size: 0.82rem;
+      border-radius: 9999px;
+      padding: 6px 18px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.03em;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.2);
+    }
+    #kw-toggle-btn:hover {
+      background: rgba(251,191,36,0.28);
+      border-color: var(--amber);
+      transform: translateY(-1px);
+    }
+    body.kw-off #kw-toggle-btn {
+      background: rgba(30, 41, 59, 0.82);
+      border-color: rgba(148, 163, 184, 0.28);
+      color: var(--text-muted);
+    }
+    #kw-toggle-btn svg {
+      width: 14px; height: 14px;
+    }
+    /* when keywords hidden */
+    body.kw-off .kw {
+      background: none;
+      color: inherit;
+      font-weight: inherit;
+      border-bottom: none;
+      padding: 0;
+    }
+    /* ================================= */
+
     /* ---- STICKY AUDIO PLAYER ---- */
     #player-bar {
       position: fixed;
@@ -113,7 +198,7 @@
       z-index: 100;
       background: rgba(15,23,42,0.97);
       backdrop-filter: blur(12px);
-      border-bottom: 2px solid #38bdf8;
+      border-bottom: 1px solid var(--line-strong);
       box-shadow: 0 4px 32px rgba(56,189,248,0.15);
     }
 
@@ -142,8 +227,9 @@
       transition: all 0.2s;
       border: none;
       outline: none;
-      background: #1e293b;
-      color: #94a3b8;
+      background: rgba(30, 41, 59, 0.96);
+      color: var(--text-muted);
+      box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.08);
     }
     .ctrl-btn:hover { background: #38bdf8; color: #0f172a; transform: scale(1.1); }
     .ctrl-btn:active { transform: scale(0.95); }
@@ -183,6 +269,7 @@
       border-radius: 18px;
       padding: 28px;
       backdrop-filter: blur(8px);
+      box-shadow: var(--panel-shadow);
     }
     .part-title {
       font-size: 1.15rem;
@@ -202,7 +289,7 @@
 
     /* ---- Answer inputs ---- */
     .answer-input {
-      background: #0f172a;
+      background: rgba(15, 23, 42, 0.96);
       border: 1.5px solid #334155;
       border-radius: 8px;
       color: #e2e8f0;
@@ -235,7 +322,7 @@
 
     /* Match select */
     .match-select {
-      background: #0f172a;
+      background: rgba(15, 23, 42, 0.96);
       border: 1.5px solid #334155;
       border-radius: 8px;
       color: #e2e8f0;
@@ -273,6 +360,7 @@
       border-radius: 16px;
       padding: 20px 28px;
       display: none;
+      box-shadow: var(--panel-shadow);
     }
 
     /* scrollbar */
@@ -305,151 +393,43 @@
     }
 
     @media (max-width: 900px) {
-      .main-content {
-        padding-top: 160px;
-      }
-
-      .part-card {
-        padding: 24px 20px;
-      }
-
-      .answer-input {
-        width: min(100%, 180px);
-      }
-
-      .q-row {
-        gap: 8px;
-      }
+      .main-content { padding-top: 160px; }
+      .part-card { padding: 24px 20px; }
+      .answer-input { width: min(100%, 180px); }
+      .q-row { gap: 8px; }
     }
 
     @media (max-width: 640px) {
-      body {
-        overflow-x: hidden;
-      }
-
-      .max-w-4xl {
-        width: 100%;
-      }
-
-      .w-36, .w-40 {
-        width: 100%;
-      }
-
-      .text-4xl {
-        font-size: 1.8rem;
-      }
-
-      .text-5xl {
-        font-size: 2.4rem;
-      }
-
-      #player-bar {
-        padding-top: 12px;
-        padding-bottom: 12px;
-      }
-
-      .player-top-row {
-        align-items: flex-start;
-        gap: 0.5rem;
-      }
-
-      .player-controls {
-        justify-content: center;
-        gap: 0.75rem;
-      }
-
-      .player-volume {
-        width: 100%;
-        margin-left: 0;
-        justify-content: center;
-      }
-
-      .player-volume input[type="range"] {
-        width: min(10rem, 42vw);
-      }
-
-      #speed-select {
-        margin-left: 0;
-      }
-
-      .main-content {
-        padding-top: 220px;
-        padding-left: 14px;
-        padding-right: 14px;
-      }
-
-      .part-card {
-        padding: 18px 14px;
-        border-radius: 16px;
-      }
-
-      .part-title {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .tab-btn {
-        flex: 1 1 calc(50% - 0.5rem);
-        min-width: 120px;
-        text-align: center;
-        padding: 10px 14px;
-      }
-
-      .q-row {
-        flex-direction: column;
-        align-items: stretch;
-        margin-bottom: 14px;
-      }
-
-      .answer-input,
-      .match-select {
-        width: 100% !important;
-        max-width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-      }
-
-      .opt-label {
-        align-items: flex-start;
-        line-height: 1.5;
-      }
-
-      #check-btn {
-        width: 100%;
-        padding: 14px 18px;
-      }
-
-      #score-panel {
-        padding: 18px 16px;
-      }
+      body { overflow-x: hidden; }
+      .max-w-4xl { width: 100%; }
+      .w-36, .w-40 { width: 100%; }
+      .text-4xl { font-size: 1.8rem; }
+      .text-5xl { font-size: 2.4rem; }
+      #player-bar { padding-top: 12px; padding-bottom: 12px; }
+      .player-top-row { align-items: flex-start; gap: 0.5rem; }
+      .player-controls { justify-content: center; gap: 0.75rem; }
+      .player-volume { width: 100%; margin-left: 0; justify-content: center; }
+      .player-volume input[type="range"] { width: min(10rem, 42vw); }
+      #speed-select { margin-left: 0; }
+      .main-content { padding-top: 220px; padding-left: 14px; padding-right: 14px; }
+      .part-card { padding: 18px 14px; border-radius: 16px; }
+      .part-title { flex-direction: column; align-items: flex-start; }
+      .tab-btn { flex: 1 1 calc(50% - 0.5rem); min-width: 120px; text-align: center; padding: 10px 14px; }
+      .q-row { flex-direction: column; align-items: stretch; margin-bottom: 14px; }
+      .answer-input, .match-select { width: 100% !important; max-width: 100%; margin-left: 0; margin-right: 0; }
+      .opt-label { align-items: flex-start; line-height: 1.5; }
+      #check-btn { width: 100%; padding: 14px 18px; }
+      #score-panel { padding: 18px 16px; }
     }
 
     @media (max-width: 420px) {
-      .main-content {
-        padding-top: 235px;
-      }
-
-      .text-4xl {
-        font-size: 1.55rem;
-      }
-
-      .text-5xl {
-        font-size: 2rem;
-      }
-
-      #play-btn {
-        width: 48px;
-        height: 48px;
-      }
-
-      .skip-btn {
-        width: 38px;
-        height: 38px;
-      }
-
-      .tab-btn {
-        flex-basis: 100%;
-      }
+      .main-content { padding-top: 235px; }
+      .text-4xl { font-size: 1.55rem; }
+      .text-5xl { font-size: 2rem; }
+      #play-btn { width: 48px; height: 48px; }
+      .skip-btn { width: 38px; height: 38px; }
+      .tab-btn { flex-basis: 100%; }
+      #kw-toggle-btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -480,7 +460,6 @@
 
       <!-- Controls row -->
       <div class="flex items-center justify-center gap-4 player-controls">
-        <!-- -5s -->
         <button class="ctrl-btn skip-btn" onclick="skipTime(-5)" title="5 soniya orqaga">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="w-5 h-5">
             <polyline points="1 4 1 10 7 10"></polyline>
@@ -489,7 +468,6 @@
           </svg>
         </button>
 
-        <!-- Play/Pause -->
         <button id="play-btn" class="ctrl-btn" onclick="togglePlay()">
           <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
             <path d="M8 5v14l11-7z"/>
@@ -500,7 +478,6 @@
           </svg>
         </button>
 
-        <!-- +5s -->
         <button class="ctrl-btn skip-btn" onclick="skipTime(5)" title="5 soniya oldinga">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="w-5 h-5">
             <polyline points="23 4 23 10 17 10"></polyline>
@@ -509,7 +486,6 @@
           </svg>
         </button>
 
-        <!-- Volume -->
         <div class="flex items-center gap-2 ml-4 player-volume">
           <svg class="w-4 h-4 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 1 1 0 010-1.415z" clip-rule="evenodd"/>
@@ -519,7 +495,6 @@
             oninput="setVolume(this.value)" />
         </div>
 
-        <!-- Speed -->
         <select id="speed-select" onchange="setSpeed(this.value)"
           class="ml-2 bg-slate-800 text-slate-300 text-xs font-bold border border-slate-600 rounded-lg px-2 py-1 cursor-pointer outline-none">
           <option value="0.75">0.75x</option>
@@ -530,11 +505,8 @@
       </div>
     </div>
 
-    <!-- Audio element - MP3 sini shu yerga qo'ying -->
     <audio id="audio" preload="metadata">
-      <!-- O'zingizning MP3 faylingizni shu yerga qo'ying: -->
       <source src="./56658.mp3" type="audio/mpeg" />
-      <!-- Misol: <source src="listening_test3.mp3" type="audio/mpeg" /> -->
     </audio>
   </div>
 
@@ -549,12 +521,21 @@
       <p class="text-slate-400 font-semibold">4 Parts - 40 Questions</p>
     </div>
 
-    <!-- Tabs -->
+    <!-- Keyword Toggle + Tabs -->
+    <div class="flex gap-2 justify-center mb-4 flex-wrap">
+      <button id="kw-toggle-btn" type="button" aria-pressed="true" onclick="toggleKeywords()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <span id="kw-btn-label">Keywords: ON</span>
+      </button>
+    </div>
+
     <div class="flex gap-2 justify-center mb-8 flex-wrap">
-      <button class="tab-btn active" onclick="showPart(1, this)">Part 1</button>
-      <button class="tab-btn" onclick="showPart(2, this)">Part 2</button>
-      <button class="tab-btn" onclick="showPart(3, this)">Part 3</button>
-      <button class="tab-btn" onclick="showPart(4, this)">Part 4</button>
+      <button class="tab-btn active" type="button" onclick="showPart(1, this)">Part 1</button>
+      <button class="tab-btn" type="button" onclick="showPart(2, this)">Part 2</button>
+      <button class="tab-btn" type="button" onclick="showPart(3, this)">Part 3</button>
+      <button class="tab-btn" type="button" onclick="showPart(4, this)">Part 4</button>
     </div>
 
     <!-- ===== PART 1 ===== -->
@@ -571,75 +552,75 @@
 
         <div class="bg-slate-800 bg-opacity-60 rounded-xl p-5 space-y-3">
           <div class="q-row">
-            <span class="q-text text-slate-300 font-semibold">Club meets every 2 weeks</span>
+            <span class="q-text text-slate-300 font-semibold">Club meets every <span class="kw">2 weeks</span></span>
           </div>
           <div class="q-row items-center">
             <span class="q-label">Q1</span>
             <span class="q-text">No</span>
             <input class="answer-input mx-2" data-answer="age" placeholder="..." id="q1" />
-            <span class="q-text">limit</span>
+            <span class="q-text"><span class="kw">limit</span></span>
           </div>
           <div class="q-row items-center">
             <span class="q-label">Q2</span>
-            <span class="q-text">Student membership costs £</span>
+            <span class="q-text"><span class="kw">Student membership</span> costs £</span>
             <input class="answer-input mx-2" data-answer="12" placeholder="..." id="q2" style="width:80px;" />
-            <span class="q-text">per season</span>
+            <span class="q-text">per <span class="kw">season</span></span>
           </div>
 
           <div class="mt-4 mb-2 text-slate-300 font-semibold text-sm">Members get:</div>
           <div class="pl-4 space-y-2">
-            <p class="q-text text-slate-400">- free entry to club films</p>
+            <p class="q-text text-slate-400">- <span class="kw">free entry</span> to club films</p>
             <div class="q-row items-center">
               <span class="q-label">Q3</span>
               <span class="q-text">£</span>
               <input class="answer-input mx-2" data-answer="2" placeholder="..." id="q3" style="width:70px;" />
-              <span class="q-text">reduction on other films at cinema</span>
+              <span class="q-text"><span class="kw">reduction</span> on other films at <span class="kw">cinema</span></span>
             </div>
             <div class="q-row items-center">
               <span class="q-label">Q4</span>
-              <span class="q-text">Members are entitled to 3 hours' free</span>
+              <span class="q-text">Members are entitled to <span class="kw">3 hours' free</span></span>
               <input class="answer-input mx-2" data-answer="parking" placeholder="..." id="q4" />
             </div>
           </div>
 
           <div class="mt-4 mb-2 text-slate-300 font-semibold text-sm">Films to be shown:</div>
           <div class="pl-4 space-y-3">
-            <p class="text-sky-400 font-bold text-sm">Oct 14: Pablo</p>
+            <p class="text-sky-400 font-bold text-sm">Oct 14: <span class="kw">Pablo</span></p>
             <div class="q-row items-center flex-wrap gap-y-2">
               <span class="q-label">Q5</span>
-              <span class="q-text">- about a child in</span>
+              <span class="q-text">- about a <span class="kw">child</span> in</span>
               <input class="answer-input mx-2" data-answer="Spain" placeholder="..." id="q5" />
-              <span class="q-text">who runs away from home and wins a</span>
+              <span class="q-text">who <span class="kw">runs away from home</span> and wins a</span>
             </div>
             <div class="q-row items-center">
               <span class="q-label">Q6</span>
               <input class="answer-input mr-2" data-answer="cooking" placeholder="..." id="q6" />
-              <span class="q-text">competition on TV</span>
+              <span class="q-text"><span class="kw">competition on TV</span></span>
             </div>
-            <p class="text-sky-400 font-bold text-sm mt-3">Oct 28: The Soldier</p>
+            <p class="text-sky-400 font-bold text-sm mt-3">Oct 28: <span class="kw">The Soldier</span></p>
             <div class="q-row items-center">
               <span class="q-label">Q7</span>
-              <span class="q-text">- with live</span>
+              <span class="q-text">- with <span class="kw">live</span></span>
               <input class="answer-input mx-2" data-answer="piano" placeholder="..." id="q7" />
-              <span class="q-text">accompaniment</span>
+              <span class="q-text"><span class="kw">accompaniment</span></span>
             </div>
             <div class="q-row items-center">
               <span class="q-label">Q8</span>
-              <span class="q-text">- made in the year</span>
+              <span class="q-text">- <span class="kw">made</span> in the year</span>
               <input class="answer-input mx-2" data-answer="1998" placeholder="..." id="q8" style="width:90px;" />
             </div>
             <div class="q-row items-center">
               <span class="q-label">Q9</span>
-              <span class="q-text">- type of film: a</span>
+              <span class="q-text">- <span class="kw">type of film</span>: a</span>
               <input class="answer-input mx-2" data-answer="western" placeholder="..." id="q9" />
             </div>
-            <p class="text-sky-400 font-bold text-sm mt-3">Nov 11: Tiger</p>
-            <p class="q-text text-slate-400">- cartoon aimed at adults</p>
+            <p class="text-sky-400 font-bold text-sm mt-3">Nov 11: <span class="kw">Tiger</span></p>
+            <p class="q-text text-slate-400">- <span class="kw">cartoon</span> aimed at <span class="kw">adults</span></p>
             <div class="q-row items-center">
               <span class="q-label">Q10</span>
               <span class="q-text">- followed by a</span>
               <input class="answer-input mx-2" data-answer="talk" placeholder="..." id="q10" />
-              <span class="q-text">by the director</span>
+              <span class="q-text">by the <span class="kw">director</span></span>
             </div>
           </div>
         </div>
@@ -654,79 +635,74 @@
         <h3 class="text-white font-bold text-base mb-5">Questions 11-15 - Choose the correct letter, A, B or C</h3>
         <p class="text-sky-400 font-bold mb-5">extrahands.com</p>
 
-        <!-- Q11 -->
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q11</span><span class="q-text">Stephen says the founders of extrahands.com originally needed help in</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q11</span><span class="q-text">Stephen says the <span class="kw">founders</span> of extrahands.com originally needed help in</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q11" value="A" data-answer="B" /> A - preparing their fields for planting</label>
-            <label class="opt-label"><input type="radio" name="q11" value="B" data-answer="B" /> B - harvesting their organic crops</label>
-            <label class="opt-label"><input type="radio" name="q11" value="C" data-answer="B" /> C - constructing their farm buildings</label>
+            <label class="opt-label"><input type="radio" name="q11" value="A" data-answer="B" /> A - <span class="kw">preparing</span> their fields for <span class="kw">planting</span></label>
+            <label class="opt-label"><input type="radio" name="q11" value="B" data-answer="B" /> B - <span class="kw">harvesting</span> their <span class="kw">organic crops</span></label>
+            <label class="opt-label"><input type="radio" name="q11" value="C" data-answer="B" /> C - <span class="kw">constructing</span> their <span class="kw">farm buildings</span></label>
           </div>
         </div>
-        <!-- Q12 -->
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q12</span><span class="q-text">To remain an active member, you must</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q12</span><span class="q-text">To <span class="kw">remain an active member</span>, you must</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q12" value="A" data-answer="C" /> A - update your form on the website every year</label>
-            <label class="opt-label"><input type="radio" name="q12" value="B" data-answer="C" /> B - pay a subscription of $25 every year</label>
-            <label class="opt-label"><input type="radio" name="q12" value="C" data-answer="C" /> C - use the scheme as a host or volunteer every year</label>
+            <label class="opt-label"><input type="radio" name="q12" value="A" data-answer="C" /> A - <span class="kw">update</span> your form on the website every year</label>
+            <label class="opt-label"><input type="radio" name="q12" value="B" data-answer="C" /> B - pay a <span class="kw">subscription</span> of $25 every year</label>
+            <label class="opt-label"><input type="radio" name="q12" value="C" data-answer="C" /> C - <span class="kw">use the scheme</span> as a host or volunteer every year</label>
           </div>
         </div>
-        <!-- Q13 -->
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q13</span><span class="q-text">Most volunteers search for jobs according to</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q13</span><span class="q-text"><span class="kw">Most volunteers</span> search for jobs according to</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q13" value="A" data-answer="B" /> A - the type of work available</label>
-            <label class="opt-label"><input type="radio" name="q13" value="B" data-answer="B" /> B - the geographical location</label>
-            <label class="opt-label"><input type="radio" name="q13" value="C" data-answer="B" /> C - the length of time required</label>
+            <label class="opt-label"><input type="radio" name="q13" value="A" data-answer="B" /> A - the <span class="kw">type of work</span> available</label>
+            <label class="opt-label"><input type="radio" name="q13" value="B" data-answer="B" /> B - the <span class="kw">geographical location</span></label>
+            <label class="opt-label"><input type="radio" name="q13" value="C" data-answer="B" /> C - the <span class="kw">length of time</span> required</label>
           </div>
         </div>
-        <!-- Q14 -->
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q14</span><span class="q-text">Stephen recommends that the host and volunteer should</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q14</span><span class="q-text">Stephen <span class="kw">recommends</span> that the host and volunteer should</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q14" value="A" data-answer="A" /> A - confirm details of the arrangement in writing</label>
-            <label class="opt-label"><input type="radio" name="q14" value="B" data-answer="A" /> B - draw up a formal written contract</label>
-            <label class="opt-label"><input type="radio" name="q14" value="C" data-answer="A" /> C - meet each other before setting on terms</label>
+            <label class="opt-label"><input type="radio" name="q14" value="A" data-answer="A" /> A - <span class="kw">confirm details</span> of the arrangement <span class="kw">in writing</span></label>
+            <label class="opt-label"><input type="radio" name="q14" value="B" data-answer="A" /> B - draw up a <span class="kw">formal written contract</span></label>
+            <label class="opt-label"><input type="radio" name="q14" value="C" data-answer="A" /> C - <span class="kw">meet each other</span> before settling on terms</label>
           </div>
         </div>
-        <!-- Q15 -->
         <div class="mb-8">
-          <div class="q-row mb-2"><span class="q-label">Q15</span><span class="q-text">To deal with members' problems, extrahands.com have a system</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q15</span><span class="q-text">To deal with members' <span class="kw">problems</span>, extrahands.com have a <span class="kw">system</span></span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q15" value="A" data-answer="B" /> A - for checking each new member online</label>
-            <label class="opt-label"><input type="radio" name="q15" value="B" data-answer="B" /> B - for allowing online feedback</label>
-            <label class="opt-label"><input type="radio" name="q15" value="C" data-answer="B" /> C - for inspecting work and accommodation</label>
+            <label class="opt-label"><input type="radio" name="q15" value="A" data-answer="B" /> A - for <span class="kw">checking</span> each new member online</label>
+            <label class="opt-label"><input type="radio" name="q15" value="B" data-answer="B" /> B - for allowing <span class="kw">online feedback</span></label>
+            <label class="opt-label"><input type="radio" name="q15" value="C" data-answer="B" /> C - for <span class="kw">inspecting</span> work and accommodation</label>
           </div>
         </div>
 
         <div class="section-divider"></div>
 
-        <h3 class="text-white font-bold text-base mb-3">Questions 16-20 - Match country to job</h3>
+        <h3 class="text-white font-bold text-base mb-3">Questions 16-20 - Match <span class="kw">country</span> to <span class="kw">job</span></h3>
         <div class="bg-slate-800 bg-opacity-50 rounded-xl p-4 mb-5">
           <p class="text-slate-400 text-sm font-semibold mb-2">Jobs:</p>
           <div class="grid grid-cols-2 gap-1 text-sm text-slate-300">
-            <span>A - cook</span><span>B - gardener</span>
-            <span>C - construction worker</span><span>D - tour guide</span>
-            <span>E - farm labourer</span><span>F - editor</span>
-            <span>G - swimming pool cleaner</span>
+            <span>A - <span class="kw">cook</span></span><span>B - <span class="kw">gardener</span></span>
+            <span>C - <span class="kw">construction worker</span></span><span>D - <span class="kw">tour guide</span></span>
+            <span>E - <span class="kw">farm labourer</span></span><span>F - <span class="kw">editor</span></span>
+            <span>G - <span class="kw">swimming pool cleaner</span></span>
           </div>
         </div>
 
         <div class="space-y-3">
-          <div class="q-row items-center"><span class="q-label">Q16</span><span class="q-text w-36">Portugal</span>
+          <div class="q-row items-center"><span class="q-label">Q16</span><span class="q-text w-36"><span class="kw">Portugal</span></span>
             <select class="match-select" id="q16" data-answer="G"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q17</span><span class="q-text w-36">Australia</span>
+          <div class="q-row items-center"><span class="q-label">Q17</span><span class="q-text w-36"><span class="kw">Australia</span></span>
             <select class="match-select" id="q17" data-answer="E"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q18</span><span class="q-text w-36">South Korea</span>
+          <div class="q-row items-center"><span class="q-label">Q18</span><span class="q-text w-36"><span class="kw">South Korea</span></span>
             <select class="match-select" id="q18" data-answer="D"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q19</span><span class="q-text w-36">USA</span>
+          <div class="q-row items-center"><span class="q-label">Q19</span><span class="q-text w-36"><span class="kw">USA</span></span>
             <select class="match-select" id="q19" data-answer="F"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q20</span><span class="q-text w-36">Italy</span>
+          <div class="q-row items-center"><span class="q-label">Q20</span><span class="q-text w-36"><span class="kw">Italy</span></span>
             <select class="match-select" id="q20" data-answer="B"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
           </div>
         </div>
@@ -738,75 +714,75 @@
       <div class="part-card">
         <div class="part-title">PART 3 <span>Questions 21-30</span></div>
         <h3 class="text-white font-bold text-base mb-5">Questions 21-25 - Choose the correct letter, A, B or C</h3>
-        <p class="text-sky-400 font-bold mb-5">Song-writing course for drama students</p>
+        <p class="text-sky-400 font-bold mb-5"><span class="kw">Song-writing course</span> for <span class="kw">drama students</span></p>
 
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q21</span><span class="q-text">What problem is Lorna having with her report?</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q21</span><span class="q-text">What <span class="kw">problem</span> is Lorna having with her <span class="kw">report</span>?</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q21" value="A" data-answer="B" /> A - listing the references</label>
-            <label class="opt-label"><input type="radio" name="q21" value="B" data-answer="B" /> B - keeping to the word limit</label>
-            <label class="opt-label"><input type="radio" name="q21" value="C" data-answer="B" /> C - writing the evaluation</label>
+            <label class="opt-label"><input type="radio" name="q21" value="A" data-answer="B" /> A - listing the <span class="kw">references</span></label>
+            <label class="opt-label"><input type="radio" name="q21" value="B" data-answer="B" /> B - keeping to the <span class="kw">word limit</span></label>
+            <label class="opt-label"><input type="radio" name="q21" value="C" data-answer="B" /> C - writing the <span class="kw">evaluation</span></label>
           </div>
         </div>
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q22</span><span class="q-text">Why did Charles take the song-writing course?</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q22</span><span class="q-text">Why did Charles <span class="kw">take</span> the song-writing course?</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q22" value="A" data-answer="C" /> A - to improve his job prospects</label>
-            <label class="opt-label"><input type="radio" name="q22" value="B" data-answer="C" /> B - to increase his self-confidence</label>
-            <label class="opt-label"><input type="radio" name="q22" value="C" data-answer="C" /> C - to develop his self-expression</label>
+            <label class="opt-label"><input type="radio" name="q22" value="A" data-answer="C" /> A - to improve his <span class="kw">job prospects</span></label>
+            <label class="opt-label"><input type="radio" name="q22" value="B" data-answer="C" /> B - to increase his <span class="kw">self-confidence</span></label>
+            <label class="opt-label"><input type="radio" name="q22" value="C" data-answer="C" /> C - to develop his <span class="kw">self-expression</span></label>
           </div>
         </div>
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q23</span><span class="q-text">Which type of work did Lorna most enjoy?</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q23</span><span class="q-text">Which type of work did Lorna <span class="kw">most enjoy</span>?</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q23" value="A" data-answer="A" /> A - individual work</label>
-            <label class="opt-label"><input type="radio" name="q23" value="B" data-answer="A" /> B - pair work</label>
-            <label class="opt-label"><input type="radio" name="q23" value="C" data-answer="A" /> C - group work</label>
+            <label class="opt-label"><input type="radio" name="q23" value="A" data-answer="A" /> A - <span class="kw">individual</span> work</label>
+            <label class="opt-label"><input type="radio" name="q23" value="B" data-answer="A" /> B - <span class="kw">pair</span> work</label>
+            <label class="opt-label"><input type="radio" name="q23" value="C" data-answer="A" /> C - <span class="kw">group</span> work</label>
           </div>
         </div>
         <div class="mb-6">
-          <div class="q-row mb-2"><span class="q-label">Q24</span><span class="q-text">Which aspect did both students find interesting?</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q24</span><span class="q-text">Which aspect did <span class="kw">both students</span> find <span class="kw">interesting</span>?</span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q24" value="A" data-answer="C" /> A - song structure</label>
-            <label class="opt-label"><input type="radio" name="q24" value="B" data-answer="C" /> B - writing a chorus</label>
-            <label class="opt-label"><input type="radio" name="q24" value="C" data-answer="C" /> C - lyrical styles and forms</label>
+            <label class="opt-label"><input type="radio" name="q24" value="A" data-answer="C" /> A - <span class="kw">song structure</span></label>
+            <label class="opt-label"><input type="radio" name="q24" value="B" data-answer="C" /> B - writing a <span class="kw">chorus</span></label>
+            <label class="opt-label"><input type="radio" name="q24" value="C" data-answer="C" /> C - <span class="kw">lyrical styles and forms</span></label>
           </div>
         </div>
         <div class="mb-8">
-          <div class="q-row mb-2"><span class="q-label">Q25</span><span class="q-text">Lorna found writing a song</span></div>
+          <div class="q-row mb-2"><span class="q-label">Q25</span><span class="q-text">Lorna found <span class="kw">writing a song</span></span></div>
           <div class="pl-6 space-y-1">
-            <label class="opt-label"><input type="radio" name="q25" value="A" data-answer="C" /> A - impossible</label>
-            <label class="opt-label"><input type="radio" name="q25" value="B" data-answer="C" /> B - tiring</label>
-            <label class="opt-label"><input type="radio" name="q25" value="C" data-answer="C" /> C - amusing</label>
+            <label class="opt-label"><input type="radio" name="q25" value="A" data-answer="C" /> A - <span class="kw">impossible</span></label>
+            <label class="opt-label"><input type="radio" name="q25" value="B" data-answer="C" /> B - <span class="kw">tiring</span></label>
+            <label class="opt-label"><input type="radio" name="q25" value="C" data-answer="C" /> C - <span class="kw">amusing</span></label>
           </div>
         </div>
 
         <div class="section-divider"></div>
 
-        <h3 class="text-white font-bold text-base mb-3">Questions 26-30 - Match teacher to focus</h3>
+        <h3 class="text-white font-bold text-base mb-3">Questions 26-30 - Match <span class="kw">teacher</span> to <span class="kw">focus</span></h3>
         <div class="bg-slate-800 bg-opacity-50 rounded-xl p-4 mb-5">
           <p class="text-slate-400 text-sm font-semibold mb-2">Focus:</p>
           <div class="grid grid-cols-2 gap-1 text-sm text-slate-300">
-            <span>A - use of own memories</span><span>B - full use of the stage</span>
-            <span>C - relaxation techniques</span><span>D - physical expression</span>
-            <span>E - play readings</span><span>F - acting without preparation</span>
-            <span>G - using a range of accents</span><span>H - following instructions</span>
+            <span>A - <span class="kw">use of own memories</span></span><span>B - <span class="kw">full use of the stage</span></span>
+            <span>C - <span class="kw">relaxation techniques</span></span><span>D - <span class="kw">physical expression</span></span>
+            <span>E - <span class="kw">play readings</span></span><span>F - <span class="kw">acting without preparation</span></span>
+            <span>G - <span class="kw">using a range of accents</span></span><span>H - <span class="kw">following instructions</span></span>
           </div>
         </div>
         <div class="space-y-3">
-          <div class="q-row items-center"><span class="q-label">Q26</span><span class="q-text w-40">Bob Lacey</span>
+          <div class="q-row items-center"><span class="q-label">Q26</span><span class="q-text w-40"><span class="kw">Bob Lacey</span></span>
             <select class="match-select" id="q26" data-answer="D"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q27</span><span class="q-text w-40">Evelyn Chance</span>
+          <div class="q-row items-center"><span class="q-label">Q27</span><span class="q-text w-40"><span class="kw">Evelyn Chance</span></span>
             <select class="match-select" id="q27" data-answer="H"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q28</span><span class="q-text w-40">Ted Winter</span>
+          <div class="q-row items-center"><span class="q-label">Q28</span><span class="q-text w-40"><span class="kw">Ted Winter</span></span>
             <select class="match-select" id="q28" data-answer="F"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q29</span><span class="q-text w-40">Kevin Gray</span>
+          <div class="q-row items-center"><span class="q-label">Q29</span><span class="q-text w-40"><span class="kw">Kevin Gray</span></span>
             <select class="match-select" id="q29" data-answer="B"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
           </div>
-          <div class="q-row items-center"><span class="q-label">Q30</span><span class="q-text w-40">Dorothy Thomas</span>
+          <div class="q-row items-center"><span class="q-label">Q30</span><span class="q-text w-40"><span class="kw">Dorothy Thomas</span></span>
             <select class="match-select" id="q30" data-answer="A"><option value="">-</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
           </div>
         </div>
@@ -821,38 +797,38 @@
         <h3 class="text-white font-bold text-lg mb-5">Office Design</h3>
 
         <div class="space-y-4">
-          <p class="text-sky-400 font-bold text-sm">Early 20th Century</p>
+          <p class="text-sky-400 font-bold text-sm"><span class="kw">Early 20th Century</span></p>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q31</span>
             <span class="q-text">- workers employed to do</span>
             <input class="answer-input mx-2" data-answer="routine" placeholder="..." id="q31" />
-            <span class="q-text">were arranged in rows</span>
+            <span class="q-text">were <span class="kw">arranged in rows</span></span>
           </div>
 
           <div class="section-divider"></div>
-          <p class="text-sky-400 font-bold text-sm">1960s to present - Variations in design:</p>
+          <p class="text-sky-400 font-bold text-sm"><span class="kw">1960s to present</span> - Variations in design:</p>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q32</span>
-            <span class="q-text">- first, workers had individual</span>
+            <span class="q-text">- first, workers had <span class="kw">individual</span></span>
             <input class="answer-input mx-2" data-answer="desks" placeholder="..." id="q32" />
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q33</span>
-            <span class="q-text">- later, cubicles with high or low</span>
+            <span class="q-text">- later, <span class="kw">cubicles</span> with high or low</span>
             <input class="answer-input mx-2" data-answer="partitions" placeholder="..." id="q33" />
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q34</span>
             <span class="q-text">- nowadays, workers may have to</span>
             <input class="answer-input mx-2" data-answer="share" placeholder="..." id="q34" />
-            <span class="q-text">a work area</span>
+            <span class="q-text">a <span class="kw">work area</span></span>
           </div>
 
           <div class="section-divider"></div>
-          <p class="text-sky-400 font-bold text-sm">Survey results - Employees' attitudes:</p>
+          <p class="text-sky-400 font-bold text-sm"><span class="kw">Survey results</span> - Employees' <span class="kw">attitudes</span>:</p>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q35</span>
-            <span class="q-text">- there is a lack of</span>
+            <span class="q-text">- there is a <span class="kw">lack</span> of</span>
             <input class="answer-input mx-2" data-answer="privacy" placeholder="..." id="q35" />
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
@@ -862,16 +838,16 @@
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q37</span>
-            <span class="q-text">- they pose a risk to our</span>
+            <span class="q-text">- they pose a <span class="kw">risk</span> to our</span>
             <input class="answer-input mx-2" data-answer="health" placeholder="..." id="q37" />
-            <span class="q-text">(staff records support this)</span>
+            <span class="q-text">(<span class="kw">staff records</span> support this)</span>
           </div>
 
           <div class="section-divider"></div>
-          <p class="text-sky-400 font-bold text-sm">Employers' attitudes:</p>
+          <p class="text-sky-400 font-bold text-sm"><span class="kw">Employers'</span> attitudes:</p>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q38</span>
-            <span class="q-text">- significantly reduce rent and</span>
+            <span class="q-text">- significantly <span class="kw">reduce</span> rent and</span>
             <input class="answer-input mx-2" data-answer="maintenance" placeholder="..." id="q38" />
             <span class="q-text">costs</span>
           </div>
@@ -879,13 +855,13 @@
             <span class="q-label">Q39</span>
             <span class="q-text">- can make</span>
             <input class="answer-input mx-2" data-answer="supervising" placeholder="..." id="q39" />
-            <span class="q-text">staff easier</span>
+            <span class="q-text"><span class="kw">staff</span> easier</span>
           </div>
           <div class="q-row items-center flex-wrap gap-y-2">
             <span class="q-label">Q40</span>
-            <span class="q-text">- employees are often distracted by the</span>
+            <span class="q-text">- employees are often <span class="kw">distracted</span> by the</span>
             <input class="answer-input mx-2" data-answer="noise" placeholder="..." id="q40" />
-            <span class="q-text">in the office</span>
+            <span class="q-text">in the <span class="kw">office</span></span>
           </div>
         </div>
       </div>
@@ -893,7 +869,7 @@
 
     <!-- Check Answers -->
     <div class="mt-10 text-center">
-      <button id="check-btn" onclick="checkAnswers()">✓ Javoblarni tekshirish</button>
+      <button id="check-btn" type="button" onclick="checkAnswers()">✓ Javoblarni tekshirish</button>
     </div>
 
     <!-- Score Panel -->
@@ -926,7 +902,6 @@
       document.getElementById('pause-icon').classList.add('hidden');
     });
 
-    // Auto-pause when page loses focus (tab change, minimize)
     document.addEventListener('visibilitychange', () => {
       if (document.hidden && !audio.paused) {
         audio.pause();
@@ -958,7 +933,6 @@
     }
 
     function setVolume(val) { audio.volume = val; }
-
     function setSpeed(val) { audio.playbackRate = parseFloat(val); }
 
     function formatTime(s) {
@@ -976,9 +950,22 @@
       btn.classList.add('active');
     }
 
+    // ===== KEYWORD TOGGLE =====
+    let kwOn = true;
+    function toggleKeywords() {
+      kwOn = !kwOn;
+      document.body.classList.toggle('kw-off', !kwOn);
+      document.getElementById('kw-btn-label').textContent = kwOn ? 'Keywords: ON' : 'Keywords: OFF';
+      document.getElementById('kw-toggle-btn').setAttribute('aria-pressed', kwOn ? 'true' : 'false');
+    }
+
     // ===== CHECK ANSWERS =====
     function checkAnswers() {
-      let correct = 0, total = 0;
+      let correct = 0;
+      const total =
+        document.querySelectorAll('.answer-input').length +
+        [...new Set([...document.querySelectorAll('input[type="radio"]')].map(r => r.name))].length +
+        document.querySelectorAll('.match-select').length;
 
       document.querySelectorAll('.opt-label').forEach(label => {
         label.style.color = '';
@@ -993,7 +980,6 @@
         if (hint && hint.classList.contains('correct-ans')) hint.remove();
 
         if (val === '') return;
-        total++;
         if (val === ans) {
           inp.classList.add('right-ans');
           correct++;
@@ -1007,18 +993,12 @@
       });
 
       // Radio buttons
-      const radioGroups = {};
-      document.querySelectorAll('input[type="radio"]').forEach(r => {
-        if (!radioGroups[r.name]) radioGroups[r.name] = r.closest('.mb-6') || r.parentElement.parentElement.parentElement;
-      });
-
       const names = [...new Set([...document.querySelectorAll('input[type="radio"]')].map(r => r.name))];
       names.forEach(name => {
         const radios = document.querySelectorAll(`input[name="${name}"]`);
         const correct_ans = radios[0].dataset.answer;
         const checked = document.querySelector(`input[name="${name}"]:checked`);
         if (!checked) return;
-        total++;
         if (checked.value === correct_ans) {
           correct++;
           checked.parentElement.style.color = '#34d399';
@@ -1034,9 +1014,9 @@
       document.querySelectorAll('.match-select').forEach(sel => {
         let hint = sel.nextElementSibling;
         if (hint && hint.classList.contains('correct-ans')) hint.remove();
+        sel.style.borderColor = '';
 
         if (!sel.value) return;
-        total++;
         const ans = sel.dataset.answer;
         sel.style.borderColor = sel.value === ans ? '#34d399' : '#f87171';
         if (sel.value !== ans) {
@@ -1060,5 +1040,3 @@
 
 </body>
 </html>
-
-
