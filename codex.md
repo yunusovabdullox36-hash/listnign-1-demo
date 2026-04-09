@@ -1,97 +1,79 @@
-# IELTS Listening Test saytidan foydalanish bo'yicha qo'llanma
+# IELTS Listening Practice loyiha hujjati
 
-Ushbu sahifa IELTS Listening mashqi qilish uchun tayyorlangan. Saytda audio tinglash, savollarga javob yozish, bo'limlar orasida o'tish va natijani tekshirish imkoniyati bor.
+Ushbu loyiha bitta HTML faylda ishlaydigan IELTS Listening mashq sahifasi. Sayt lokal holatda ochiladi, audio bilan ishlaydi va foydalanuvchi javoblarini tekshirib, natijani modal oynada ko'rsatadi.
 
-## 1. Sayt nima vazifa bajaradi
+## Loyiha tarkibi
 
-Bu sahifa IELTS Listening formatidagi mashq testi uchun ishlatiladi. Unda:
+- `index.html` - butun interfeys, stillar va JavaScript logikasi shu fayl ichida
+- `56658.mp3` - listening audio fayli
+- `codex.md` - loyiha bo'yicha qisqa texnik va foydalanish hujjati
 
-- `4 ta part` bor
-- `40 ta savol` mavjud
-- `audio` orqali tinglab ishlash mumkin
-- javoblarni oxirida `tekshirish` mumkin
-- natijani `score` ko'rinishida olish mumkin
+## Hozirgi funksiyalar
 
-## 2. Saytni qanday ochish kerak
+Sahifada quyidagi imkoniyatlar bor:
 
-Saytni ishlatish uchun:
-
-1. `index.html` faylini brauzerda oching.
-2. Audio fayl (`56658.mp3`) shu papkaning ichida bo'lishi kerak.
-3. Brauzer ochilgach, tepada audio panel, pastda savollar ko'rinadi.
-
-Agar audio ishlamasa:
-
-- `56658.mp3` fayli o'chib ketmaganini tekshiring
-- fayl nomi o'zgarmagan bo'lishi kerak
-- `index.html` va `56658.mp3` bir papkada tursin
-
-## 3. Sahifaning asosiy qismlari
-
-Sayt 4 ta asosiy qismdan iborat:
-
-### Audio panel
-
-Bu sahifaning eng tepasida joylashgan.
-
-Unda quyidagilar bor:
-
-- `Play/Pause` tugmasi
-- `5 soniya orqaga` o'tish tugmasi
-- `5 soniya oldinga` o'tish tugmasi
-- `progress bar` yani audioning qayerga kelganini ko'rsatadigan chiziq
+- yuqorida `sticky audio player`
+- `play/pause` tugmasi
+- `5 soniya oldinga` va `5 soniya orqaga` o'tish
+- `progress bar` orqali audio ichida kerakli joyga sakrash
 - `volume` boshqaruvi
-- `speed` yani audio tezligini o'zgartirish
-- `hozirgi vaqt` va `umumiy vaqt`
+- `speed` tanlash: `0.75x`, `1x`, `1.25x`, `1.5x`
+- `4 ta part` bo'yicha savollarni alohida ko'rsatish
+- `input`, `radio`, `select` turidagi savollar
+- `Javoblarni tekshirish` tugmasi
+- `band score` hisoblash
+- `result modal` ichida umumiy natija, xatolar va part bo'yicha kesim
+- mobil qurilmalar uchun responsive layout
+- matnni belgilaganda ko'rinadigan `highlight/selection` rangi
 
-### Part tugmalari
+## Highlight muammosi va tuzatish
 
-Audio panel ostida:
+Oldin matnni sichqoncha bilan belgilaganda aniq rangli highlight ko'rinmas edi. Bunga sabab sahifada global `::selection` stili yozilmagan edi.
 
-- `Part 1`
-- `Part 2`
-- `Part 3`
-- `Part 4`
+Hozir `index.html` ichida quyidagilar qo'shildi:
 
-tugmalari bor.
+- `--selection-bg`
+- `--selection-text`
+- global `::selection`
+- global `::-moz-selection`
 
-Bu tugmalar orqali kerakli bo'limga o'tiladi.
+Natija:
 
-### Savollar bo'limi
+- matn belgilaganda ko'k rangli fon chiqadi
+- tanlangan matn kontrastli ko'rinadi
+- Chrome, Edge va Firefox'da selection aniq ko'rinadi
 
-Har bir part ichida o'ziga tegishli savollar bor.
+## Saytni ishga tushirish
 
-Savol turlari:
+1. Papka ichida `index.html` va `56658.mp3` birga bo'lishi kerak.
+2. `index.html` faylini brauzerda oching.
+3. Audio panel tepada, savollar pastda chiqadi.
 
-- `input` bilan yoziladigan javoblar
-- `radio button` bilan tanlanadigan variantlar
-- `select` orqali moslashtirish savollari
+## Foydalanish tartibi
 
-### Natija bo'limi
+1. Audio'ni `Play` bilan ishga tushiring.
+2. Kerakli `Part` ni tanlang.
+3. Savollarga javob kiriting.
+4. Kerak bo'lsa audio tezligini o'zgartiring yoki 5 soniya oldinga-orqaga o'ting.
+5. Ish tugagach `Javoblarni tekshirish` tugmasini bosing.
+6. Natijani modal oynada ko'ring.
 
-Pastda `Javoblarni tekshirish` tugmasi bor.
+## Natija qanday ko'rsatiladi
 
-Uni bosgandan keyin:
+Tekshiruvdan keyin foydalanuvchi quyidagilarni ko'radi:
 
-- to'g'ri javoblar sanaladi
-- xato javoblar belgilanadi
-- umumiy natija chiqadi
+- nechta savol to'g'ri ishlangani
+- nechta savol noto'g'ri bo'lgani
+- nechta savol tashlab ketilgani
+- `IELTS Band Score`
+- har bir `Part` bo'yicha natija
+- xato berilgan javoblar ro'yxati
 
-## 4. Audio boshqaruvi qanday ishlaydi
+## Ball hisoblash
 
-## 5. IELTS ball hisoblash jadvali
+Loyiha `Listening raw score -> band score` usulida ishlaydi. Har bir to'g'ri javob `1 point`.
 
-Saytda endi `IELTS official-style raw score -> band score` mapping ishlatiladi.
-
-Hozirgi `index.html` sahifasi `Listening` test sifatida hisoblaydi.
-
-Har bir savol:
-
-- `1 ta to'g'ri javob = 1 raw point`
-- jami `40 ta savol = 40 raw point`
-- yakuniy `band score` rasmda berilgan jadval bo'yicha aniqlanadi
-
-### Listening
+Asosiy mapping:
 
 - `39-40 = 9.0`
 - `37-38 = 8.5`
@@ -105,321 +87,61 @@ Har bir savol:
 - `13-15 = 4.5`
 - `11-12 = 4.0`
 
-### Reading Academic
+## Dizayn va texnik tuzilma
 
-- `39-40 = 9.0`
-- `37-38 = 8.5`
-- `35-36 = 8.0`
-- `33-34 = 7.5`
-- `30-32 = 7.0`
-- `27-29 = 6.5`
-- `23-26 = 6.0`
-- `19-22 = 5.5`
-- `15-18 = 5.0`
-- `13-14 = 4.5`
-- `10-12 = 4.0`
-- `8-9 = 3.5`
-- `6-7 = 3.0`
-- `4-5 = 2.5`
+Loyiha alohida framework ishlatmaydi. Hammasi oddiy:
 
-### Reading General Training
+- `HTML`
+- `CSS`
+- `Vanilla JavaScript`
 
-- `40 = 9.0`
-- `39 = 8.5`
-- `37-38 = 8.0`
-- `36 = 7.5`
-- `34-35 = 7.0`
-- `32-33 = 6.5`
-- `30-31 = 6.0`
-- `27-29 = 5.5`
-- `23-26 = 5.0`
-- `19-22 = 4.5`
-- `15-18 = 4.0`
-- `12-14 = 3.5`
-- `9-11 = 3.0`
-- `6-8 = 2.5`
+Asosiy interfeys qismlari:
 
-### Play/Pause
+- `#player-bar`
+- `#progress-track`
+- `.part-card`
+- `#check-btn`
+- `#result-modal-overlay`
+- `#result-modal`
 
-O'rtadagi katta tugma audio boshlash va to'xtatish uchun.
+## Mobil moslashuv
 
-- `Play` bosilsa audio yuradi
-- `Pause` bosilsa audio to'xtaydi
+Sahifa responsive holatda yozilgan. Kichik ekranlarda:
 
-### 5 soniya oldinga va orqaga
-
-Ikki yonidagi kichik tugmalar:
-
-- chap tomondagisi audioni `5 soniya orqaga`
-- o'ng tomondagisi audioni `5 soniya oldinga`
-
-suradi.
-
-Bu tinglash paytida kerakli joyni qayta eshitishda juda qulay.
-
-### Progress bar
-
-Audio ostidagi chiziq `progress bar` hisoblanadi.
-
-Undan foydalanish:
-
-1. Sichqoncha bilan chiziq ustiga bosing.
-2. Audio o'sha joyga sakraydi.
-
-### Ovoz balandligi
-
-`Volume` slayderi orqali:
-
-- chapga tortsangiz ovoz pasayadi
-- o'ngga tortsangiz ovoz balandlashadi
-
-### Audio tezligi
-
-`Speed` bo'limida quyidagi variantlar bor:
-
-- `0.75x`
-- `1x`
-- `1.25x`
-- `1.5x`
-
-Masalan:
-
-- sekinroq tinglash uchun `0.75x`
-- oddiy tezlik uchun `1x`
-- tezroq tinglash uchun `1.25x` yoki `1.5x`
-
-## 5. Partlar bilan ishlash
-
-Saytda 4 ta part bor. Har bir part tugmasi bosilganda faqat o'sha bo'lim ko'rinadi.
-
-### Part 1
-
-Odatda qisqa, oddiyroq savollar bo'ladi. Ko'pincha:
-
-- ism
-- raqam
-- joy
-- oddiy ma'lumot
-
-yozish kerak bo'ladi.
-
-### Part 2
-
-Bu qismda:
-
-- variant tanlash
-- matching savollar
-
-uchrashi mumkin.
-
-### Part 3
-
-Bu qism odatda biroz murakkabroq bo'ladi. Ko'proq:
-
-- talabalar suhbati
-- muhokama
-- tanlovli savollar
-
-uchraydi.
-
-### Part 4
-
-Bu qismda ko'pincha:
-
-- monolog
-- lecture uslubidagi tinglab tushunish
-- bir so'zli javoblar
-
-bo'ladi.
-
-## 6. Javoblarni qanday kiritish kerak
-
-### Matn yoziladigan joylar
-
-Ba'zi savollarda kichik `input` maydon bor.
-
-U yerga:
-
-- bir so'z
-- raqam
-- kerak bo'lsa so'z + raqam
-
-yoziladi.
-
-Maslahat:
-
-- ortiqcha bo'sh joy qoldirmang
-- javobni aniq yozing
-- kerak bo'lsa katta-kichik harf farqi muhim emas, chunki tizim uni tekshirishda moslashtiradi
-
-### Variant tanlash
-
-Ba'zi savollarda `A`, `B`, `C` variantlar bo'ladi.
-
-Foydalanish tartibi:
-
-1. To'g'ri deb o'ylagan variant ustiga bosing
-2. Tanlangan javob belgilab qo'yiladi
-
-### Select savollar
-
-Ba'zi savollarda ro'yxatdan harf tanlash kerak bo'ladi.
-
-Masalan:
-
-- `A`
-- `B`
-- `C`
-- `D`
-
-va hokazo.
-
-Kerakli variantni ochiladigan ro'yxatdan tanlaysiz.
-
-## 7. Javoblarni tekshirish
-
-Pastdagi `✓ Javoblarni tekshirish` tugmasi barcha ishlangan savollarni tekshiradi.
-
-Tugma bosilgandan keyin:
-
-- to'g'ri javoblar `yashil`
-- noto'g'ri javoblar `qizil`
-
-rang bilan ko'rsatiladi.
-
-### Input savollarda
-
-Agar javob xato bo'lsa:
-
-- input qizil bo'ladi
-- uning yonida to'g'ri javob chiqadi
-
-### Radio savollarda
-
-Agar noto'g'ri variant tanlansa:
-
-- tanlangan variant qizil bo'ladi
-- to'g'ri variant yashil bo'lib ko'rinadi
-
-### Select savollarda
-
-Agar noto'g'ri tanlansa:
-
-- select border qizil bo'ladi
-- yonida to'g'ri javob chiqadi
-
-## 8. Natijani ko'rish
-
-Tekshiruvdan keyin pastda `Natijangiz` degan bo'lim chiqadi.
-
-U yerda:
-
-- nechta to'g'ri ishlaganingiz
-- nechta savol tekshirilgani
-- qisqa motivatsion xabar
-
-ko'rinadi.
-
-Masalan:
-
-- `Ajoyib! Zo'r natija!`
-- `Yaxshi! Davom eting!`
-- `Ko'proq mashq qiling!`
-
-## 9. Muhim ishlash tartibi
-
-Saytdan to'g'ri foydalanish uchun tavsiya:
-
-1. Avval audioni tayyorlab oling.
-2. `Part 1` dan boshlab tinglang.
-3. Eshitganingiz bo'yicha javoblarni kiriting.
-4. Kerak bo'lsa audio tezligini sekinlashtiring.
-5. Kerakli joylarda `5 soniya orqaga` tugmasidan foydalaning.
-6. Barcha bo'limlarni tugatgach, `Javoblarni tekshirish` tugmasini bosing.
-7. Natijani ko'rib, xatolarni o'rganing.
-
-## 10. Telefon va noutbukda ishlashi
-
-Sahifa responsive qilingan.
-
-Bu degani:
-
-- `telefon`da ham ishlaydi
-- `planshet`da ham ishlaydi
-- `noutbuk` va `kompyuter`da ham mos ko'rinadi
-
-### Telefonlarda
-
-- tugmalar pastga tushib joylashadi
-- inputlar kengayadi
+- audio panel ixcham ko'rinadi
+- tugmalar ustma-ust tushadi
+- input va select elementlar kengayadi
 - part tugmalari qulay bosiladigan bo'ladi
-- audio panel siqilmaydi
 
-### Noutbuk va katta ekranlarda
+## Agar muammo chiqsa
 
-- kontent markazda turadi
-- bo'sh joylar tekis ko'rinadi
-- matnlar qulay o'qiladi
+### Audio ishlamasa
 
-## 11. Agar nimadir ishlamasa nima qilish kerak
-
-Quyidagi narsalarni tekshiring:
-
-### Audio chiqmasa
-
-- `56658.mp3` borligini tekshiring
-- brauzer audioni bloklamaganini tekshiring
+- `56658.mp3` fayli joyida ekanini tekshiring
+- fayl nomi o'zgarmagan bo'lsin
 - sahifani qayta yuklang
 
-### Dizayn buzilsa
+### Highlight ko'rinmasa
 
-- `index.html` ni to'g'ridan-to'g'ri brauzerda oching
-- faylni notepad emas, brauzer orqali ishga tushiring
+- brauzerni yangilang
+- keshlangan eski versiya ochilgan bo'lsa `Ctrl + F5` qiling
+- `index.html` ichidagi `::selection` stillari o'chib ketmaganini tekshiring
 
-### Javob tekshirish ishlamasa
+### Natija chiqmasa
 
-- input ichiga biror qiymat yozilganini tekshiring
-- radio yoki select savollarda variant tanlangan bo'lsin
-- sahifani yangilab qayta urinib ko'ring
+- barcha JavaScript kodlari to'liq yuklanganini tekshiring
+- brauzer console ichida xato yo'qligini tekshiring
 
-## 12. Saytning foydali tomonlari
+## Keyingi yangilashlar uchun tavsiya
 
-Bu sayt:
+Kelajakda quyidagilarni qo'shish mumkin:
 
-- mustaqil ishlaydi
-- internet bo'lmasa ham ochilishi mumkin
-- tezkor mashq uchun qulay
-- audio va savollarni bir sahifada beradi
-- natijani darhol ko'rsatadi
+- foydalanuvchi javoblarini `localStorage` ga saqlash
+- timer
+- testni qayta boshlash tugmasi
+- audio bilan avtomatik part sync
+- dark mode
 
-## 13. Kimlar uchun foydali
+## Qisqa xulosa
 
-Bu sahifa:
-
-- IELTS ga tayyorlanayotgan o'quvchilar
-- listening mashq qilayotganlar
-- o'qituvchilar
-- uyda mustaqil mashq qiluvchilar
-
-uchun foydali.
-
-## 14. Qisqa xulosa
-
-Bu sahifa IELTS Listening mashqini qulay qilish uchun tuzilgan.
-
-Asosiy ishlatish tartibi juda oddiy:
-
-1. Audioni yoqing
-2. Savollarga javob bering
-3. Partlar orasida o'ting
-4. Oxirida tekshiring
-5. Natijani ko'ring
-
-Agar xohlasangiz, keyingi bosqichda men siz uchun:
-
-- yanada chiroyli `foydalanish qo'llanmasi`
-- `admin uchun izohlar`
-- `o'quvchi uchun qisqa yo'riqnoma`
-- yoki `README` formatidagi professional hujjat
-
-ham tayyorlab beraman.
+Bu loyiha IELTS Listening mashqi uchun qulay, lokal ishlaydigan, zamonaviy bitta sahifali test interfeysi. Hozirgi yangilanishdan keyin matnni belgilash highlight'i ham to'g'ri ishlaydi va hujjat loyiha holatiga moslab tozalandi.
