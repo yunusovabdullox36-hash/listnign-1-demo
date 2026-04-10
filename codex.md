@@ -43,6 +43,24 @@ Natija:
 - tanlangan matn kontrastli ko'rinadi
 - Chrome, Edge va Firefox'da selection aniq ko'rinadi
 
+## Audio paneldagi logo va sarlavha yangilanishi
+
+Audio boshqaruv panelida qo'shilgan logo va `h1` ham tartiblandi.
+
+Hozir `index.html` ichida quyidagi o'zgarishlar qilindi:
+
+- audio panel uchun alohida `.audio-brand` blok qo'shildi
+- `img` kichikroq ko'rinishda chiqishi uchun `.audio-brand-logo` stili yozildi
+- `h1` uchun `.audio-brand-title` stili qo'shildi
+- sarlavha sayt rangiga mos ko'k gradient bilan bezatildi
+- mobil ekranlarda logo va sarlavha ixcham ko'rinishi uchun responsive sozlama qo'shildi
+
+Natija:
+
+- audio panel ichidagi rasm oldingidan kichikroq va toza ko'rinadi
+- sarlavha sayt dizayniga mos chiroyli ko'k uslubda chiqadi
+- desktop va telefon ekranida joylashuv buzilmaydi
+
 ## Saytni ishga tushirish
 
 1. Papka ichida `index.html` va `56658.mp3` birga bo'lishi kerak.
